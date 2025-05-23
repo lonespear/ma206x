@@ -38,24 +38,27 @@ titanic <- as.data.frame(titanic_train)
 titanic %>% head
 ```
 
-### Summarizing Data
+### Exploratory Data Analysis
+
+Understanding, communicating, and interpreting your data is *paramount* to any initial data analysis project. These are done through numerous visualizations and summary statistics which we will learn to regularly implement when given any new dataset.
 
 #### One Variable – Visualizations and Summary Statistics
+
+Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:
 
 ```{r}
 #| echo: false
 titanic_train %>% filter(!is.na(Age)) %>% ggplot(aes(x=Age)) + geom_histogram(bins=30)
 ```
 
+Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
+
 ```{r}
 #| echo: false
 titanic_train %>% filter(!is.na(Age)) %>% ggplot(aes(x=Age)) + geom_boxplot()
 ```
 
-```{r}
-#| echo: false
-titanic_train %>% filter(!is.na(Age)) %>% ggplot(aes(x=Age)) + geom_dotplot(binwidth=1)
-```
+Similar to a histogram, a boxplot will tell us exactly where the median, quantiles, and outliers exist for any quantitative variable.
 
 ```{r}
 ages <- na.omit(titanic_train$Age)
@@ -63,6 +66,9 @@ summary(ages)
 paste0('Variance:           ',var(ages))
 paste0('Standard Deviation: ', sd(ages))
 ```
+The above are the predominant statistics you want to discern for every quantitative variable in your dataset. The benchmark *location* statistics are the mean, median, max, and min, while the standard deviation and variance are measures of how *spread* out the data are relative to one another.
+
+***Note: the standard deviation is the square root of the variance***
 
 #### Two Variables – Visualizations and Summary Statistics
 
@@ -90,7 +96,7 @@ A **random experiment** is a process that produces an outcome which cannot be pr
 
 **Definition:**
 
--   The **sample space** is the set of all possible outcomes of a random experiment, denoted ( \Omega ).
+-   The **sample space** is the set of all possible outcomes of a random experiment, denoted \$ \Omega \$.
 -   An **event** is a subset of the sample space. It can represent one or more outcomes.
 -   If all outcomes in ( \Omega ) are equally likely, then for any event ( A ):
 
@@ -102,10 +108,10 @@ $$
 
 **Examples:**
 
--   Tossing a coin once:  ( \Omega = {\text{Heads}, \text{Tails}} )
--   Rolling a 6-sided die:  ( \Omega = {1, 2, 3, 4, 5, 6} )
--   Letter grade in MA206:  ( \Omega = {A, B, C, D, F} )
--   Number of emails received in an hour:  ( \Omega = {0, 1, 2, \dots} )
+-   Tossing a coin once: $\Omega = {\text{Heads}, \text{Tails}}$
+-   Rolling a 6-sided die: $\Omega = {1, 2, 3, 4, 5, 6}$
+-   Letter grade in MA206: $\Omega = {A, B, C, D, F}$
+-   Number of emails received in an hour: $\Omega = {0, 1, 2, \dots}$
 
 ------------------------------------------------------------------------
 
