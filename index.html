@@ -8,7 +8,7 @@
 
 <meta name="author" content="CPT Jonathan Day">
 
-<title>MA206 Overview – MA206X</title>
+<title>MA206: Introduction to Probability and Statistics – MA206X</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -178,30 +178,64 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ma206-redux" id="toc-ma206-redux" class="nav-link active" data-scroll-target="#ma206-redux">MA206 Redux</a>
-  <ul class="collapse">
-  <li><a href="#block-i-data-and-randomness" id="toc-block-i-data-and-randomness" class="nav-link" data-scroll-target="#block-i-data-and-randomness">BLOCK I: Data and Randomness</a>
+  <li><a href="#block-i-data-and-randomness" id="toc-block-i-data-and-randomness" class="nav-link active" data-scroll-target="#block-i-data-and-randomness">BLOCK I: Data and Randomness</a>
   <ul class="collapse">
   <li><a href="#types-of-data-sampling-and-bias" id="toc-types-of-data-sampling-and-bias" class="nav-link" data-scroll-target="#types-of-data-sampling-and-bias">Types of Data, Sampling, and Bias</a></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
-  <li><a href="#probability" id="toc-probability" class="nav-link" data-scroll-target="#probability">Probability</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#one-variable-visualizations-and-summary-statistics" id="toc-one-variable-visualizations-and-summary-statistics" class="nav-link" data-scroll-target="#one-variable-visualizations-and-summary-statistics">One Variable – Visualizations and Summary Statistics</a></li>
+  <li><a href="#two-variables-visualizations-and-summary-statistics" id="toc-two-variables-visualizations-and-summary-statistics" class="nav-link" data-scroll-target="#two-variables-visualizations-and-summary-statistics">Two Variables – Visualizations and Summary Statistics</a></li>
+  </ul></li>
+  <li><a href="#probability" id="toc-probability" class="nav-link" data-scroll-target="#probability">Probability</a>
+  <ul class="collapse">
+  <li><a href="#sample-space-and-random-experiment-omega" id="toc-sample-space-and-random-experiment-omega" class="nav-link" data-scroll-target="#sample-space-and-random-experiment-omega">Sample Space and Random Experiment (<span class="math inline">\(\Omega\)</span>)</a></li>
+  <li><a href="#probability-measure-mathbbp" id="toc-probability-measure-mathbbp" class="nav-link" data-scroll-target="#probability-measure-mathbbp">Probability Measure (<span class="math inline">\(\mathbb{P}\)</span>)</a></li>
+  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability">Conditional Probability</a></li>
+  <li><a href="#law-of-total-probability" id="toc-law-of-total-probability" class="nav-link" data-scroll-target="#law-of-total-probability">Law of Total Probability</a></li>
+  <li><a href="#bayes-theorem" id="toc-bayes-theorem" class="nav-link" data-scroll-target="#bayes-theorem">Bayes’ Theorem</a></li>
+  <li><a href="#counting-principles" id="toc-counting-principles" class="nav-link" data-scroll-target="#counting-principles">Counting Principles</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#block-ii-univariate-inference" id="toc-block-ii-univariate-inference" class="nav-link" data-scroll-target="#block-ii-univariate-inference">BLOCK II: Univariate Inference</a>
   <ul class="collapse">
-  <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link" data-scroll-target="#discrete-random-variables">Discrete Random Variables</a></li>
-  <li><a href="#continuous-random-variables" id="toc-continuous-random-variables" class="nav-link" data-scroll-target="#continuous-random-variables">Continuous Random Variables</a></li>
+  <li><a href="#random-variables-expectation-and-variance" id="toc-random-variables-expectation-and-variance" class="nav-link" data-scroll-target="#random-variables-expectation-and-variance">Random Variables, Expectation, and Variance</a></li>
+  <li><a href="#discrete-random-variables" id="toc-discrete-random-variables" class="nav-link" data-scroll-target="#discrete-random-variables">Discrete Random Variables</a>
+  <ul class="collapse">
+  <li><a href="#binomial-distribution" id="toc-binomial-distribution" class="nav-link" data-scroll-target="#binomial-distribution">Binomial Distribution:</a></li>
+  <li><a href="#geometric-distribution" id="toc-geometric-distribution" class="nav-link" data-scroll-target="#geometric-distribution">Geometric Distribution:</a></li>
+  </ul></li>
+  <li><a href="#continuous-random-variables" id="toc-continuous-random-variables" class="nav-link" data-scroll-target="#continuous-random-variables">Continuous Random Variables</a>
+  <ul class="collapse">
+  <li><a href="#central-limit-theorem-clt" id="toc-central-limit-theorem-clt" class="nav-link" data-scroll-target="#central-limit-theorem-clt">Central Limit Theorem (CLT)</a></li>
+  <li><a href="#normal-distribution" id="toc-normal-distribution" class="nav-link" data-scroll-target="#normal-distribution">Normal Distribution</a></li>
+  <li><a href="#exponential-distribution" id="toc-exponential-distribution" class="nav-link" data-scroll-target="#exponential-distribution">Exponential Distribution</a></li>
+  </ul></li>
   <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a></li>
-  <li><a href="#one-sample-hypothesis-testing" id="toc-one-sample-hypothesis-testing" class="nav-link" data-scroll-target="#one-sample-hypothesis-testing">One Sample Hypothesis Testing</a></li>
+  <li><a href="#one-sample-hypothesis-testing" id="toc-one-sample-hypothesis-testing" class="nav-link" data-scroll-target="#one-sample-hypothesis-testing">One Sample Hypothesis Testing</a>
+  <ul class="collapse">
+  <li><a href="#single-proportion" id="toc-single-proportion" class="nav-link" data-scroll-target="#single-proportion">Single Proportion</a></li>
+  <li><a href="#single-mean" id="toc-single-mean" class="nav-link" data-scroll-target="#single-mean">Single Mean</a></li>
+  <li><a href="#experimental-design-power-type-i-type-ii-error" id="toc-experimental-design-power-type-i-type-ii-error" class="nav-link" data-scroll-target="#experimental-design-power-type-i-type-ii-error">Experimental Design: Power, Type I / Type II Error</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#block-iii-multivariate-inference" id="toc-block-iii-multivariate-inference" class="nav-link" data-scroll-target="#block-iii-multivariate-inference">BLOCK III: Multivariate Inference</a>
   <ul class="collapse">
-  <li><a href="#two-sample-hypothesis-testing" id="toc-two-sample-hypothesis-testing" class="nav-link" data-scroll-target="#two-sample-hypothesis-testing">Two Sample Hypothesis Testing</a></li>
-  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#preliminaries" id="toc-preliminaries" class="nav-link" data-scroll-target="#preliminaries">Preliminaries</a>
+  <li><a href="#two-sample-hypothesis-testing" id="toc-two-sample-hypothesis-testing" class="nav-link" data-scroll-target="#two-sample-hypothesis-testing">Two Sample Hypothesis Testing</a>
   <ul class="collapse">
-  <li><a href="#six-step-method" id="toc-six-step-method" class="nav-link" data-scroll-target="#six-step-method">Six Step Method</a></li>
+  <li><a href="#difference-of-proportions" id="toc-difference-of-proportions" class="nav-link" data-scroll-target="#difference-of-proportions">Difference of Proportions</a></li>
+  <li><a href="#multiple-proportions-chi-square-test-of-independence" id="toc-multiple-proportions-chi-square-test-of-independence" class="nav-link" data-scroll-target="#multiple-proportions-chi-square-test-of-independence">Multiple Proportions (Chi-Square Test of Independence)</a></li>
+  <li><a href="#difference-of-means" id="toc-difference-of-means" class="nav-link" data-scroll-target="#difference-of-means">Difference of Means</a></li>
+  <li><a href="#paired-data" id="toc-paired-data" class="nav-link" data-scroll-target="#paired-data">Paired Data</a></li>
+  </ul></li>
+  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a>
+  <ul class="collapse">
+  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression<br>
+  </a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression<br>
+  </a></li>
+  <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of Fit</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -211,7 +245,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">MA206 Overview</h1>
+<h1 class="title">MA206: Introduction to Probability and Statistics</h1>
 </div>
 
 
@@ -234,10 +268,31 @@ window.Quarto = {
 </header>
 
 
-<section id="ma206-redux" class="level1 unnumbered toc-ignore">
-<h1 class="unnumbered toc-ignore">MA206 Redux</h1>
 <p><em>To Cadets:</em><br>
 This course, MA206, introduces you to the foundational principles of probability and statistics, emphasizing data literacy and inference. It begins with Block I, covering data types, visualization, and basic probability rules including counting and the behavior of random variables. Block II builds on this by exploring discrete and continuous distributions, the Central Limit Theorem, and tools for one-sample inference such as confidence intervals and hypothesis testing for proportions and means. Finally, Block III develops cadets’ ability to analyze relationships between variables through two-sample tests, linear regression, ANOVA, and goodness-of-fit testing. By the end of the course, cadets will be equipped to make sound, data-driven decisions grounded in statistical reasoning.</p>
+<p><strong>Six Step Method</strong></p>
+<ol type="1">
+<li>Describe how the six steps of a statistical investigation apply to a particular statistical study:
+<ol type="a">
+<li>Ask a research question<br>
+</li>
+<li>Design a study and collect data<br>
+</li>
+<li>Explore the data<br>
+</li>
+<li>Draw inferences beyond the data<br>
+</li>
+<li>Formulate conclusions<br>
+</li>
+<li>Look back and ahead<br>
+</li>
+</ol></li>
+<li>Think of and write research questions that could be investigated with a statistical study.<br>
+</li>
+<li>Identify the observational units and variables in a statistical study.<br>
+</li>
+<li>Classify variables as categorical or quantitative.</li>
+</ol>
 <p><em>A Note on Technology:</em><br>
 In this course the primary tool used for data analysis is R. Throughout this course you will implement techniques for summarizing, visualizing, and analyzing data. The primary focus of this course is not for you to become masters in coding, however building on skills learned in CY105 will help your analysis in understanding how to use information technology to demonstrate successful outcomes in this course.</p>
 <p>Of note, some of the functions we use in R require the package <em>tidyverse</em>, everytime you begin working in RStudio, the beginning code chunk should resemble:</p>
@@ -259,15 +314,20 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="block-i-data-and-randomness" class="level2">
-<h2 class="anchored" data-anchor-id="block-i-data-and-randomness">BLOCK I: Data and Randomness</h2>
-<section id="types-of-data-sampling-and-bias" class="level3">
-<h3 class="anchored" data-anchor-id="types-of-data-sampling-and-bias">Types of Data, Sampling, and Bias</h3>
-<p>Fundamental to statistical analysis is understanding the types of data we encounter, the methods we use to collect them, and the potential sources of bias that can undermine the validity of our conclusions. We distinguish between categorical (qualitative) and quantitative (numerical) data, and further classify quantitative data as discrete or continuous. Understanding these distinctions is critical for selecting the correct tools for analysis and interpretation.</p>
-<p>We also examine various sampling methods, including simple random sampling, stratified sampling, cluster sampling, and systematic sampling. Each method has strengths and weaknesses depending on the research context, and knowing when to apply each appropriately is a key skill for data-driven decision-making.</p>
+<section id="block-i-data-and-randomness" class="level1">
+<h1>BLOCK I: Data and Randomness</h1>
+<section id="types-of-data-sampling-and-bias" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-data-sampling-and-bias">Types of Data, Sampling, and Bias</h2>
+<p>Fundamental to statistical analysis is understanding the types of data we encounter, the methods we use to collect them, and the potential sources of bias that can undermine the validity of our conclusions. We distinguish between <em>categorical</em> (qualitative) and <em>quantitative</em> (numerical) data. Categorical variables can further be broken down into nominal (color, baseball position, type of animal), ordinal (I had a very bad/somewhat bad/neutral/good/very good experience at CFT), and binary (Yes I passed Air Assault/No I did not). Quantitative data can also be broken down into either discrete or continuous. Understanding these distinctions is critical for selecting the correct tools for analysis and interpretation.</p>
+<p>The two methods of sampling in this course will be through simple <em>random sampling</em> or <em>convenience sampling</em>. The difference in application is whether we can <em>generalize</em> our results to the larger population. As an example, say I do not have an exhaustive list of cadet ID numbers to randomly select from. Instead, I only can stand in Central Area after class at 1630 and survey the first 50 cadets that willingly take my survey. There is a certain sub-population I am probably missing (1st Reg, 4th Reg, Corps Squad, etc). This is a convenience sample. Instead, if I randomly select 50 C-Numbers from a complete list of the Corps obtained from the registrar, this would be a a true random sample of the Corps, whereas the former is what is known as <em>selection bias</em>.</p>
 <p>Finally, we explore the concept of bias in data collection. We identify common sources such as selection bias, response bias, and measurement bias, and discuss how poor sampling practices or flawed survey design can distort findings. This lesson sets the stage for the rest of the course by highlighting the importance of thoughtful data collection and critical evaluation of data sources.</p>
 <p>As an example let us look at a dataset aggregated from over 50,000 diamonds:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1991</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diamonds)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 10
   carat cut       color clarity depth table price     x     y     z
@@ -282,46 +342,57 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 <p>Each of the rows is an individual diamond, generally called an observation. Each of the columns are unique aspects measured for every observation, called variables. Variables are either categorical, qualitative aspects of each measurement, or quantitative, a numbered entry.</p>
 </section>
-<section id="exploratory-data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<section id="exploratory-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>Understanding, communicating, and interpreting your data is <em>paramount</em> to any initial data analysis project. These are done through numerous visualizations and summary statistics which we will learn to regularly implement when given any new dataset.</p>
-<section id="one-variable-visualizations-and-summary-statistics" class="level4">
-<h4 class="anchored" data-anchor-id="one-variable-visualizations-and-summary-statistics">One Variable – Visualizations and Summary Statistics</h4>
+<section id="one-variable-visualizations-and-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="one-variable-visualizations-and-summary-statistics">One Variable – Visualizations and Summary Statistics</h3>
 <p>Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>carat)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>depth)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>price)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">30</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1440"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine <em>skewness</em>, a measure of how lopsided the data appear or if there are any asymmetries or <em>tails</em>.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>carat)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>depth)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>price)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>p4 <span class="sc">|</span> p5 <span class="sc">|</span> p6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1440"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The ‘whiskers’ are determined by <span class="math inline">\(1.5 \times IQR\)</span> where the inter-quartile range is the <span class="math inline">\(3rd - 1st\)</span> quartiles.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_summary <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="fu">list</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="sc">~</span><span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Var =</span> <span class="sc">~</span><span class="fu">var</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"Variable"</span>, <span class="st">"stat"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> stat, <span class="at">values_from =</span> value)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_summary <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="fu">list</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Median =</span> <span class="sc">~</span><span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Var =</span> <span class="sc">~</span><span class="fu">var</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ), <span class="at">.names =</span> <span class="st">"{.col}_{.fn}"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"Variable"</span>, <span class="st">"stat"</span>), <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> stat, <span class="at">values_from =</span> value)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 7
   Variable     Mean  Median       SD          Var    Min      Max
@@ -345,71 +416,74 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 \]</span></p>
 <p><strong><em>Note: the standard deviation is the square root of the variance</em></strong></p>
 </section>
-<section id="two-variables-visualizations-and-summary-statistics" class="level4">
-<h4 class="anchored" data-anchor-id="two-variables-visualizations-and-summary-statistics">Two Variables – Visualizations and Summary Statistics</h4>
+<section id="two-variables-visualizations-and-summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="two-variables-visualizations-and-summary-statistics">Two Variables – Visualizations and Summary Statistics</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">color=</span>clarity)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>table, <span class="at">y=</span>price, <span class="at">color=</span>cut)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p9 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>depth, <span class="at">y=</span>price, <span class="at">color=</span>color)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p7 <span class="sc">|</span> p8 <span class="sc">|</span>p9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p7 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>carat, <span class="at">y=</span>price, <span class="at">color=</span>clarity)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p8 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>table, <span class="at">y=</span>price, <span class="at">color=</span>cut)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>p9 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>depth, <span class="at">y=</span>price, <span class="at">color=</span>color)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>p7 <span class="sc">|</span> p8 <span class="sc">|</span>p9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1920"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p10 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"pink"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Cut Quality"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Cut"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>p11 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color) <span class="sc">%&gt;%</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Color Rating"</span>,</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Color"</span>,</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>p12 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clarity) <span class="sc">%&gt;%</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Clarity"</span>,</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Clarity"</span>,</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>p10 <span class="sc">|</span> p11 <span class="sc">|</span> p12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p10 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"pink"</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Cut Quality"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Cut"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>p11 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(color) <span class="sc">%&gt;%</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Color Rating"</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Color"</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>p12 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clarity) <span class="sc">%&gt;%</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_price =</span> <span class="fu">mean</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"magenta"</span>) <span class="sc">+</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Price by Diamond Clarity"</span>,</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Diamond Clarity"</span>,</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Price ($)"</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>p10 <span class="sc">|</span> p11 <span class="sc">|</span> p12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1440"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cor_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo: false</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cor_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             carat        depth      table       price          x           y
 carat  1.000000000 -0.003309893  0.2218141  0.91021728  0.9771650  0.97682747
@@ -435,10 +509,10 @@ r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i - \bar{x}
 \]</span></p>
 </section>
 </section>
-<section id="probability" class="level3">
-<h3 class="anchored" data-anchor-id="probability">Probability</h3>
-<section id="sample-space-and-random-experiment-omega" class="level4">
-<h4 class="anchored" data-anchor-id="sample-space-and-random-experiment-omega">Sample Space and Random Experiment (<span class="math inline">\(\Omega\)</span>)</h4>
+<section id="probability" class="level2">
+<h2 class="anchored" data-anchor-id="probability">Probability</h2>
+<section id="sample-space-and-random-experiment-omega" class="level3">
+<h3 class="anchored" data-anchor-id="sample-space-and-random-experiment-omega">Sample Space and Random Experiment (<span class="math inline">\(\Omega\)</span>)</h3>
 <p>A <strong>random experiment</strong> is a process that produces an outcome which cannot be predicted with certainty in advance. It must be well-defined, have more than one possible outcome, and be repeatable under similar conditions. Each performance of the experiment results in a single outcome from the sample space. The <strong>sample space</strong> is the set of all possible outcomes of a random experiment.</p>
 <hr>
 <blockquote class="blockquote">
@@ -462,11 +536,20 @@ r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i - \bar{x}
 </ul>
 <hr>
 </section>
-<section id="probability-measure-mathbbp" class="level4">
-<h4 class="anchored" data-anchor-id="probability-measure-mathbbp">Probability Measure (<span class="math inline">\(\mathbb{P}\)</span>)</h4>
+<section id="probability-measure-mathbbp" class="level3">
+<h3 class="anchored" data-anchor-id="probability-measure-mathbbp">Probability Measure (<span class="math inline">\(\mathbb{P}\)</span>)</h3>
 <p>A <strong>probability measure</strong> is a rule, denoted <span class="math inline">\(\mathbb{P}\)</span>, that assigns a number between 0 and 1 to every event in a collection of events (called a <strong>sigma-algebra</strong>, denoted ). These probabilities must follow three key rules, known as the <strong>axioms of probability</strong>.</p>
 <hr>
-<p><strong>Axioms of Probability:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Axioms of Probability">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Axioms of Probability
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ol type="1">
 <li><p><strong>Non-Negativity</strong><br>
 For any event <span class="math inline">\(A\)</span>, the probability is never negative:<br>
@@ -479,10 +562,13 @@ The probability of one of the events happening over the entire sample space is 1
 \mathbb{P}(\Omega) = 1
 \]</span></p></li>
 <li><p><strong>Additivity (for disjoint events)</strong><br>
-If events $A_1, A_2, A_3, $ are <strong>mutually exclusive</strong> (no overlap), then the probability that <strong>any one of them</strong> occurs is the sum of their individual probabilities:&nbsp; <span class="math display">\[
+If events <span class="math inline">\(A_1, A_2, A_3, \dots\)</span> are <strong>mutually exclusive</strong> (no overlap), then the probability that <strong>any one of them</strong> occurs is the sum of their individual probabilities:<br>
+<span class="math display">\[
 \mathbb{P}\left(\bigcup_{i=1}^{\infty} A_i\right) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_3) + \cdots
 \]</span></p></li>
 </ol>
+</div>
+</div>
 <hr>
 <p><strong>Example (Simple):</strong><br>
 Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> be outcomes when rolling a die:</p>
@@ -497,7 +583,16 @@ Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</spa
 </ul>
 <p>These three rules form the mathematical foundation of all probability calculations — everything else builds on them.</p>
 <hr>
-<p><strong>Set Operations on Events:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Axioms of Probability">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Axioms of Probability
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li>The <strong>complement</strong> of an event ( A ), written ( A^c ), consists of all outcomes in ( ) that are not in ( A ):</li>
 </ul>
@@ -517,9 +612,11 @@ Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</spa
 <p><span class="math display">\[
 A \cap B = \varnothing \quad \text{and} \quad \mathbb{P}(A \cap B) = 0
 \]</span></p>
+</div>
+</div>
 </section>
-<section id="conditional-probability" class="level4">
-<h4 class="anchored" data-anchor-id="conditional-probability">Conditional Probability</h4>
+<section id="conditional-probability" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-probability">Conditional Probability</h3>
 <p>For events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with $0 &lt; P(B) $, the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span> is:</p>
 <p><span class="math display">\[
 P(A \mid B) = \frac{P(A \cap B)}{P(B)}
@@ -529,8 +626,8 @@ Let <span class="math inline">\(A\)</span>: card is a Queen, and <span class="ma
 Find <span class="math inline">\(P(A)\)</span>, <span class="math inline">\(P(B)\)</span>, and <span class="math inline">\(P(A \mid B)\)</span>.</p>
 <hr>
 </section>
-<section id="law-of-total-probability" class="level4">
-<h4 class="anchored" data-anchor-id="law-of-total-probability">Law of Total Probability</h4>
+<section id="law-of-total-probability" class="level3">
+<h3 class="anchored" data-anchor-id="law-of-total-probability">Law of Total Probability</h3>
 <blockquote class="blockquote">
 <p><strong>Definition:</strong><br>
 If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sample space (mutually exclusive and exhaustive), then for any event <span class="math inline">\(A\)</span>:</p>
@@ -550,8 +647,8 @@ Let:<br>
 - Then use the Law of Total Probability to find <span class="math inline">\(P(A)\)</span></p>
 <hr>
 </section>
-<section id="bayes-theorem" class="level4">
-<h4 class="anchored" data-anchor-id="bayes-theorem">Bayes’ Theorem</h4>
+<section id="bayes-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="bayes-theorem">Bayes’ Theorem</h3>
 <blockquote class="blockquote">
 <p><strong>Definition:</strong><br>
 If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sample space and <span class="math inline">\(P(A) &gt; 0\)</span>, then:</p>
@@ -567,19 +664,19 @@ Two urns:<br>
 If the ball is red, what is the probability it came from <strong>Urn 1</strong>?</p>
 <hr>
 </section>
-<section id="counting-principles" class="level4">
-<h4 class="anchored" data-anchor-id="counting-principles">Counting Principles</h4>
+<section id="counting-principles" class="level3">
+<h3 class="anchored" data-anchor-id="counting-principles">Counting Principles</h3>
 <p>Before we can begin a thorough treatment of probability, some concepts in counting are needed to identify four common situations. These arise depending on when things are “allowed” to repeat or the “order” items are chosen in matters. The ability to discern when these <strong>four</strong> situations arise is more than half the battle.</p>
-<section id="ordered-with-replacement" class="level5">
-<h5 class="anchored" data-anchor-id="ordered-with-replacement">Ordered with Replacement</h5>
+<section id="ordered-with-replacement" class="level4">
+<h4 class="anchored" data-anchor-id="ordered-with-replacement">Ordered with Replacement</h4>
 <p><em>Think of the number of ways of choosing a 4-digit passcode on your phone.</em><br>
 The order of the numbers matters, and you are allowed to repeat the same number. So how many arrangements are there? Since repetition is allowed and order matters, there are 10 digits for each position, giving:</p>
 <p><span class="math display">\[
 \text{Ordered Arrangements with Replacement} = n^r = 10^4 = 10{,}000
 \]</span></p>
 </section>
-<section id="ordered-without-replacement" class="level5">
-<h5 class="anchored" data-anchor-id="ordered-without-replacement">Ordered without Replacement</h5>
+<section id="ordered-without-replacement" class="level4">
+<h4 class="anchored" data-anchor-id="ordered-without-replacement">Ordered without Replacement</h4>
 <p><em>Think of the number of ways I can create a batting order from 9 position players.</em><br>
 The order still matters, but players cannot be repeated. This is a <strong>permutation</strong> — an ordered arrangement without replacement.</p>
 <p><span class="math display">\[
@@ -590,16 +687,16 @@ The order still matters, but players cannot be repeated. This is a <strong>permu
 {}_9P_3 = \frac{9!}{(9-3)!} = 9 \times 8 \times 7 = 504
 \]</span></p>
 </section>
-<section id="unordered-without-replacement" class="level5">
-<h5 class="anchored" data-anchor-id="unordered-without-replacement">Unordered without Replacement</h5>
+<section id="unordered-without-replacement" class="level4">
+<h4 class="anchored" data-anchor-id="unordered-without-replacement">Unordered without Replacement</h4>
 <p><em>Think of how many ways you can choose 3 scoops of ice cream from 5 unique flavors without repeats.</em><br>
 Because order doesn’t matter and repeats aren’t allowed, we use <strong>combinations</strong>:</p>
 <p><span class="math display">\[
 {}_nC_k = \binom{n}{k} = \frac{n!}{k!(n-k)!}
 \]</span></p>
 </section>
-<section id="unordered-with-replacement" class="level5">
-<h5 class="anchored" data-anchor-id="unordered-with-replacement">Unordered with Replacement</h5>
+<section id="unordered-with-replacement" class="level4">
+<h4 class="anchored" data-anchor-id="unordered-with-replacement">Unordered with Replacement</h4>
 <p><em>Think of how many different combinations of 3 scoop ice cream cones you can make with 5 unique flavors while allowing repeats.</em><br>
 This is the trickiest scenario. The order doesn’t matter, and repetition is allowed. The formula is:</p>
 <p><span class="math display">\[
@@ -609,93 +706,566 @@ This is the trickiest scenario. The order doesn’t matter, and repetition is al
 <p><span class="math display">\[
 \binom{3+5-1}{3} = \binom{7}{3} = 35
 \]</span></p>
-<p>This can be understood using the <strong>stars and bars</strong> method: selecting ( r ) scoops with ( n-1 ) dividers.</p>
-</section>
-</section>
-<section id="random-variables-expectation-and-variance" class="level4">
-<h4 class="anchored" data-anchor-id="random-variables-expectation-and-variance">Random Variables, Expectation, and Variance</h4>
-</section>
-</section>
-</section>
-<section id="block-ii-univariate-inference" class="level2">
-<h2 class="anchored" data-anchor-id="block-ii-univariate-inference">BLOCK II: Univariate Inference</h2>
-<section id="discrete-random-variables" class="level3">
-<h3 class="anchored" data-anchor-id="discrete-random-variables">Discrete Random Variables</h3>
-<pre><code>-   Binomial Distribution: EX, Var(X), PDF, CDF\
-
--   Geometric Distribution: EX, Var(X), PDF, CDF\</code></pre>
-</section>
-<section id="continuous-random-variables" class="level3">
-<h3 class="anchored" data-anchor-id="continuous-random-variables">Continuous Random Variables</h3>
-<pre><code>-   CLT &amp; the Normal Distribution: EX, Var(X), PDF, CDF\
-
--   Exponential Distribution: EX, Var(X), PDF, CDF\</code></pre>
-</section>
-<section id="confidence-intervals" class="level3">
-<h3 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h3>
-</section>
-<section id="one-sample-hypothesis-testing" class="level3">
-<h3 class="anchored" data-anchor-id="one-sample-hypothesis-testing">One Sample Hypothesis Testing</h3>
-<pre><code>-   Single Proportion\
-
--   Single Mean\
-
--   Experimental Design: Power, T1/II Error\</code></pre>
-</section>
-</section>
-<section id="block-iii-multivariate-inference" class="level2">
-<h2 class="anchored" data-anchor-id="block-iii-multivariate-inference">BLOCK III: Multivariate Inference</h2>
-<section id="two-sample-hypothesis-testing" class="level3">
-<h3 class="anchored" data-anchor-id="two-sample-hypothesis-testing">Two Sample Hypothesis Testing</h3>
-<pre><code>-   Lesson 17: Difference of Proportions\
-
--   Lesson 18: Multiple Proportions\
-
--   Lesson 19: Difference of Means\
-
--   Lesson 20: Paired Data\</code></pre>
-</section>
-<section id="regression" class="level3">
-<h3 class="anchored" data-anchor-id="regression">Regression</h3>
-<pre><code>-   Lesson 21: Simple Linear Regression\
-
--   Lesson 22: Multiple Linear Regression\
-
--   Lesson 23: Goodness of Fit
-
--   Lesson 24: ANOVA</code></pre>
-<div style="page-break-after: always;"></div>
+<p>This can be understood using the <strong>stars and bars</strong> method: selecting <span class="math inline">\(r\)</span> scoops with <span class="math inline">\(n-1\)</span> dividers. Imagine representing each scoop as a ★ (star) and using vertical bars | to separate flavor types. To choose <span class="math inline">\(r\)</span> scoops from <span class="math inline">\(n\)</span> flavors, you need <span class="math inline">\(r\)</span> stars (for the scoops) and <span class="math inline">\(n - 1\)</span> bars (to divide them into <span class="math inline">\(n\)</span> categories). For example, if <span class="math inline">\(r = 3\)</span> scoops and <span class="math inline">\(n = 5\)</span> flavors, you arrange 3 stars and 4 bars in a row. One possible arrangement is ★ | ★★ | | |, which represents 1 scoop of flavor 1, 2 scoops of flavor 2, and 0 scoops of flavors 3, 4, and 5. The number of such arrangements is given by the combination formula <span class="math inline">\(\binom{r + n - 1}{r}\)</span>, since you are choosing positions for the <span class="math inline">\(r\)</span> indistinguishable stars among the <span class="math inline">\(r + n - 1\)</span> total positions (stars and bars combined).</p>
+<p><strong><em>Note: The above section may seem like it came out of nowhere, that is okay. A fundamentally difficulty inherent in probability is finding the sample space or event space due to finding the various different combinations/permutations sequences of different possibilities. To elaborate consider the next example: </em></strong></p>
+<hr>
+<p>Example: No Matching Pairs in a Shoe Sample {.unnumbered}</p>
+<p>A closet contains <span class="math inline">\(n\)</span> pairs of shoes (so <span class="math inline">\(2n\)</span> total shoes). If <span class="math inline">\(2r\)</span> shoes are chosen at random (where <span class="math inline">\(2r &lt; n\)</span>), what is the probability that <strong>no matching pair</strong> is selected?</p>
+<p>We are selecting <span class="math inline">\(2r\)</span> shoes such that no left and right shoe from the same pair are both chosen.</p>
+<p><strong>Strategy:</strong> 1. First choose <span class="math inline">\(2r\)</span> <strong>distinct pairs</strong> from the <span class="math inline">\(n\)</span> available — there are <span class="math inline">\(\binom{n}{2r}\)</span> ways to do this.<br>
+2. From each of these <span class="math inline">\(2r\)</span> selected pairs, choose <strong>only one shoe</strong> (either left or right) — there are <span class="math inline">\(2^{2r}\)</span> ways to do this.<br>
+3. The total number of ways to choose <strong>any</strong> <span class="math inline">\(2r\)</span> shoes out of <span class="math inline">\(2n\)</span> is <span class="math inline">\(\binom{2n}{2r}\)</span>.</p>
+<p>So, the desired probability is:</p>
+<p><span class="math display">\[
+\mathbb{P}(\text{No matching pair}) = \frac{\binom{n}{2r} \cdot 2^{2r}}{\binom{2n}{2r}}
+\]</span></p>
 </section>
 </section>
 </section>
-<section id="preliminaries" class="level1">
-<h1>Preliminaries</h1>
-<section id="six-step-method" class="level2">
-<h2 class="anchored" data-anchor-id="six-step-method">Six Step Method</h2>
+</section>
+<section id="block-ii-univariate-inference" class="level1">
+<h1>BLOCK II: Univariate Inference</h1>
+<section id="random-variables-expectation-and-variance" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables-expectation-and-variance">Random Variables, Expectation, and Variance</h2>
+<div class="definition">
+<p><strong>Definition (Random Variable):</strong><br>
+A <em>random variable</em> is a mapping that assigns a real number to every outcome in the sample space:<br>
+<span class="math display">\[
+X: \Omega \rightarrow \mathbb{R}
+\]</span></p>
+</div>
+<div class="definition">
+<p><strong>Definition (Cumulative Distribution Function):</strong><br>
+A <em>cumulative distribution function (CDF)</em> is a function <span class="math inline">\(F_X: \mathbb{R} \rightarrow [0,1]\)</span> defined by:<br>
+<span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x)
+\]</span></p>
+</div>
+</section>
+<section id="discrete-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="discrete-random-variables">Discrete Random Variables</h2>
+<div class="definition">
+<p><strong>Definition (Discrete Random Variable):</strong><br>
+A <em>discrete random variable</em> is one that takes countably many values in <span class="math inline">\(\mathbb{R}\)</span>.<br>
+Its <em>probability mass function</em> is given by:<br>
+<span class="math display">\[
+f_X(x) = \mathbb{P}(X = x)
+\]</span></p>
+</div>
+<div class="definition">
+<p><strong>Definition (Expectation):</strong><br>
+The <em>expected value</em> (mean) of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
+<span class="math display">\[
+\mathbb{E}[X] = \sum_x x \cdot \mathbb{P}(X = x)
+\]</span></p>
+</div>
+<div class="definition">
+<p><strong>Definition (Variance):</strong><br>
+The <em>variance</em> of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
+<span class="math display">\[
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \sum_x (x - \mathbb{E}[X])^2 \cdot \mathbb{P}(X = x)
+\]</span></p>
+</div>
+<section id="binomial-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-distribution">Binomial Distribution:</h3>
+<div class="definition">
+<p>Let <span class="math inline">\(X \sim \text{Binomial}(n, p)\)</span> where <span class="math inline">\(n \in \mathbb{N}\)</span> and <span class="math inline">\(0 &lt; p &lt; 1\)</span>.</p>
+<ul>
+<li><p><strong>Probability Mass Function (PMF):</strong><br>
+<span class="math display">\[
+\mathbb{P}(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}, \quad \text{for } k = 0, 1, \dots, n
+\]</span></p></li>
+<li><p><strong>Cumulative Distribution Function (CDF):</strong><br>
+<span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x) = \sum_{k=0}^{\lfloor x \rfloor} \binom{n}{k} p^k (1 - p)^{n - k}
+\]</span></p></li>
+<li><p><strong>Expected Value:</strong><br>
+<span class="math display">\[
+\mathbb{E}[X] = np
+\]</span></p></li>
+<li><p><strong>Variance:</strong><br>
+<span class="math display">\[
+\mathrm{Var}(X) = np(1 - p)
+\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="geometric-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-distribution">Geometric Distribution:</h3>
+<div class="definition">
+<p>Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span> be the number of trials until the first success (including the success), where <span class="math inline">\(0 &lt; p &lt; 1\)</span>.</p>
+<ul>
+<li><p><strong>Probability Mass Function (PMF):</strong><br>
+<span class="math display">\[
+\mathbb{P}(X = k) = (1 - p)^{k - 1} p, \quad \text{for } k = 1, 2, 3, \dots
+\]</span></p></li>
+<li><p><strong>Cumulative Distribution Function (CDF):</strong><br>
+<span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x) = 1 - (1 - p)^{\lfloor x \rfloor}
+\]</span></p></li>
+<li><p><strong>Expected Value:</strong><br>
+<span class="math display">\[
+\mathbb{E}[X] = \frac{1}{p}
+\]</span></p></li>
+<li><p><strong>Variance:</strong><br>
+<span class="math display">\[
+\mathrm{Var}(X) = \frac{1 - p}{p^2}
+\]</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="continuous-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="continuous-random-variables">Continuous Random Variables</h2>
+<section id="central-limit-theorem-clt" class="level3">
+<h3 class="anchored" data-anchor-id="central-limit-theorem-clt">Central Limit Theorem (CLT)</h3>
+<p>The <strong>Central Limit Theorem (CLT)</strong> is one of the most important results in statistics. It states that the sampling distribution of the sample mean <span class="math inline">\(\bar{X}\)</span> becomes approximately normal as the sample size <span class="math inline">\(n\)</span> increases, regardless of the shape of the population distribution (provided it has finite mean and variance).</p>
+<p>Specifically, if <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> are i.i.d. random variables with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
+<p><span class="math display">\[
+\frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1) \quad \text{as } n \to \infty
+\]</span></p>
+<p>This justifies the widespread use of the normal distribution to approximate sample means in practice.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jvoxEYmQHNM?si=QtzJ5uqAiQQ4g9Yn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+<p><em>Credit: The New York Times</em></p>
+<hr>
+</section>
+<section id="normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h3>
+<div class="definition">
+<p><strong>Normal Distribution</strong><br>
+Let <span class="math inline">\(X \sim \mathcal{N}(\mu, \sigma^2)\)</span>, where <span class="math inline">\(\mu \in \mathbb{R}\)</span> and <span class="math inline">\(\sigma &gt; 0\)</span>.</p>
+<ul>
+<li><p><strong>Probability Density Function (PDF):</strong><br>
+<span class="math display">\[
+f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad x \in \mathbb{R}
+\]</span></p></li>
+<li><p><strong>Cumulative Distribution Function (CDF):</strong><br>
+There is no closed-form expression, but it is denoted as:<br>
+<span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x) = \Phi\left( \frac{x - \mu}{\sigma} \right)
+\]</span><br>
+where <span class="math inline">\(\Phi\)</span> is the standard normal CDF.</p></li>
+<li><p><strong>Expected Value:</strong><br>
+<span class="math display">\[
+\mathbb{E}[X] = \mu
+\]</span></p></li>
+<li><p><strong>Variance:</strong><br>
+<span class="math display">\[
+\mathrm{Var}(X) = \sigma^2
+\]</span></p></li>
+</ul>
+</div>
+</section>
+<section id="exponential-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="exponential-distribution">Exponential Distribution</h3>
+<div class="definition">
+<p><strong>Exponential Distribution</strong><br>
+Let <span class="math inline">\(X \sim \text{Exponential}(\lambda)\)</span> with <span class="math inline">\(\lambda &gt; 0\)</span>.</p>
+<ul>
+<li><p><strong>Probability Density Function (PDF):</strong><br>
+<span class="math display">\[
+f(x) = \lambda e^{-\lambda x}, \quad x \ge 0
+\]</span></p></li>
+<li><p><strong>Cumulative Distribution Function (CDF):</strong><br>
+<span class="math display">\[
+F_X(x) = \mathbb{P}(X \le x) = 1 - e^{-\lambda x}, \quad x \ge 0
+\]</span></p></li>
+<li><p><strong>Expected Value:</strong><br>
+<span class="math display">\[
+\mathbb{E}[X] = \frac{1}{\lambda}
+\]</span></p></li>
+<li><p><strong>Variance:</strong><br>
+<span class="math display">\[
+\mathrm{Var}(X) = \frac{1}{\lambda^2}
+\]</span></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="confidence-intervals" class="level2">
+<h2 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h2>
+<p>A <strong>confidence interval (CI)</strong> gives a range of plausible values for a population parameter based on a sample statistic. The general structure of any confidence interval is:</p>
+<p><span class="math display">\[
+\text{point estimate} \ \pm \ \text{margin of error}
+\]</span></p>
+<p>More specifically, for large samples or when the sampling distribution of the estimate is approximately normal:</p>
+<p><span class="math display">\[
+\text{CI} = \hat{\theta} \ \pm \ z^* \cdot \text{SE}(\hat{\theta})
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\hat{\theta}\)</span> is the <strong>point estimate</strong> (e.g., <span class="math inline">\(\bar{x}\)</span> for the mean, <span class="math inline">\(\hat{p}\)</span> for a proportion)</li>
+<li><span class="math inline">\(z^*\)</span> is the <strong>critical value</strong> from the standard normal distribution (e.g., 1.96 for 95% confidence)</li>
+<li><span class="math inline">\(\text{SE}(\hat{\theta})\)</span> is the <strong>standard error</strong> of the estimate</li>
+</ul>
+<p>This structure applies to many common settings:</p>
+<ul>
+<li><p>CI for a <strong>population mean</strong>: <span class="math display">\[
+\bar{x} \pm z^* \cdot \frac{s}{\sqrt{n}}
+\]</span></p></li>
+<li><p>CI for a <strong>population proportion</strong>: <span class="math display">\[
+\hat{p} \pm z^* \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+\]</span></p></li>
+</ul>
+<section id="interpretation" class="level4">
+<h4 class="anchored" data-anchor-id="interpretation">Interpretation:</h4>
+<blockquote class="blockquote">
+<p>“We are 95% confident that the true population parameter lies within this interval.”</p>
+</blockquote>
+<p>This does <strong>not</strong> mean there’s a 95% probability the parameter is in the interval — rather, it means that <strong>95% of all intervals</strong> computed from repeated samples in this manner would contain the true parameter.</p>
+</section>
+</section>
+<section id="one-sample-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="one-sample-hypothesis-testing">One Sample Hypothesis Testing</h2>
+<p>Hypothesis testing is a formal method for making inferences about a population using sample data. The whole <em>test</em> aspect is questioning if the statistic your sample shows is <em>significantly different</em> than a certain value in question. You have two underlying premises, referred to as the null and alternative hypotheses. The null hypothesis assumes that there is no difference: the statistic from your value is the same as the value you are testing. The alternative <strong>conflicts</strong> the null and says they are different. The process involves:</p>
 <ol type="1">
-<li>Describe how the six steps of a statistical investigation apply to a particular statistical study:
-<ol type="a">
-<li>Ask a research question<br>
-</li>
-<li>Design a study and collect data<br>
-</li>
-<li>Explore the data<br>
-</li>
-<li>Draw inferences beyond the data<br>
-</li>
-<li>Formulate conclusions<br>
-</li>
-<li>Look back and ahead<br>
-</li>
-</ol></li>
-<li>Think of and write research questions that could be investigated with a statistical study.<br>
-</li>
-<li>Identify the observational units and variables in a statistical study.<br>
-</li>
-<li>Classify variables as categorical or quantitative.</li>
+<li><strong>State the null and alternative hypotheses</strong>. There are three different variants to create your hypotheses statements depending on what the question being asked entails.</li>
 </ol>
+<ol type="a">
+<li><em>Greater than Alternative Hypothesis</em></li>
+</ol>
+<p><span class="math display">\[
+H_0: Parameter = Value \ in \ Question \\
+H_A: Parameter &gt; Value \ in \ Question
+\]</span></p>
+<p>The entire <em>inference</em> aspect of hypothesis testing is that you are using your <em>sample statistic</em>, a tangible aspect of your data, to make an argument about the <em>population parameter</em>, an entity that is unknown to you. This is why <em>the hypotheses are written in terms of the parameter</em>. You are testing whether an aspect or <em>parameter</em> about the population is greater than a benchmark value decided by you in advance.</p>
+<ol start="2" type="a">
+<li><em>Less than Alternative Hypothesis</em></li>
+</ol>
+<p><span class="math display">\[
+H_0: Parameter = Value \ in \ Question \\
+H_A: Parameter &lt; Value \ in \ Question \\
+\]</span></p>
+<p>Very similarly, the less than hypothesis is also a <strong>one-sided hypothesis test</strong> in that you are only testing one side of the value, abeit this time if the population parameter is less than the tested value.</p>
+<ol start="2" type="a">
+<li>Not equal to Alternative Hypothesis</li>
+</ol>
+<p><span class="math display">\[
+H_0: Parameter = Value \ in \ Question \\
+H_A: Parameter \neq Value \ in \ Question \\
+\]</span></p>
+<p>This is the only two-sided hypothesis test, denoted with the not equal to alternative hypothesis. Both sides must be accounted for in this test, and therefore as we will see shortly <em>require more evidence for significance</em>.</p>
+<ol start="2" type="1">
+<li><strong>Choose a significance level <span class="math inline">\(\alpha\)</span></strong>.</li>
+</ol>
+<p>This is the <em>threshold</em> you will also decide to inform your certainty in your conclusions. As seen previously, unless you are finding the probability that something will happen in the entire sample space (which happens probability 1); ie, there are no absolutes. Therefore there is always a chance that your conclusion will be wrong. Here is where you decide how “often” you are willing to be wrong. Is it 1% of the time? 5% of the time? Think of the significance level as choosing the percentage of the time you are willing to be wrong in your conclusion, (I know this sounds weird). A common <span class="math inline">\(\alpha\)</span> is 5%.</p>
+<ol start="3" type="1">
+<li><strong>Compute the test statistic</strong>.</li>
+</ol>
+<p>Compute the relevant summary statistic. In this course you will either be calculating a sample proportion, denoted <span class="math inline">\(\hat{p}\)</span> if the variable of interest is categorical or the sample mean <span class="math inline">\(\bar{X}\)</span> if quantitative.</p>
+<ol start="4" type="1">
+<li><strong>Standardize the test statistic</strong>.</li>
+</ol>
+<p>This step transforms your statistic so it can be treated as a random variable from a named distribution. For proportions this will be a Normal Random Variable, however if quantitative it will be a t-distributed random variable.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/32CuxWdOlow?si=n77sKE80z6m3tadt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+<p><em>Credit: 365 Data Science</em></p>
+<ol start="5" type="1">
+<li><strong>Determine the p-value</strong>.</li>
+</ol>
+<p>Once we have the standardized statistic, it can be treated as either a Standard Normal Random Variable or Student’s-t Random Variable. This is where the alternative hypotheses come in to play to determine the <strong>p-value: the probability that if the null hypothesis is indeed true you choose to make an argument supporting the alternative</strong>. To find the probability of a certain event happening in a continuous random variable, you integrate the probability density function with the limits of integration being the range of values the random variable could take. Both the Standard Normal and Student’s-t are continuous, so depending on your alternative hypothesis, your p-value is calculated by either of the following:</p>
+<p><span class="math display">\[
+\begin{align}
+\text{Greater Hypothesis} &amp;&amp;&amp;&amp; \text{Less than Hypothesis} &amp;&amp;&amp;&amp; \text{Two Sided Hypothesis} \\
+\mathbb{P}(X&gt;z) = \int_z^\infty f_X(x) dx &amp;&amp;&amp;&amp; \mathbb{P}(X&lt;z) = \int_{-\infty}^z f_X(x)dx &amp;&amp;&amp;&amp; \mathbb{P}(X&gt;z) = \int_{|z|}^\infty f_X(x)dx + \int_{-\infty}^{-|z|} f_X(x)dx
+\end{align}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; echo:false</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Full normal curve</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(mu <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>sigma, mu <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>sigma, <span class="at">length.out =</span> <span class="dv">1000</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Shade regions</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>less_df <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="fl">1.96</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>more_df <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, x <span class="sc">&gt;=</span> <span class="fl">1.96</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>both_df <span class="ot">&lt;-</span> <span class="fu">subset</span>(df, x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="fl">1.96</span> <span class="sc">|</span> x <span class="sc">&gt;=</span> <span class="fl">1.96</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Left tail</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>p_less <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> less_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fl">1.96</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Right tail</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>p_more <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> more_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.96</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Both tails</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>p_both <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> less_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(<span class="at">data =</span> more_df, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y), <span class="at">fill =</span> <span class="st">'lightblue'</span>)<span class="sc">+</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>, <span class="fl">1.96</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Show side by side</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>p_more <span class="sc">|</span> p_less <span class="sc">|</span> p_both</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1920"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li><strong>Making a conclusion based on comparison</strong>.</li>
+</ol>
+<p>Once a p-value is obtained, reference it to the significance level chosen. If the p-value is greater than <span class="math inline">\(\alpha\)</span>, you <em>fail to reject the null hypothesis</em>, if it is smaller, you <em>reject the null hypothesis</em>, and then state what that means in the context of the problem.</p>
+<hr>
+<section id="single-proportion" class="level3">
+<h3 class="anchored" data-anchor-id="single-proportion">Single Proportion</h3>
+<p>We conduct inference on a population proportion <span class="math inline">\(\pi\)</span> relative to a hypothesized value <span class="math inline">\(\pi_0\)</span>. The test statistic is:</p>
+<p><span class="math display">\[
+z = \frac{\hat{p} - \pi}{\sqrt{\frac{\pi(1 - \pi)}{n}}}
+\]</span></p>
+<section id="example-test-if-more-than-40-of-diamonds-are-ideal-cut" class="level4">
+<h4 class="anchored" data-anchor-id="example-test-if-more-than-40-of-diamonds-are-ideal-cut">Example: Test if more than 40% of diamonds are “Ideal” cut</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Null hypothesis: p = 0.20</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(diamonds)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (phat <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">sqrt</span>(pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> n)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Z-statistic: -0.22 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value: 0.587</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="single-mean" class="level3">
+<h3 class="anchored" data-anchor-id="single-mean">Single Mean</h3>
+<p>We conduct inference on a population mean <span class="math inline">\(\mu\)</span> relative to a hypothesized value <span class="math inline">\(\mu_0\)</span>. The test statistic is:</p>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}
+\]</span></p>
+<section id="example-test-if-the-average-diamond-price-is-4000." class="level4">
+<h4 class="anchored" data-anchor-id="example-test-if-the-average-diamond-price-is-4000.">Example: Test if the average diamond price is $4000.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"T-statistic:"</span>, <span class="fu">round</span>(t_stat, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>T-statistic: -3.912 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value: 1e-04</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="experimental-design-power-type-i-type-ii-error" class="level3">
+<h3 class="anchored" data-anchor-id="experimental-design-power-type-i-type-ii-error">Experimental Design: Power, Type I / Type II Error</h3>
+<p>In any hypothesis test, we face the possibility of making incorrect conclusions. These are formalized through <strong>Type I</strong> and <strong>Type II</strong> errors:</p>
+<ul>
+<li><p><strong>Type I Error</strong> (<span class="math inline">\(\alpha\)</span>): Rejecting the null hypothesis when it is actually true. This is controlled by the <strong>significance level</strong> of the test, often set to <span class="math inline">\(\alpha = 0.05\)</span>.</p></li>
+<li><p><strong>Type II Error</strong> (<span class="math inline">\(\beta\)</span>): Failing to reject the null hypothesis when the alternative is actually true. This is harder to control and depends on the true parameter, sample size, and variance.</p></li>
+<li><p><strong>Power of the Test</strong>: The probability of correctly rejecting the null hypothesis when the alternative is true: <span class="math display">\[
+\text{Power} = 1 - \beta
+\]</span></p></li>
+</ul>
+<p>A powerful test detects meaningful effects and minimizes Type II error. Power increases when: - Sample size increases (<span class="math inline">\(n \uparrow\)</span>) - Effect size increases (true parameter is farther from null) - Variability decreases (standard deviation <span class="math inline">\(\downarrow\)</span>) - Significance level <span class="math inline">\(\alpha\)</span> increases (easier to reject null)</p>
+<hr>
+<section id="visual-summary" class="level4">
+<h4 class="anchored" data-anchor-id="visual-summary">Visual Summary</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>This diagram shows: - The <strong>blue curve</strong> is the null distribution (centered at 0). - The <strong>red dashed curve</strong> is the alternative distribution (shifted mean). - The <strong>dotted vertical line</strong> is the critical value (e.g., <span class="math inline">\(z = 1.645\)</span> for <span class="math inline">\(\alpha = 0.05\)</span> in a one-sided test). - Area to the right of this cutoff under the null curve is <span class="math inline">\(\alpha\)</span>. - Area to the left of this cutoff under the alternative curve is <span class="math inline">\(\beta\)</span>. - The remaining area under the red curve (right tail) is <strong>power</strong>.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="block-iii-multivariate-inference" class="level1">
+<h1>BLOCK III: Multivariate Inference</h1>
+<section id="two-sample-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="two-sample-hypothesis-testing">Two Sample Hypothesis Testing</h2>
+<hr>
+<section id="difference-of-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="difference-of-proportions">Difference of Proportions</h3>
+<p>We compare two population proportions to determine whether there is a significant difference between them. The test statistic is:</p>
+<p><span class="math display">\[
+z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+\]</span></p>
+<p>Where <span class="math inline">\(\hat{p}\)</span> is the pooled proportion.</p>
+<section id="example-are-ideal-cuts-more-common-among-premium-vs.-good-color-grades" class="level4">
+<h4 class="anchored" data-anchor-id="example-are-ideal-cuts-more-common-among-premium-vs.-good-color-grades">Example: Are “Ideal” cuts more common among Premium vs.&nbsp;Good color grades?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just Premium and Good clarity levels</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(color <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"D"</span>, <span class="st">"E"</span>))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>cut, df<span class="sc">$</span>color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+               D    E    F    G    H    I    J
+  Fair       163  224    0    0    0    0    0
+  Good       662  933    0    0    0    0    0
+  Very Good 1513 2400    0    0    0    0    0
+  Premium   1603 2337    0    0    0    0    0
+  Ideal     2834 3903    0    0    0    0    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary outcome: Ideal or not</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_ideal =</span> cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>])</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Pooled proportion</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (p1 <span class="sc">*</span> n1 <span class="sc">+</span> p2 <span class="sc">*</span> n2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2) <span class="sc">/</span> <span class="fu">sqrt</span>(phat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> phat) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z)))</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Z-statistic: 2.566 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>P-value: 0.0103</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="multiple-proportions-chi-square-test-of-independence" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-proportions-chi-square-test-of-independence">Multiple Proportions (Chi-Square Test of Independence)</h3>
+<p>Used when comparing proportions across more than two groups.</p>
+<section id="example-is-cut-independent-of-color" class="level4">
+<h4 class="anchored" data-anchor-id="example-is-cut-independent-of-color">Example: Is cut independent of color?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">table</span>(diamonds<span class="sc">$</span>cut, diamonds<span class="sc">$</span>color)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tbl
+X-squared = 310.32, df = 24, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>This test checks whether the distribution of cut types is independent of the diamond color. A small p-value suggests a dependency.</p>
+<hr>
+</section>
+</section>
+<section id="difference-of-means" class="level3">
+<h3 class="anchored" data-anchor-id="difference-of-means">Difference of Means</h3>
+<p>Used to compare two independent sample means.</p>
+<section id="example-is-the-average-price-different-between-ideal-and-fair-cuts" class="level4">
+<h4 class="anchored" data-anchor-id="example-is-the-average-price-different-between-ideal-and-fair-cuts">Example: Is the average price different between “Ideal” and “Fair” cuts?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cut <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ideal"</span>, <span class="st">"Fair"</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  price by cut
+t = 9.7484, df = 1894.8, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group Fair and group Ideal is not equal to 0
+95 percent confidence interval:
+  719.9065 1082.5251
+sample estimates:
+ mean in group Fair mean in group Ideal 
+           4358.758            3457.542 </code></pre>
+</div>
+</div>
+<p>This performs a two-sample t-test, assuming unequal variances by default. The null hypothesis is that the means are equal.</p>
+<hr>
+</section>
+</section>
+<section id="paired-data" class="level3">
+<h3 class="anchored" data-anchor-id="paired-data">Paired Data</h3>
+<p>In paired designs, each observation in one group is paired with a related observation in the other. Since <code>diamonds</code> has no natural pairing, we’ll simulate a paired example.</p>
+<section id="example-simulated-price-before-and-after-resizing-a-set-of-diamonds" class="level4">
+<h4 class="anchored" data-anchor-id="example-simulated-price-before-and-after-resizing-a-set-of-diamonds">Example (Simulated): Price before and after resizing a set of diamonds</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate paired prices: original and discounted</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>original_price <span class="ot">&lt;-</span> <span class="fu">sample</span>(diamonds<span class="sc">$</span>price, n)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>discounted_price <span class="ot">&lt;-</span> original_price <span class="sc">*</span> <span class="fu">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(original_price, discounted_price, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  original_price and discounted_price
+t = 8.9496, df = 99, p-value = 2.132e-14
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 342.2012 537.1645
+sample estimates:
+mean difference 
+       439.6829 </code></pre>
+</div>
+</div>
+<p>This tests whether the mean price before and after a simulated discount differs significantly.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="regression" class="level2">
+<h2 class="anchored" data-anchor-id="regression">Regression</h2>
+<section id="simple-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression<br>
+</h3>
+</section>
+<section id="multiple-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression<br>
+</h3>
+</section>
+<section id="goodness-of-fit" class="level3">
+<h3 class="anchored" data-anchor-id="goodness-of-fit">Goodness of Fit</h3>
+</section>
+<section id="anova" class="level3">
+<h3 class="anchored" data-anchor-id="anova">ANOVA</h3>
 
 
+</section>
 </section>
 </section>
 
