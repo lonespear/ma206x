@@ -46,7 +46,7 @@ Finally, we explore the concept of bias in data collection. We identify common s
 As an example let us look at a dataset aggregated from over 50,000 diamonds:
 
 ```{r}
-#> echo: false
+#> echo:FALSE
 set.seed(1991)
 data(diamonds)
 df <- diamonds %>% sample_n(size=1000)
@@ -63,7 +63,7 @@ Understanding, communicating, and interpreting your data is *paramount* to any i
 Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:
 
 ```{r, fig.width=15, fig.height=5}
-#> echo: false
+#> echo:FALSE
 p1 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_histogram(bins=30) + theme_minimal()
 p2 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_histogram(bins=30) + theme_minimal()
 p3 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_histogram(bins=30) + theme_minimal()
@@ -73,7 +73,7 @@ p1 | p2 | p3
 Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
 
 ```{r, fig.height=5, fig.width=15}
-#> echo: false
+#> echo:FALSE
 p4 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_boxplot() + theme_minimal()
 p5 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_boxplot() + theme_minimal()
 p6 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_boxplot() + theme_minimal()
@@ -83,7 +83,7 @@ p4 | p5 | p6
 Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The 'whiskers' are determined by $1.5 \times IQR$ where the inter-quartile range is the $3rd - 1st$ quartiles.
 
 ```{r}
-#> echo: false
+#> echo:FALSE
 df_summary <- df %>%
   summarise(across(where(is.numeric), list(
     Mean = ~mean(.x, na.rm = TRUE),
@@ -113,7 +113,7 @@ $$
 ### Two Variables – Visualizations and Summary Statistics
 
 ```{r, fig.width=20, fig.height=8}
-#> echo: false
+#> echo:FALSE
 p7 <- df %>% ggplot(aes(x=carat, y=price, color=clarity)) + geom_point() + theme_minimal()
 p8 <- df %>% ggplot(aes(x=table, y=price, color=cut)) + geom_point() + theme_minimal()
 p9 <- df %>% ggplot(aes(x=depth, y=price, color=color)) + geom_point() + theme_minimal()
@@ -123,7 +123,7 @@ p7 | p8 |p9
 A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.
 
 ```{r, fig.width=15, fig.height=5}
-#> echo: false
+#> echo:FALSE
 p10 <- df %>%
   group_by(cut) %>%
   summarise(avg_price = mean(price)) %>%
@@ -161,7 +161,7 @@ p10 | p11 | p12
 ```
 
 ```{r}
-#> echo: false
+#> echo:FALSE
 cor_df <- df %>%
   select(where(is.numeric)) %>%
   cor(use = "pairwise.complete.obs")
