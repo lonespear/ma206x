@@ -420,16 +420,14 @@ $$
 
 ## Random Variables, Expectation, and Variance
 
-::: {.definition}
-**Definition (Random Variable):**  
+::: {.callout-note title="Random Variable"}
 A *random variable* is a mapping that assigns a real number to every outcome in the sample space:  
 $$
 X: \Omega \rightarrow \mathbb{R}
 $$
 :::
 
-::: {.definition}
-**Definition (Cumulative Distribution Function):**  
+::: {.callout-note title="Cumulative Distribution Function"}
 A *cumulative distribution function (CDF)* is a function $F_X: \mathbb{R} \rightarrow [0,1]$ defined by:  
 $$
 F_X(x) = \mathbb{P}(X \le x)
@@ -438,25 +436,19 @@ $$
 
 ## Discrete Random Variables
 
-
-::: {.definition}
-**Definition (Discrete Random Variable):**  
-A *discrete random variable* is one that takes countably many values in $\mathbb{R}$.  
+::: {.callout-note title="Discrete Random Variables"}
+  
+A *discrete random variable* is a random variable that takes countably many values in $\mathbb{R}$.  
 Its *probability mass function* is given by:  
 $$
 f_X(x) = \mathbb{P}(X = x)
 $$
-:::
 
-::: {.definition}
-**Definition (Expectation):**  
 The *expected value* (mean) of a discrete random variable $X$ is:  
 $$
 \mathbb{E}[X] = \sum_x x \cdot \mathbb{P}(X = x)
 $$
-:::
 
-::: {.definition}
 **Definition (Variance):**  
 The *variance* of a discrete random variable $X$ is:  
 $$
@@ -519,6 +511,28 @@ Let $X \sim \text{Geometric}(p)$ be the number of trials until the first success
 
 ## Continuous Random Variables
 
+::: {.callout-note title="Continuous Random Variable"}
+
+A continuous random variable takes infinitely many values in $\mathbb{R}$.
+Its *probability density function* is given by:  
+$$
+f_X(x) = \mathbb{P}(X = x)
+$$
+
+***Note: We do not find probabilities with the pdf like the pmf of a discrete random variable. We integrate over a neighborhood of the support of X, as there is no probability mass at any single point for a continuous distribution.***
+
+The *expected value* (mean) of a continuous random variable $X$ is:  
+$$
+\mathbb{E}[X] = \int_{-\infty}^\infty x f_X(x)dx
+$$
+
+**Definition (Variance):**  
+The *variance* of a discrete random variable $X$ is:  
+$$
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f_X(x)dx = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+$$
+:::
+
 ### Central Limit Theorem (CLT)
 
 The **Central Limit Theorem (CLT)** is one of the most important results in statistics. It states that the sampling distribution of the sample mean $\bar{X}$ becomes approximately normal as the sample size $n$ increases, regardless of the shape of the population distribution (provided it has finite mean and variance).
@@ -531,7 +545,9 @@ $$
 
 This justifies the widespread use of the normal distribution to approximate sample means in practice.
 
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jvoxEYmQHNM?si=QtzJ5uqAiQQ4g9Yn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 *Credit: The New York Times*
 
 ---
@@ -684,7 +700,9 @@ Compute the relevant summary statistic. In this course you will either be calcul
 
 This step transforms your statistic so it can be treated as a random variable from a named distribution. For proportions this will be a Normal Random Variable, however if quantitative it will be a t-distributed random variable.
 
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/32CuxWdOlow?si=n77sKE80z6m3tadt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 *Credit: 365 Data Science*
 
 5. **Determine the p-value**.
@@ -818,7 +836,8 @@ A powerful test detects meaningful effects and minimizes Type II error. Power in
 
 ```{r}
 #| echo: false
-library(ggplot2)
+#| message: false
+#| warning: false
 
 x <- seq(-4, 6, length = 1000)
 null_dist <- dnorm(x, mean = 0, sd = 1)
@@ -866,7 +885,7 @@ Where $\hat{p}$ is the pooled proportion.
 
 ```{r}
 # Subset to just Premium and Good clarity levels
-df <- diamonds %>% filter(color %in% c("D", "E"))
+df <- diamonds %>% filter(color =="D" | color=="E")
 
 table(df$cut, df$color)
 
@@ -972,18 +991,35 @@ $$
 
 ### Simple Linear Regression
 
-We begin by modeling the relationship between two continuous variables. A **Simple Linear Regression** fits a line of best fit:
+The above metrics could be applied to any model, however the central method to assess a linear relationship between two quantitative variables is**Simple Linear Regression**, or better known as the line of best fit:
 
 $$
 \hat{y} = \beta_0 + \beta_1 x
 $$
 
-In this example, we model `price` as a function of `carat`.
+The $\beta$'s are the parameters of the model: the y-intercept and slope. The reason the method is the *best fit* is because we optimizes the choices for these two parameters by minimizing the **sum of squared error**:
+
+$$
+\begin{align}
+SSE &= \sum_{i=1}^n (\epsilon_i)^2 \\
+    &= \sum_{i=1}^n (y_i - \widehat{y}_i)^2 \\
+    &= \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2 \\
+\frac{\partial}{\partial \beta_0}SSE &= \frac{\partial}{\partial \beta_0} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+0 &= -2\sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i) \\
+\widehat{\beta}_0 &= \bar{y} - \widehat{\beta}_1 \bar{x} \\
+\frac{\partial}{\partial \beta_1}SSE &= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+ &= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - (\bar{y} - \widehat{\beta}_1 \bar{x}) - \widehat{\beta}_1x_i)^2 \\
+0 &= -2\sum_{i=1}^n (\bar{x} - x_i)(y_i - \bar{y} + \widehat{\beta}_1( \bar{x} - x_i)) \\
+\widehat{\beta}_1 \sum_{i=1}^n (x_i - \bar{x})^2 &= \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) \\
+\widehat{\beta}_1 &= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{\mathrm{Cov}(X,Y)}{\mathrm{Var}(X)}
+\end{align}
+$$
+
+The above is beyond the scope of this course, however it warrants a healthy appreciation for finding the line of best fit!
+
+In practice, from the `diamonds` dataset we could model `price` as a function of `carat`:
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-
 # Sample and fit model
 set.seed(206)
 df <- ggplot2::diamonds %>% sample_n(1000)
@@ -991,23 +1027,39 @@ lm_simple <- lm(price ~ carat, data = df)
 summary(lm_simple)
 ```
 
+There is a lot in the summary output, however the main ideas here lie in the magnitude and sign of the coefficient, looking for *practical significance*, and also looking at the size of the p-value relative to a chosen $\alpha$, checking for statistical significance.
+
+You may be wondering in a line of best fit, where did the p-value come from? Good question! In addition to finding the line of best fit, our linear model assesses the relevance of all parameters in the model. This assessment is a *one-sample t-test for every \beta*! If there is significance, then there is a significant assocation between the explanatory variable and the response.
+
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
 # Visualize
-ggplot(df, aes(x = carat, y = price)) +
+set.seed(1991)
+ggplot(diamonds %>% sample_n(1000), aes(x = carat, y = price, color=cut)) +
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm", color = "blue", se = FALSE) +
-  labs(title = "Simple Linear Regression: Price ~ Carat")
+  labs(title = "Simple Linear Regression: Price ~ Carat") + theme_minimal()
 ```
 
 ---
 
 ### Multiple Linear Regression
 
-When we include multiple predictors, we use **Multiple Linear Regression**:
+We can extend linear regression to in fact include as many predictor variables as we want (as long as we have more observations than variables!). This is implemented through **Multiple Linear Regression**:
 
 $$
-\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+\widehat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
 $$
+
+The derivation would be too lengthy to do them individually previously, however through *Matrix Algebra* (MA371 anyone?!), the solved vector of coefficients, $\widehat{\beta}_{p\times1}$ has the following solution:
+
+$$
+\widehat\beta_{p\times 1} = (X_{p\times n}^TX_{n \times p})^{-1}X_{p \times n}^T \vec{y}_{n \times 1}
+$$
+Observe the subscripts for the dimensions of the matrices, ending with a $p \times 1$ vector for the coefficients that minimize the SSE.
 
 Here, we use `carat`, `depth`, and `table` to predict `price`.
 
@@ -1044,13 +1096,11 @@ We want residuals to be roughly normally distributed and randomly scattered arou
 
 ### ANOVA
 
-### ANOVA
-
 **Analysis of Variance (ANOVA)** is a statistical method used to compare the means of **three or more groups** to determine if at least one of the group means is significantly different from the others.
 
 ---
 
-#### 🧠 Theoretical Foundation
+#### Theoretical Foundation
 
 ANOVA works by partitioning the **total variability** in the data into two components:
 - **Between-group variability**: how much the group means differ from the overall mean.
@@ -1075,14 +1125,11 @@ If the calculated **F-statistic** is large, and the **p-value** is small (typica
 
 ---
 
-### Example: Do Different Diamond Cuts Have Different Average Prices?
+#### Example: Do Different Diamond Cuts Have Different Average Prices?
 
 We'll use the `diamonds` dataset and compare the mean price across the five levels of the `cut` variable.
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-
 # Sample for speed
 set.seed(206)
 df <- diamonds %>% sample_n(1000)
@@ -1095,7 +1142,7 @@ df %>%
 
 ---
 
-### 🧪 Run ANOVA Test
+#### Run ANOVA Test
 
 ```{r}
 # One-way ANOVA: price ~ cut
@@ -1107,7 +1154,7 @@ This will output the **F-statistic** and **p-value**. A small p-value (e.g. < 0.
 
 ---
 
-### 📊 Visualize the Group Differences
+### Visualize the Group Differences
 
 ```{r}
 ggplot(df, aes(x = cut, y = price)) +
@@ -1133,7 +1180,7 @@ This test controls the family-wise error rate and gives pairwise confidence inte
 
 ---
 
-### ✅ Interpretation
+### Interpretation
 
 - If **p < 0.05** in the ANOVA, we conclude that **at least one cut** differs in mean price.
 - Use **TukeyHSD** to find out **which cuts** are significantly different.
