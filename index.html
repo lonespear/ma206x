@@ -237,12 +237,9 @@ window.Quarto = {
   <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
   <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of Fit</a></li>
   <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
-  <li><a href="#anova-1" id="toc-anova-1" class="nav-link" data-scroll-target="#anova-1">ANOVA</a></li>
-  <li><a href="#example-do-different-diamond-cuts-have-different-average-prices" id="toc-example-do-different-diamond-cuts-have-different-average-prices" class="nav-link" data-scroll-target="#example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</a></li>
-  <li><a href="#run-anova-test" id="toc-run-anova-test" class="nav-link" data-scroll-target="#run-anova-test">🧪 Run ANOVA Test</a></li>
-  <li><a href="#visualize-the-group-differences" id="toc-visualize-the-group-differences" class="nav-link" data-scroll-target="#visualize-the-group-differences">📊 Visualize the Group Differences</a></li>
+  <li><a href="#visualize-the-group-differences" id="toc-visualize-the-group-differences" class="nav-link" data-scroll-target="#visualize-the-group-differences">Visualize the Group Differences</a></li>
   <li><a href="#follow-up-which-cuts-are-different" id="toc-follow-up-which-cuts-are-different" class="nav-link" data-scroll-target="#follow-up-which-cuts-are-different">Follow-Up: Which Cuts Are Different?</a></li>
-  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">✅ Interpretation</a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -860,44 +857,66 @@ This is the trickiest scenario. The order doesn’t matter, and repetition is al
 <h1>BLOCK II: Univariate Inference</h1>
 <section id="random-variables-expectation-and-variance" class="level2">
 <h2 class="anchored" data-anchor-id="random-variables-expectation-and-variance">Random Variables, Expectation, and Variance</h2>
-<div class="definition">
-<p><strong>Definition (Random Variable):</strong><br>
-A <em>random variable</em> is a mapping that assigns a real number to every outcome in the sample space:<br>
+<div class="callout callout-style-default callout-note callout-titled" title="Random Variable">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Random Variable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <em>random variable</em> is a mapping that assigns a real number to every outcome in the sample space:<br>
 <span class="math display">\[
 X: \Omega \rightarrow \mathbb{R}
 \]</span></p>
 </div>
-<div class="definition">
-<p><strong>Definition (Cumulative Distribution Function):</strong><br>
-A <em>cumulative distribution function (CDF)</em> is a function <span class="math inline">\(F_X: \mathbb{R} \rightarrow [0,1]\)</span> defined by:<br>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Cumulative Distribution Function">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cumulative Distribution Function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <em>cumulative distribution function (CDF)</em> is a function <span class="math inline">\(F_X: \mathbb{R} \rightarrow [0,1]\)</span> defined by:<br>
 <span class="math display">\[
 F_X(x) = \mathbb{P}(X \le x)
 \]</span></p>
 </div>
+</div>
 </section>
 <section id="discrete-random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="discrete-random-variables">Discrete Random Variables</h2>
-<div class="definition">
-<p><strong>Definition (Discrete Random Variable):</strong><br>
-A <em>discrete random variable</em> is one that takes countably many values in <span class="math inline">\(\mathbb{R}\)</span>.<br>
+<div class="callout callout-style-default callout-note callout-titled" title="Discrete Random Variables">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Discrete Random Variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <em>discrete random variable</em> is a random variable that takes countably many values in <span class="math inline">\(\mathbb{R}\)</span>.<br>
 Its <em>probability mass function</em> is given by:<br>
 <span class="math display">\[
 f_X(x) = \mathbb{P}(X = x)
 \]</span></p>
-</div>
-<div class="definition">
-<p><strong>Definition (Expectation):</strong><br>
-The <em>expected value</em> (mean) of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
+<p>The <em>expected value</em> (mean) of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
 <span class="math display">\[
 \mathbb{E}[X] = \sum_x x \cdot \mathbb{P}(X = x)
 \]</span></p>
-</div>
-<div class="definition">
 <p><strong>Definition (Variance):</strong><br>
 The <em>variance</em> of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
 <span class="math display">\[
 \mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \sum_x (x - \mathbb{E}[X])^2 \cdot \mathbb{P}(X = x)
 \]</span></p>
+</div>
 </div>
 <section id="binomial-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="binomial-distribution">Binomial Distribution:</h3>
@@ -950,6 +969,32 @@ F_X(x) = \mathbb{P}(X \le x) = 1 - (1 - p)^{\lfloor x \rfloor}
 </section>
 <section id="continuous-random-variables" class="level2">
 <h2 class="anchored" data-anchor-id="continuous-random-variables">Continuous Random Variables</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Continuous Random Variable">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Continuous Random Variable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A continuous random variable takes infinitely many values in <span class="math inline">\(\mathbb{R}\)</span>. Its <em>probability density function</em> is given by:<br>
+<span class="math display">\[
+f_X(x) = \mathbb{P}(X = x)
+\]</span></p>
+<p><strong><em>Note: We do not find probabilities with the pdf like the pmf of a discrete random variable. We integrate over a neighborhood of the support of X, as there is no probability mass at any single point for a continuous distribution.</em></strong></p>
+<p>The <em>expected value</em> (mean) of a continuous random variable <span class="math inline">\(X\)</span> is:<br>
+<span class="math display">\[
+\mathbb{E}[X] = \int_{-\infty}^\infty x f_X(x)dx
+\]</span></p>
+<p><strong>Definition (Variance):</strong><br>
+The <em>variance</em> of a discrete random variable <span class="math inline">\(X\)</span> is:<br>
+<span class="math display">\[
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f_X(x)dx = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+\]</span></p>
+</div>
+</div>
 <section id="central-limit-theorem-clt" class="level3">
 <h3 class="anchored" data-anchor-id="central-limit-theorem-clt">Central Limit Theorem (CLT)</h3>
 <p>The <strong>Central Limit Theorem (CLT)</strong> is one of the most important results in statistics. It states that the sampling distribution of the sample mean <span class="math inline">\(\bar{X}\)</span> becomes approximately normal as the sample size <span class="math inline">\(n\)</span> increases, regardless of the shape of the population distribution (provided it has finite mean and variance).</p>
@@ -958,8 +1003,10 @@ F_X(x) = \mathbb{P}(X \le x) = 1 - (1 - p)^{\lfloor x \rfloor}
 \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1) \quad \text{as } n \to \infty
 \]</span></p>
 <p>This justifies the widespread use of the normal distribution to approximate sample means in practice.</p>
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/jvoxEYmQHNM?si=QtzJ5uqAiQQ4g9Yn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
 </iframe>
+</div>
 <p><em>Credit: The New York Times</em></p>
 <hr>
 </section>
@@ -1098,8 +1145,10 @@ H_A: Parameter &amp;\neq Value \ in \ Question
 <li><strong>Standardize the test statistic</strong>.</li>
 </ol>
 <p>This step transforms your statistic so it can be treated as a random variable from a named distribution. For proportions this will be a Normal Random Variable, however if quantitative it will be a t-distributed random variable.</p>
+<div style="text-align: center;">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/32CuxWdOlow?si=n77sKE80z6m3tadt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
 </iframe>
+</div>
 <p><em>Credit: 365 Data Science</em></p>
 <ol start="5" type="1">
 <li><strong>Determine the p-value</strong>.</li>
@@ -1225,7 +1274,7 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1}
 <h4 class="anchored" data-anchor-id="example-are-ideal-cuts-more-common-among-premium-vs.-good-color-grades">Example: Are “Ideal” cuts more common among Premium vs.&nbsp;Good color grades?</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just Premium and Good clarity levels</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(color <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"D"</span>, <span class="st">"E"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(color <span class="sc">==</span><span class="st">"D"</span> <span class="sc">|</span> color<span class="sc">==</span><span class="st">"E"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>cut, df<span class="sc">$</span>color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1366,20 +1415,34 @@ MSE = \frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2
 </section>
 <section id="simple-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression</h3>
-<p>We begin by modeling the relationship between two continuous variables. A <strong>Simple Linear Regression</strong> fits a line of best fit:</p>
+<p>The above metrics could be applied to any model, however the central method to assess a linear relationship between two quantitative variables is<strong>Simple Linear Regression</strong>, or better known as the line of best fit:</p>
 <p><span class="math display">\[
 \hat{y} = \beta_0 + \beta_1 x
 \]</span></p>
-<p>In this example, we model <code>price</code> as a function of <code>carat</code>.</p>
+<p>The <span class="math inline">\(\beta\)</span>’s are the parameters of the model: the y-intercept and slope. The reason the method is the <em>best fit</em> is because we optimizes the choices for these two parameters by minimizing the <strong>sum of squared error</strong>:</p>
+<p><span class="math display">\[
+\begin{align}
+SSE &amp;= \sum_{i=1}^n (\epsilon_i)^2 \\
+    &amp;= \sum_{i=1}^n (y_i - \widehat{y}_i)^2 \\
+    &amp;= \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2 \\
+\frac{\partial}{\partial \beta_0}SSE &amp;= \frac{\partial}{\partial \beta_0} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+0 &amp;= -2\sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i) \\
+\widehat{\beta}_0 &amp;= \bar{y} - \widehat{\beta}_1 \bar{x} \\
+\frac{\partial}{\partial \beta_1}SSE &amp;= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+&amp;= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - (\bar{y} - \widehat{\beta}_1 \bar{x}) - \widehat{\beta}_1x_i)^2 \\
+0 &amp;= -2\sum_{i=1}^n (\bar{x} - x_i)(y_i - \bar{y} + \widehat{\beta}_1( \bar{x} - x_i)) \\
+\widehat{\beta}_1 \sum_{i=1}^n (x_i - \bar{x})^2 &amp;= \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) \\
+\widehat{\beta}_1 &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{\mathrm{Cov}(X,Y)}{\mathrm{Var}(X)}
+\end{align}
+\]</span></p>
+<p>The above is beyond the scope of this course, however it warrants a healthy appreciation for finding the line of best fit!</p>
+<p>In practice, from the <code>diamonds</code> dataset we could model <code>price</code> as a function of <code>carat</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample and fit model</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>lm_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat, <span class="at">data =</span> df)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample and fit model</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>lm_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat, <span class="at">data =</span> df)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1401,15 +1464,9 @@ Multiple R-squared:  0.8632,    Adjusted R-squared:  0.8631
 F-statistic:  6297 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<p>There is a lot in the summary output, however the main ideas here lie in the magnitude and sign of the coefficient, looking for <em>practical significance</em>, and also looking at the size of the p-value relative to a chosen <span class="math inline">\(\alpha\)</span>, checking for statistical significance.</p>
+<p>You may be wondering in a line of best fit, where did the p-value come from? Good question! In addition to finding the line of best fit, our linear model assesses the relevance of all parameters in the model. This assessment is a *one-sample t-test for every ! If there is significance, then there is a significant assocation between the explanatory variable and the response.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simple Linear Regression: Price ~ Carat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1422,14 +1479,18 @@ F-statistic:  6297 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="multiple-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression</h3>
-<p>When we include multiple predictors, we use <strong>Multiple Linear Regression</strong>:</p>
+<p>We can extend linear regression to in fact include as many predictor variables as we want (as long as we have more observations than variables!). This is implemented through <strong>Multiple Linear Regression</strong>:</p>
 <p><span class="math display">\[
-\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+\widehat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
 \]</span></p>
+<p>The derivation would be too lengthy to do them individually previously, however through <em>Matrix Algebra</em> (MA371 anyone?!), the solved vector of coefficients, <span class="math inline">\(\widehat{\beta}_{p\times1}\)</span> has the following solution:</p>
+<p><span class="math display">\[
+\widehat\beta_{p\times 1} = (X_{p\times n}^TX_{n \times p})^{-1}X_{p \times n}^T \vec{y}_{n \times 1}
+\]</span> Observe the subscripts for the dimensions of the matrices, ending with a <span class="math inline">\(p \times 1\)</span> vector for the coefficients that minimize the SSE.</p>
 <p>Here, we use <code>carat</code>, <code>depth</code>, and <code>table</code> to predict <code>price</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lm_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">+</span> depth <span class="sc">+</span> table, <span class="at">data =</span> df)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_multi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lm_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">+</span> depth <span class="sc">+</span> table, <span class="at">data =</span> df)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_multi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1466,8 +1527,8 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><strong>Residual Plots</strong>: Visual diagnostics to assess assumptions.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_multi, <span class="at">which =</span> <span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_multi, <span class="at">which =</span> <span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1477,9 +1538,9 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(lm_multi)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">main =</span> <span class="st">"Histogram of Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(lm_multi)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">main =</span> <span class="st">"Histogram of Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1492,13 +1553,10 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 <section id="anova" class="level3">
 <h3 class="anchored" data-anchor-id="anova">ANOVA</h3>
-</section>
-<section id="anova-1" class="level3">
-<h3 class="anchored" data-anchor-id="anova-1">ANOVA</h3>
 <p><strong>Analysis of Variance (ANOVA)</strong> is a statistical method used to compare the means of <strong>three or more groups</strong> to determine if at least one of the group means is significantly different from the others.</p>
 <hr>
 <section id="theoretical-foundation" class="level4">
-<h4 class="anchored" data-anchor-id="theoretical-foundation">🧠 Theoretical Foundation</h4>
+<h4 class="anchored" data-anchor-id="theoretical-foundation">Theoretical Foundation</h4>
 <p>ANOVA works by partitioning the <strong>total variability</strong> in the data into two components: - <strong>Between-group variability</strong>: how much the group means differ from the overall mean. - <strong>Within-group variability</strong>: how much individual observations vary within each group.</p>
 <p>The core idea is that if the <strong>between-group variability</strong> is large relative to the <strong>within-group variability</strong>, then at least one group mean is likely different.</p>
 <p>[ F = = ]</p>
@@ -1510,22 +1568,18 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <hr>
 </section>
-</section>
-<section id="example-do-different-diamond-cuts-have-different-average-prices" class="level3">
-<h3 class="anchored" data-anchor-id="example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</h3>
+<section id="example-do-different-diamond-cuts-have-different-average-prices" class="level4">
+<h4 class="anchored" data-anchor-id="example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</h4>
 <p>We’ll use the <code>diamonds</code> dataset and compare the mean price across the five levels of the <code>cut</code> variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample for speed</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics by cut</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(price), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample for speed</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics by cut</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(price), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   cut       mean_price     n
@@ -1539,12 +1593,12 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <hr>
 </section>
-<section id="run-anova-test" class="level3">
-<h3 class="anchored" data-anchor-id="run-anova-test">🧪 Run ANOVA Test</h3>
+<section id="run-anova-test" class="level4">
+<h4 class="anchored" data-anchor-id="run-anova-test">Run ANOVA Test</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA: price ~ cut</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA: price ~ cut</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df    Sum Sq  Mean Sq F value Pr(&gt;F)  
 cut           4 1.996e+08 49901236   3.065  0.016 *
@@ -1556,14 +1610,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>This will output the <strong>F-statistic</strong> and <strong>p-value</strong>. A small p-value (e.g.&nbsp;&lt; 0.05) suggests that at least one cut has a significantly different mean price.</p>
 <hr>
 </section>
+</section>
 <section id="visualize-the-group-differences" class="level3">
-<h3 class="anchored" data-anchor-id="visualize-the-group-differences">📊 Visualize the Group Differences</h3>
+<h3 class="anchored" data-anchor-id="visualize-the-group-differences">Visualize the Group Differences</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Diamond Price by Cut"</span>,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cut"</span>, <span class="at">y =</span> <span class="st">"Price ($)"</span>) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Diamond Price by Cut"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cut"</span>, <span class="at">y =</span> <span class="st">"Price ($)"</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1579,7 +1634,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="follow-up-which-cuts-are-different">Follow-Up: Which Cuts Are Different?</h3>
 <p>If the ANOVA result is significant, we can follow up with a <strong>Tukey HSD test</strong> to identify which group pairs differ.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -1604,7 +1659,7 @@ Ideal-Premium     -764.78408 -1630.9331  101.36495 0.1126355</code></pre>
 <hr>
 </section>
 <section id="interpretation-1" class="level3">
-<h3 class="anchored" data-anchor-id="interpretation-1">✅ Interpretation</h3>
+<h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
 <ul>
 <li>If <strong>p &lt; 0.05</strong> in the ANOVA, we conclude that <strong>at least one cut</strong> differs in mean price.</li>
 <li>Use <strong>TukeyHSD</strong> to find out <strong>which cuts</strong> are significantly different.</li>
