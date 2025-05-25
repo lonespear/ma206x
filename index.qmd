@@ -31,6 +31,7 @@ Of note, some of the functions we use in R require the package *tidyverse*, ever
 library(tidyverse)
 library(tidyr)
 library(patchwork)
+library(kableExtra)
 ```
 
 # BLOCK I: Data and Randomness
@@ -50,7 +51,10 @@ As an example let us look at a dataset aggregated from over 50,000 diamonds:
 set.seed(1991)
 data(diamonds)
 df <- diamonds %>% sample_n(size=1000)
-df %>% head
+df %>% head %>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
 ```
 Each of the rows is an individual diamond, generally called an observation. Each of the columns are unique aspects measured for every observation, called variables. Variables are either categorical, qualitative aspects of each measurement, or quantitative, a numbered entry.
 
@@ -84,7 +88,7 @@ Similar to a histogram, a boxplot will tell us exactly where the median, 1st and
 
 ```{r, echo=FALSE}
  #| echo: false
-df_summary <- df %>%
+df %>%
   summarise(across(where(is.numeric), list(
     Mean = ~mean(.x, na.rm = TRUE),
     Median = ~median(.x, na.rm = TRUE),
@@ -92,11 +96,12 @@ df_summary <- df %>%
     Var = ~var(.x, na.rm = TRUE),
     Min = ~min(.x, na.rm = TRUE),
     Max = ~max(.x, na.rm = TRUE)
-  ), .names = "{.col}_{.fn}")) %>%
+  ), .names = "{.col}_{.fn}")) %>% round(2) %>%
   pivot_longer(everything(), names_to = c("Variable", "stat"), names_sep = "_") %>%
-  pivot_wider(names_from = stat, values_from = value)
-
-print(df_summary)
+  pivot_wider(names_from = stat, values_from = value)%>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
 ```
 The above are the predominant statistics you want to discern for every quantitative variable in your dataset. The benchmark *location* statistics are the mean, median, max, and min, while the standard deviation and variance are measures of how *spread* out the data are relative to one another.
 
@@ -162,11 +167,14 @@ p10 | p11 | p12
 
 ```{r, echo=FALSE}
  #| echo: false
-cor_df <- df %>%
+df %>%
+  select(-x, -y, -z) %>%
   select(where(is.numeric)) %>%
-  cor(use = "pairwise.complete.obs")
-
-print(cor_df)
+  cor(use = "pairwise.complete.obs") %>%
+  round(2) %>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
 ```
 Correlation is the only multivariate summary statistic we will be using in this course, used to describe how two variables tend to move in tandem with one another. A perfect linear association evokes a correlation of 1, the opposite being a perfect negative association with a correlation of -1. No association is implied by a correlation near 0. 
 
@@ -208,7 +216,7 @@ $$
 
 ### Probability Measure ($\mathbb{P}$)
 
-A **probability measure** is a rule, denoted $\mathbb{P}$, that assigns a number between 0 and 1 to every event in a collection of events (called a **sigma-algebra**, denoted \mathcal{F} ). These probabilities must follow three key rules, known as the **axioms of probability**.
+A **probability measure** is a rule, denoted $\mathbb{P}$, that assigns a number between 0 and 1 to every event in a collection of events (called a **sigma-algebra**, denoted $\mathcal{F}$ ). These probabilities must follow three key rules, known as the **axioms of probability**.
 
 ------------------------------------------------------------------------
 
@@ -249,15 +257,15 @@ These three rules form the mathematical foundation of all probability calculatio
 
 ------------------------------------------------------------------------
 
-::: {.callout-note title="Axioms of Probability"}
+::: {.callout-note title="Set Theory"}
 
--   The **complement** of an event ( A ), written ( A\^c ), consists of all outcomes in ( \Omega ) that are not in ( A ):
+-   The **complement** of an event $A$, written $A^c$, consists of all outcomes in $\Omega$ that are not in $A$:
 
 $$
 \mathbb{P}(A) + \mathbb{P}(A^c) = 1
 $$
 
--   The **intersection** $ A \cap B $ consists of outcomes where both $A$ and $B$ occur.
+-   The **intersection** $A \cap B$ consists of outcomes where both $A$ and $B$ occur.
 
 -   The **union** $A \cup B$ consists of outcomes where either $A$, $B$, or both occur:
 
@@ -275,7 +283,7 @@ $$
 
 ### Conditional Probability
 
-For events $A$ and $B$ with $0 < P(B) \le 1 $, the **conditional probability** of $A$ given $B$ is:
+For events $A$ and $B$ with $0 < P(B) \le 1$, the **conditional probability** of $A$ given $B$ is:
 
 $$
 P(A \mid B) = \frac{P(A \cap B)}{P(B)}
@@ -289,12 +297,13 @@ Find $P(A)$, $P(B)$, and $P(A \mid B)$.
 
 ### Law of Total Probability
 
-> **Definition:**\
-> If $E_1, \dots, E_n$ is a partition of the sample space (mutually exclusive and exhaustive), then for any event $A$:
+::: {.callout-note title="LoTP"}
+If $E_1, \dots, E_n$ is a partition of the sample space (mutually exclusive and exhaustive), then for any event $A$:
 
 $$
 P(A) = \sum_{i=1}^{n} P(E_i) P(A \mid E_i)
 $$
+:::
 
 **Example:**\
 A fair die is rolled. Let event A: "an even number is rolled".\
@@ -311,12 +320,14 @@ Find:\
 
 ### Bayes' Theorem
 
+::: {.callout-note title="Switching the Conditioning of Events"}
 > **Definition:**\
 > If $E_1, \dots, E_n$ is a partition of the sample space and $P(A) > 0$, then:
 
 $$
 P(E_k \mid A) = \frac{P(A \mid E_k) P(E_k)}{\sum_{i=1}^n P(A \mid E_i) P(E_i)}
 $$
+:::
 
 **Example:**\
 Two urns:\
