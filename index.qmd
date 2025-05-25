@@ -852,8 +852,6 @@ This diagram shows:
 
 ## Two Sample Hypothesis Testing
 
----
-
 ### Difference of Proportions
 
 We compare two population proportions to determine whether there is a significant difference between them. The test statistic is:
@@ -950,10 +948,196 @@ This tests whether the mean price before and after a simulated discount differs 
 
 ## Regression
 
-### Simple Linear Regression\
+\say{All models are wrong, but some are useful. -George E.P. Box}
 
-### Multiple Linear Regression\
+In this section we continue our multivariate inference with creating models for the purpose of identifying significance between *explanatory* (predictor) variables and the *response*. The function used to create the model, $\hat{y_i}=f(x_i)$ will make predictions, known as *fitted values*. Do to the variability in the data, these fitted values will not exactly predict the response (ie. $y_i \neq \hat{y}$) for all values in the response. These errors are the deviations from the response and the fitted values and are referred as *residuals*, with notation $\epsilon_i = y_i - \hat{y}_i$.
+
+To assess how well a model performs, the residuals are summarized in a few different methods:
+
+#### Mean Absolute Deviation
+
+The average magnitude of the residuals:
+
+$$
+MAD = \frac{1}{n}\sum_{i=1}^n |y_i - \hat{y}_i|
+$$
+
+#### Mean Squared Error:
+
+The average magnitude of the residual-squared.
+
+$$
+MSE = \frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2
+$$
+
+### Simple Linear Regression
+
+We begin by modeling the relationship between two continuous variables. A **Simple Linear Regression** fits a line of best fit:
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+In this example, we model `price` as a function of `carat`.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Sample and fit model
+set.seed(206)
+df <- ggplot2::diamonds %>% sample_n(1000)
+lm_simple <- lm(price ~ carat, data = df)
+summary(lm_simple)
+```
+
+```{r}
+# Visualize
+ggplot(df, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  labs(title = "Simple Linear Regression: Price ~ Carat")
+```
+
+---
+
+### Multiple Linear Regression
+
+When we include multiple predictors, we use **Multiple Linear Regression**:
+
+$$
+\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+$$
+
+Here, we use `carat`, `depth`, and `table` to predict `price`.
+
+```{r}
+lm_multi <- lm(price ~ carat + depth + table, data = df)
+summary(lm_multi)
+```
+
+You can compare $R^2$ values and p-values to determine whether the additional variables meaningfully improve the model.
+
+---
 
 ### Goodness of Fit
 
+We use several metrics to assess the quality of a regression model:
+
+- **$R^2$**: Proportion of variance in the response explained by the predictors.
+- **Residual Standard Error (RSE)**: Average size of the residuals.
+- **F-statistic**: Overall significance of the regression.
+- **Residual Plots**: Visual diagnostics to assess assumptions.
+
+```{r}
+# Residual plot
+plot(lm_multi, which = 1)  # Residuals vs Fitted
+```
+
+```{r}
+# Histogram of residuals
+residuals <- resid(lm_multi)
+hist(residuals, breaks = 30, col = "lightblue", main = "Histogram of Residuals", xlab = "Residual")
+```
+
+We want residuals to be roughly normally distributed and randomly scattered around zero to satisfy assumptions of linear regression.
+
 ### ANOVA
+
+### ANOVA
+
+**Analysis of Variance (ANOVA)** is a statistical method used to compare the means of **three or more groups** to determine if at least one of the group means is significantly different from the others.
+
+---
+
+#### 🧠 Theoretical Foundation
+
+ANOVA works by partitioning the **total variability** in the data into two components:
+- **Between-group variability**: how much the group means differ from the overall mean.
+- **Within-group variability**: how much individual observations vary within each group.
+
+The core idea is that if the **between-group variability** is large relative to the **within-group variability**, then at least one group mean is likely different.
+
+\[
+F = \frac{\text{Mean Square Between (MSB)}}{\text{Mean Square Within (MSW)}} = \frac{SSB / (k - 1)}{SSW / (n - k)}
+\]
+
+Where:
+- \( SSB \) = Sum of Squares Between
+- \( SSW \) = Sum of Squares Within
+- \( k \) = number of groups
+- \( n \) = total number of observations
+
+If the calculated **F-statistic** is large, and the **p-value** is small (typically < 0.05), we reject the null hypothesis:
+
+- \( H_0: \mu_1 = \mu_2 = \cdots = \mu_k \) (all group means are equal)
+- \( H_A: \) At least one group mean is different
+
+---
+
+### Example: Do Different Diamond Cuts Have Different Average Prices?
+
+We'll use the `diamonds` dataset and compare the mean price across the five levels of the `cut` variable.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Sample for speed
+set.seed(206)
+df <- diamonds %>% sample_n(1000)
+
+# Summary statistics by cut
+df %>%
+  group_by(cut) %>%
+  summarise(mean_price = mean(price), n = n())
+```
+
+---
+
+### 🧪 Run ANOVA Test
+
+```{r}
+# One-way ANOVA: price ~ cut
+anova_model <- aov(price ~ cut, data = df)
+summary(anova_model)
+```
+
+This will output the **F-statistic** and **p-value**. A small p-value (e.g. < 0.05) suggests that at least one cut has a significantly different mean price.
+
+---
+
+### 📊 Visualize the Group Differences
+
+```{r}
+ggplot(df, aes(x = cut, y = price)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Boxplot of Diamond Price by Cut",
+       x = "Cut", y = "Price ($)") +
+  theme_minimal()
+```
+
+Boxplots help visualize both the median and spread of price within each cut level.
+
+---
+
+### Follow-Up: Which Cuts Are Different?
+
+If the ANOVA result is significant, we can follow up with a **Tukey HSD test** to identify which group pairs differ.
+
+```{r}
+TukeyHSD(anova_model)
+```
+
+This test controls the family-wise error rate and gives pairwise confidence intervals and p-values.
+
+---
+
+### ✅ Interpretation
+
+- If **p < 0.05** in the ANOVA, we conclude that **at least one cut** differs in mean price.
+- Use **TukeyHSD** to find out **which cuts** are significantly different.
+- ANOVA assumes:
+  - Independent observations
+  - Normally distributed residuals
+  - Equal variances across groups (can check with Levene's test)
