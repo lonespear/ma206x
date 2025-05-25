@@ -103,6 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -307,7 +311,14 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+
+Attaching package: 'kableExtra'
+
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
 </div>
 </div>
 <section id="block-i-data-and-randomness" class="level1">
@@ -319,16 +330,97 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 <p>Finally, we explore the concept of bias in data collection. We identify common sources such as selection bias, response bias, and measurement bias, and discuss how poor sampling practices or flawed survey design can distort findings. This lesson sets the stage for the rest of the course by highlighting the importance of thoughtful data collection and critical evaluation of data sources.</p>
 <p>As an example let us look at a dataset aggregated from over 50,000 diamonds:</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 10
-  carat cut       color clarity depth table price     x     y     z
-  &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1  1.02 Good      G     VS2      63.8  59    6080  6.34  6.27  4.02
-2  0.31 Ideal     F     VVS1     61.9  53.5   882  4.36  4.39  2.71
-3  0.6  Premium   D     SI2      61.3  61    1428  5.46  5.4   3.33
-4  0.41 Ideal     E     IF       62.1  54    1419  4.75  4.81  2.97
-5  0.72 Very Good H     VS1      62.2  54    2877  5.74  5.76  3.57
-6  1.2  Ideal     F     VS2      62.6  56    8486  6.78  6.73  4.23</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-bordered caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">carat</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">cut</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">color</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">clarity</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">depth</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">table</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">price</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">x</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">y</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">z</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1.02</td>
+<td style="text-align: center;">Good</td>
+<td style="text-align: center;">G</td>
+<td style="text-align: center;">VS2</td>
+<td style="text-align: center;">63.8</td>
+<td style="text-align: center;">59.0</td>
+<td style="text-align: center;">6080</td>
+<td style="text-align: center;">6.34</td>
+<td style="text-align: center;">6.27</td>
+<td style="text-align: center;">4.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.31</td>
+<td style="text-align: center;">Ideal</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">VVS1</td>
+<td style="text-align: center;">61.9</td>
+<td style="text-align: center;">53.5</td>
+<td style="text-align: center;">882</td>
+<td style="text-align: center;">4.36</td>
+<td style="text-align: center;">4.39</td>
+<td style="text-align: center;">2.71</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">Premium</td>
+<td style="text-align: center;">D</td>
+<td style="text-align: center;">SI2</td>
+<td style="text-align: center;">61.3</td>
+<td style="text-align: center;">61.0</td>
+<td style="text-align: center;">1428</td>
+<td style="text-align: center;">5.46</td>
+<td style="text-align: center;">5.40</td>
+<td style="text-align: center;">3.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.41</td>
+<td style="text-align: center;">Ideal</td>
+<td style="text-align: center;">E</td>
+<td style="text-align: center;">IF</td>
+<td style="text-align: center;">62.1</td>
+<td style="text-align: center;">54.0</td>
+<td style="text-align: center;">1419</td>
+<td style="text-align: center;">4.75</td>
+<td style="text-align: center;">4.81</td>
+<td style="text-align: center;">2.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.72</td>
+<td style="text-align: center;">Very Good</td>
+<td style="text-align: center;">H</td>
+<td style="text-align: center;">VS1</td>
+<td style="text-align: center;">62.2</td>
+<td style="text-align: center;">54.0</td>
+<td style="text-align: center;">2877</td>
+<td style="text-align: center;">5.74</td>
+<td style="text-align: center;">5.76</td>
+<td style="text-align: center;">3.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1.20</td>
+<td style="text-align: center;">Ideal</td>
+<td style="text-align: center;">F</td>
+<td style="text-align: center;">VS2</td>
+<td style="text-align: center;">62.6</td>
+<td style="text-align: center;">56.0</td>
+<td style="text-align: center;">8486</td>
+<td style="text-align: center;">6.78</td>
+<td style="text-align: center;">6.73</td>
+<td style="text-align: center;">4.23</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Each of the rows is an individual diamond, generally called an observation. Each of the columns are unique aspects measured for every observation, called variables. Variables are either categorical, qualitative aspects of each measurement, or quantitative, a numbered entry.</p>
@@ -360,17 +452,85 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 <p>Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The ‘whiskers’ are determined by <span class="math inline">\(1.5 \times IQR\)</span> where the inter-quartile range is the <span class="math inline">\(3rd - 1st\)</span> quartiles.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 7
-  Variable     Mean  Median       SD          Var    Min      Max
-  &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-1 carat       0.790    0.7     0.462        0.213   0.23     3.24
-2 depth      61.8     61.9     1.40         1.97   56.3     68.9 
-3 table      57.5     57       2.26         5.11   50       66   
-4 price    3874.    2387    3913.    15308046.    337    18692   
-5 x           5.72     5.68    1.10         1.21    3.88     9.44
-6 y           5.72     5.68    1.09         1.20    3.9      9.4 
-7 z           3.53     3.52    0.677        0.458   2.39     5.85</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-bordered caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Variable</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Mean</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Median</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">SD</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Var</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Min</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">carat</td>
+<td style="text-align: center;">0.79</td>
+<td style="text-align: center;">0.70</td>
+<td style="text-align: center;">0.46</td>
+<td style="text-align: center;">0.21</td>
+<td style="text-align: center;">0.23</td>
+<td style="text-align: center;">3.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">depth</td>
+<td style="text-align: center;">61.77</td>
+<td style="text-align: center;">61.90</td>
+<td style="text-align: center;">1.40</td>
+<td style="text-align: center;">1.97</td>
+<td style="text-align: center;">56.30</td>
+<td style="text-align: center;">68.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">table</td>
+<td style="text-align: center;">57.48</td>
+<td style="text-align: center;">57.00</td>
+<td style="text-align: center;">2.26</td>
+<td style="text-align: center;">5.11</td>
+<td style="text-align: center;">50.00</td>
+<td style="text-align: center;">66.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">price</td>
+<td style="text-align: center;">3873.55</td>
+<td style="text-align: center;">2387.00</td>
+<td style="text-align: center;">3912.55</td>
+<td style="text-align: center;">15308046.06</td>
+<td style="text-align: center;">337.00</td>
+<td style="text-align: center;">18692.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">5.72</td>
+<td style="text-align: center;">5.68</td>
+<td style="text-align: center;">1.10</td>
+<td style="text-align: center;">1.21</td>
+<td style="text-align: center;">3.88</td>
+<td style="text-align: center;">9.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">y</td>
+<td style="text-align: center;">5.72</td>
+<td style="text-align: center;">5.68</td>
+<td style="text-align: center;">1.09</td>
+<td style="text-align: center;">1.20</td>
+<td style="text-align: center;">3.90</td>
+<td style="text-align: center;">9.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">z</td>
+<td style="text-align: center;">3.53</td>
+<td style="text-align: center;">3.52</td>
+<td style="text-align: center;">0.68</td>
+<td style="text-align: center;">0.46</td>
+<td style="text-align: center;">2.39</td>
+<td style="text-align: center;">5.85</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The above are the predominant statistics you want to discern for every quantitative variable in your dataset. The benchmark <em>location</em> statistics are the mean, median, max, and min, while the standard deviation and variance are measures of how <em>spread</em> out the data are relative to one another.</p>
@@ -405,23 +565,48 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>             carat        depth      table       price          x           y
-carat  1.000000000 -0.003309893  0.2218141  0.91021728  0.9771650  0.97682747
-depth -0.003309893  1.000000000 -0.3160834 -0.02418736 -0.0637861 -0.06707873
-table  0.221814133 -0.316083433  1.0000000  0.16644576  0.2396640  0.23527498
-price  0.910217282 -0.024187362  0.1664458  1.00000000  0.8763495  0.87899268
-x      0.977165035 -0.063786104  0.2396640  0.87634955  1.0000000  0.99885498
-y      0.976827473 -0.067078728  0.2352750  0.87899268  0.9988550  1.00000000
-z      0.976811196  0.058609118  0.1951975  0.87535333  0.9913793  0.99109238
-               z
-carat 0.97681120
-depth 0.05860912
-table 0.19519747
-price 0.87535333
-x     0.99137925
-y     0.99109238
-z     1.00000000</code></pre>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-bordered caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">carat</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">depth</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">table</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;">price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">carat</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">0.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">depth</td>
+<td style="text-align: center;">0.00</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">-0.32</td>
+<td style="text-align: center;">-0.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">table</td>
+<td style="text-align: center;">0.22</td>
+<td style="text-align: center;">-0.32</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">price</td>
+<td style="text-align: center;">0.91</td>
+<td style="text-align: center;">-0.02</td>
+<td style="text-align: center;">0.17</td>
+<td style="text-align: center;">1.00</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Correlation is the only multivariate summary statistic we will be using in this course, used to describe how two variables tend to move in tandem with one another. A perfect linear association evokes a correlation of 1, the opposite being a perfect negative association with a correlation of -1. No association is implied by a correlation near 0.</p>
@@ -459,7 +644,7 @@ r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i - \bar{x}
 </section>
 <section id="probability-measure-mathbbp" class="level3">
 <h3 class="anchored" data-anchor-id="probability-measure-mathbbp">Probability Measure (<span class="math inline">\(\mathbb{P}\)</span>)</h3>
-<p>A <strong>probability measure</strong> is a rule, denoted <span class="math inline">\(\mathbb{P}\)</span>, that assigns a number between 0 and 1 to every event in a collection of events (called a <strong>sigma-algebra</strong>, denoted ). These probabilities must follow three key rules, known as the <strong>axioms of probability</strong>.</p>
+<p>A <strong>probability measure</strong> is a rule, denoted <span class="math inline">\(\mathbb{P}\)</span>, that assigns a number between 0 and 1 to every event in a collection of events (called a <strong>sigma-algebra</strong>, denoted <span class="math inline">\(\mathcal{F}\)</span> ). These probabilities must follow three key rules, known as the <strong>axioms of probability</strong>.</p>
 <hr>
 <div class="callout callout-style-default callout-note callout-titled" title="Axioms of Probability">
 <div class="callout-header d-flex align-content-center">
@@ -504,24 +689,24 @@ Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</spa
 </ul>
 <p>These three rules form the mathematical foundation of all probability calculations — everything else builds on them.</p>
 <hr>
-<div class="callout callout-style-default callout-note callout-titled" title="Axioms of Probability">
+<div class="callout callout-style-default callout-note callout-titled" title="Set Theory">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Axioms of Probability
+Set Theory
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>The <strong>complement</strong> of an event ( A ), written ( A^c ), consists of all outcomes in ( ) that are not in ( A ):</li>
+<li>The <strong>complement</strong> of an event <span class="math inline">\(A\)</span>, written <span class="math inline">\(A^c\)</span>, consists of all outcomes in <span class="math inline">\(\Omega\)</span> that are not in <span class="math inline">\(A\)</span>:</li>
 </ul>
 <p><span class="math display">\[
 \mathbb{P}(A) + \mathbb{P}(A^c) = 1
 \]</span></p>
 <ul>
-<li><p>The <strong>intersection</strong> $ A B $ consists of outcomes where both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occur.</p></li>
+<li><p>The <strong>intersection</strong> <span class="math inline">\(A \cap B\)</span> consists of outcomes where both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occur.</p></li>
 <li><p>The <strong>union</strong> <span class="math inline">\(A \cup B\)</span> consists of outcomes where either <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, or both occur:</p></li>
 </ul>
 <p><span class="math display">\[
@@ -538,7 +723,7 @@ A \cap B = \varnothing \quad \text{and} \quad \mathbb{P}(A \cap B) = 0
 </section>
 <section id="conditional-probability" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-probability">Conditional Probability</h3>
-<p>For events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with $0 &lt; P(B) $, the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span> is:</p>
+<p>For events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with <span class="math inline">\(0 &lt; P(B) \le 1\)</span>, the <strong>conditional probability</strong> of <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span> is:</p>
 <p><span class="math display">\[
 P(A \mid B) = \frac{P(A \cap B)}{P(B)}
 \]</span></p>
@@ -549,13 +734,22 @@ Find <span class="math inline">\(P(A)\)</span>, <span class="math inline">\(P(B)
 </section>
 <section id="law-of-total-probability" class="level3">
 <h3 class="anchored" data-anchor-id="law-of-total-probability">Law of Total Probability</h3>
-<blockquote class="blockquote">
-<p><strong>Definition:</strong><br>
-If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sample space (mutually exclusive and exhaustive), then for any event <span class="math inline">\(A\)</span>:</p>
-</blockquote>
+<div class="callout callout-style-default callout-note callout-titled" title="LoTP">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+LoTP
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sample space (mutually exclusive and exhaustive), then for any event <span class="math inline">\(A\)</span>:</p>
 <p><span class="math display">\[
 P(A) = \sum_{i=1}^{n} P(E_i) P(A \mid E_i)
 \]</span></p>
+</div>
+</div>
 <p><strong>Example:</strong><br>
 A fair die is rolled. Let event A: “an even number is rolled”.<br>
 Let:<br>
@@ -570,6 +764,16 @@ Let:<br>
 </section>
 <section id="bayes-theorem" class="level3">
 <h3 class="anchored" data-anchor-id="bayes-theorem">Bayes’ Theorem</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Switching the Conditioning of Events">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Switching the Conditioning of Events
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <blockquote class="blockquote">
 <p><strong>Definition:</strong><br>
 If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sample space and <span class="math inline">\(P(A) &gt; 0\)</span>, then:</p>
@@ -577,6 +781,8 @@ If <span class="math inline">\(E_1, \dots, E_n\)</span> is a partition of the sa
 <p><span class="math display">\[
 P(E_k \mid A) = \frac{P(A \mid E_k) P(E_k)}{\sum_{i=1}^n P(A \mid E_i) P(E_i)}
 \]</span></p>
+</div>
+</div>
 <p><strong>Example:</strong><br>
 Two urns:<br>
 - Urn 1: 1 red, 1 blue<br>
@@ -924,20 +1130,20 @@ z = \frac{\hat{p} - \pi}{\sqrt{\frac{\pi(1 - \pi)}{n}}}
 <section id="example-test-if-more-than-40-of-diamonds-are-ideal-cut" class="level4">
 <h4 class="anchored" data-anchor-id="example-test-if-more-than-40-of-diamonds-are-ideal-cut">Example: Test if more than 40% of diamonds are “Ideal” cut</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Null hypothesis: p = 0.20</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(diamonds)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (phat <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">sqrt</span>(pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> n)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Null hypothesis: p = 0.20</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(diamonds)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (phat <span class="sc">-</span> pi) <span class="sc">/</span> <span class="fu">sqrt</span>(pi <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pi) <span class="sc">/</span> n)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Z-statistic: -0.22 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>P-value: 0.587</code></pre>
 </div>
@@ -954,20 +1160,20 @@ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}
 <section id="example-test-if-the-average-diamond-price-is-4000." class="level4">
 <h4 class="anchored" data-anchor-id="example-test-if-the-average-diamond-price-is-4000.">Example: Test if the average diamond price is $4000.</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>price)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(diamonds<span class="sc">$</span>price)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(diamonds<span class="sc">$</span>price)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"T-statistic:"</span>, <span class="fu">round</span>(t_stat, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">4000</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(diamonds<span class="sc">$</span>price)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic and p-value</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (x_bar <span class="sc">-</span> mu0) <span class="sc">/</span> (s <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t_stat), <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"T-statistic:"</span>, <span class="fu">round</span>(t_stat, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>T-statistic: -3.912 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>P-value: 1e-04</code></pre>
 </div>
@@ -1015,10 +1221,10 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1}
 <section id="example-are-ideal-cuts-more-common-among-premium-vs.-good-color-grades" class="level4">
 <h4 class="anchored" data-anchor-id="example-are-ideal-cuts-more-common-among-premium-vs.-good-color-grades">Example: Are “Ideal” cuts more common among Premium vs.&nbsp;Good color grades?</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just Premium and Good clarity levels</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(color <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"D"</span>, <span class="st">"E"</span>))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>cut, df<span class="sc">$</span>color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to just Premium and Good clarity levels</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(color <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"D"</span>, <span class="st">"E"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>cut, df<span class="sc">$</span>color)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           
                D    E    F    G    H    I    J
@@ -1028,28 +1234,28 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1}
   Premium   1603 2337    0    0    0    0    0
   Ideal     2834 3903    0    0    0    0    0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary outcome: Ideal or not</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_ideal =</span> cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>])</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>])</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Pooled proportion</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (p1 <span class="sc">*</span> n1 <span class="sc">+</span> p2 <span class="sc">*</span> n2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2) <span class="sc">/</span> <span class="fu">sqrt</span>(phat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> phat) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z)))</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary outcome: Ideal or not</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_ideal =</span> cut <span class="sc">==</span> <span class="st">"Ideal"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportions</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>])</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>is_ideal[df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>])</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"D"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>color <span class="sc">==</span> <span class="st">"E"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Pooled proportion</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> (p1 <span class="sc">*</span> n1 <span class="sc">+</span> p2 <span class="sc">*</span> n2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Test statistic</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2) <span class="sc">/</span> <span class="fu">sqrt</span>(phat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> phat) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z)))</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Z-statistic:"</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Z-statistic: 2.566 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P-value:"</span>, <span class="fu">round</span>(p_value, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>P-value: 0.0103</code></pre>
 </div>
@@ -1063,8 +1269,8 @@ z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1}
 <section id="example-is-cut-independent-of-color" class="level4">
 <h4 class="anchored" data-anchor-id="example-is-cut-independent-of-color">Example: Is cut independent of color?</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">table</span>(diamonds<span class="sc">$</span>cut, diamonds<span class="sc">$</span>color)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">table</span>(diamonds<span class="sc">$</span>cut, diamonds<span class="sc">$</span>color)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -1083,9 +1289,9 @@ X-squared = 310.32, df = 24, p-value &lt; 2.2e-16</code></pre>
 <section id="example-is-the-average-price-different-between-ideal-and-fair-cuts" class="level4">
 <h4 class="anchored" data-anchor-id="example-is-the-average-price-different-between-ideal-and-fair-cuts">Example: Is the average price different between “Ideal” and “Fair” cuts?</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cut <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ideal"</span>, <span class="st">"Fair"</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">filter</span>(cut <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ideal"</span>, <span class="st">"Fair"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -1110,14 +1316,14 @@ sample estimates:
 <section id="example-simulated-price-before-and-after-resizing-a-set-of-diamonds" class="level4">
 <h4 class="anchored" data-anchor-id="example-simulated-price-before-and-after-resizing-a-set-of-diamonds">Example (Simulated): Price before and after resizing a set of diamonds</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate paired prices: original and discounted</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>original_price <span class="ot">&lt;-</span> <span class="fu">sample</span>(diamonds<span class="sc">$</span>price, n)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>discounted_price <span class="ot">&lt;-</span> original_price <span class="sc">*</span> <span class="fu">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(original_price, discounted_price, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate paired prices: original and discounted</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>original_price <span class="ot">&lt;-</span> <span class="fu">sample</span>(diamonds<span class="sc">$</span>price, n)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>discounted_price <span class="ot">&lt;-</span> original_price <span class="sc">*</span> <span class="fu">runif</span>(n, <span class="fl">0.85</span>, <span class="fl">0.95</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(original_price, discounted_price, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Paired t-test
