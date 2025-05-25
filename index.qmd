@@ -26,8 +26,8 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 
 Of note, some of the functions we use in R require the package *tidyverse*, everytime you begin working in RStudio, the beginning code chunk should resemble:
 
-```{r}
-#> echo:FALSE
+```{r, echo=FALSE}
+ #| echo: false
 library(tidyverse)
 library(tidyr)
 library(patchwork)
@@ -45,8 +45,8 @@ Finally, we explore the concept of bias in data collection. We identify common s
 
 As an example let us look at a dataset aggregated from over 50,000 diamonds:
 
-```{r}
-#> echo:FALSE
+```{r, echo=FALSE}
+ #| echo: false
 set.seed(1991)
 data(diamonds)
 df <- diamonds %>% sample_n(size=1000)
@@ -62,8 +62,8 @@ Understanding, communicating, and interpreting your data is *paramount* to any i
 
 Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:
 
-```{r, fig.width=15, fig.height=5}
-#> echo:FALSE
+```{r, echo=FALSE, fig.width=15, fig.height=5}
+ #| echo: false
 p1 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_histogram(bins=30) + theme_minimal()
 p2 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_histogram(bins=30) + theme_minimal()
 p3 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_histogram(bins=30) + theme_minimal()
@@ -72,8 +72,8 @@ p1 | p2 | p3
 
 Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
 
-```{r, fig.height=5, fig.width=15}
-#> echo:FALSE
+```{r, echo=FALSE, fig.height=5, fig.width=15}
+ #| echo: false
 p4 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_boxplot() + theme_minimal()
 p5 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_boxplot() + theme_minimal()
 p6 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_boxplot() + theme_minimal()
@@ -82,8 +82,8 @@ p4 | p5 | p6
 
 Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The 'whiskers' are determined by $1.5 \times IQR$ where the inter-quartile range is the $3rd - 1st$ quartiles.
 
-```{r}
-#> echo:FALSE
+```{r, echo=FALSE}
+ #| echo: false
 df_summary <- df %>%
   summarise(across(where(is.numeric), list(
     Mean = ~mean(.x, na.rm = TRUE),
@@ -112,8 +112,8 @@ $$
 
 ### Two Variables – Visualizations and Summary Statistics
 
-```{r, fig.width=20, fig.height=8}
-#> echo:FALSE
+```{r, echo=FALSE, fig.width=20, fig.height=8}
+ #| echo: false
 p7 <- df %>% ggplot(aes(x=carat, y=price, color=clarity)) + geom_point() + theme_minimal()
 p8 <- df %>% ggplot(aes(x=table, y=price, color=cut)) + geom_point() + theme_minimal()
 p9 <- df %>% ggplot(aes(x=depth, y=price, color=color)) + geom_point() + theme_minimal()
@@ -122,8 +122,8 @@ p7 | p8 |p9
 
 A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.
 
-```{r, fig.width=15, fig.height=5}
-#> echo:FALSE
+```{r, echo=FALSE, fig.width=15, fig.height=5}
+ #| echo: false
 p10 <- df %>%
   group_by(cut) %>%
   summarise(avg_price = mean(price)) %>%
@@ -160,8 +160,8 @@ p12 <- df %>%
 p10 | p11 | p12
 ```
 
-```{r}
-#> echo:FALSE
+```{r, echo=FALSE}
+ #| echo: false
 cor_df <- df %>%
   select(where(is.numeric)) %>%
   cor(use = "pairwise.complete.obs")
@@ -350,6 +350,8 @@ $$
 {}_nP_r = P(n, r) = \frac{n!}{(n - r)!}
 $$
 
+***Note: Factorial in math is computed as $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$.***
+
 For example, the number of ways to assign the first 3 batting positions from 9 players:
 
 $$
@@ -382,17 +384,17 @@ $$
 
 This can be understood using the **stars and bars** method: selecting $r$ scoops with $n-1$ dividers. Imagine representing each scoop as a ★ (star) and using vertical bars | to separate flavor types. To choose $r$ scoops from $n$ flavors, you need $r$ stars (for the scoops) and $n - 1$ bars (to divide them into $n$ categories). For example, if $r = 3$ scoops and $n = 5$ flavors, you arrange 3 stars and 4 bars in a row. One possible arrangement is ★ | ★★ | | |, which represents 1 scoop of flavor 1, 2 scoops of flavor 2, and 0 scoops of flavors 3, 4, and 5. The number of such arrangements is given by the combination formula $\binom{r + n - 1}{r}$, since you are choosing positions for the $r$ indistinguishable stars among the $r + n - 1$ total positions (stars and bars combined).
 
-***Note: The above section may seem like it came out of nowhere, that is okay. A fundamentally difficulty inherent in probability is finding the sample space or event space due to finding the various different combinations/permutations sequences of different possibilities. To elaborate consider the next example: ***
+***Note: The above section may seem like it came out of nowhere, that is okay. A fundamental difficulty in probability is finding the sample space or event space due to finding the various different combinations/permutations sequences of different possibilities. To elaborate consider the next example: ***
 
 ---
 
-Example: No Matching Pairs in a Shoe Sample {.unnumbered}
+**Example: No Matching Pairs in a Shoe Sample**
 
 A closet contains $n$ pairs of shoes (so $2n$ total shoes). If $2r$ shoes are chosen at random (where $2r < n$), what is the probability that **no matching pair** is selected?
 
 We are selecting $2r$ shoes such that no left and right shoe from the same pair are both chosen.
 
-**Strategy:**
+**Strategy:** \
 1. First choose $2r$ **distinct pairs** from the $n$ available — there are $\binom{n}{2r}$ ways to do this.  
 2. From each of these $2r$ selected pairs, choose **only one shoe** (either left or right) — there are $2^{2r}$ ways to do this.  
 3. The total number of ways to choose **any** $2r$ shoes out of $2n$ is $\binom{2n}{2r}$.
@@ -525,6 +527,8 @@ This justifies the widespread use of the normal distribution to approximate samp
 
 ### Normal Distribution
 
+The above video showed you the importance of this distribution, also called a *Gaussian Distribution*. Many natural phenomena are normally distributed.
+
 ::: {.definition}
 **Normal Distribution**  
 Let $X \sim \mathcal{N}(\mu, \sigma^2)$, where $\mu \in \mathbb{R}$ and $\sigma > 0$.
@@ -554,8 +558,9 @@ Let $X \sim \mathcal{N}(\mu, \sigma^2)$, where $\mu \in \mathbb{R}$ and $\sigma 
 
 ### Exponential Distribution
 
+This distribution is helpful to model continuous time-related events: time between system failures at a factory, time between phone calls at a call center, time between insurance claims received at a insurance firm. All these can be modeled with this useful continuous random variable.
+
 ::: {.definition}
-**Exponential Distribution**  
 Let $X \sim \text{Exponential}(\lambda)$ with $\lambda > 0$.
 
 - **Probability Density Function (PDF):**  
@@ -626,8 +631,10 @@ Hypothesis testing is a formal method for making inferences about a population u
 a) *Greater than Alternative Hypothesis*
 
 $$
-H_0: Parameter = Value \ in \ Question \\
-H_A: Parameter > Value \ in \ Question
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &> Value \ in \ Question
+\end{align}
 $$
 
 The entire *inference* aspect of hypothesis testing is that you are using your *sample statistic*, a tangible aspect of your data, to make an argument about the *population parameter*, an entity that is unknown to you. This is why *the hypotheses are written in terms of the parameter*. You are testing whether an aspect or *parameter* about the population is greater than a benchmark value decided by you in advance.
@@ -635,8 +642,10 @@ The entire *inference* aspect of hypothesis testing is that you are using your *
 b) *Less than Alternative Hypothesis*
 
 $$
-H_0: Parameter = Value \ in \ Question \\
-H_A: Parameter < Value \ in \ Question \\
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &< Value \ in \ Question
+\end{align}
 $$
 
 Very similarly, the less than hypothesis is also a **one-sided hypothesis test** in that you are only testing one side of the value, abeit this time if the population parameter is less than the tested value.
@@ -644,8 +653,10 @@ Very similarly, the less than hypothesis is also a **one-sided hypothesis test**
 b) Not equal to Alternative Hypothesis
 
 $$
-H_0: Parameter = Value \ in \ Question \\
-H_A: Parameter \neq Value \ in \ Question \\
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &\neq Value \ in \ Question
+\end{align}
 $$
 
 This is the only two-sided hypothesis test, denoted with the not equal to alternative hypothesis. Both sides must be accounted for in this test, and therefore as we will see shortly *require more evidence for significance*.
@@ -676,8 +687,8 @@ $$
 \end{align}
 $$
 
-```{r, fig.width=20, fig.height=5}
-#> echo:false
+```{r, echo=FALSE, fig.width=20, fig.height=5}
+ #| echo: false
 # Parameters
 mu <- 0
 sigma <- 1
@@ -793,8 +804,6 @@ A powerful test detects meaningful effects and minimizes Type II error. Power in
 - Significance level $\alpha$ increases (easier to reject null)
 
 ---
-
-#### Visual Summary
 
 ```{r}
 #| echo: false
