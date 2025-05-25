@@ -174,7 +174,7 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -233,19 +233,23 @@ window.Quarto = {
   </ul></li>
   <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a>
   <ul class="collapse">
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression<br>
-  </a></li>
-  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression<br>
-  </a></li>
+  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a></li>
+  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
   <li><a href="#goodness-of-fit" id="toc-goodness-of-fit" class="nav-link" data-scroll-target="#goodness-of-fit">Goodness of Fit</a></li>
   <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
+  <li><a href="#anova-1" id="toc-anova-1" class="nav-link" data-scroll-target="#anova-1">ANOVA</a></li>
+  <li><a href="#example-do-different-diamond-cuts-have-different-average-prices" id="toc-example-do-different-diamond-cuts-have-different-average-prices" class="nav-link" data-scroll-target="#example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</a></li>
+  <li><a href="#run-anova-test" id="toc-run-anova-test" class="nav-link" data-scroll-target="#run-anova-test">🧪 Run ANOVA Test</a></li>
+  <li><a href="#visualize-the-group-differences" id="toc-visualize-the-group-differences" class="nav-link" data-scroll-target="#visualize-the-group-differences">📊 Visualize the Group Differences</a></li>
+  <li><a href="#follow-up-which-cuts-are-different" id="toc-follow-up-which-cuts-are-different" class="nav-link" data-scroll-target="#follow-up-which-cuts-are-different">Follow-Up: Which Cuts Are Different?</a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">✅ Interpretation</a></li>
   </ul></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -254,7 +258,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     <div>
     <div class="quarto-title-meta-heading">Author</div>
@@ -1210,7 +1214,6 @@ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}
 <h1>BLOCK III: Multivariate Inference</h1>
 <section id="two-sample-hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="two-sample-hypothesis-testing">Two Sample Hypothesis Testing</h2>
-<hr>
 <section id="difference-of-proportions" class="level3">
 <h3 class="anchored" data-anchor-id="difference-of-proportions">Difference of Proportions</h3>
 <p>We compare two population proportions to determine whether there is a significant difference between them. The test statistic is:</p>
@@ -1345,19 +1348,273 @@ mean difference
 </section>
 <section id="regression" class="level2">
 <h2 class="anchored" data-anchor-id="regression">Regression</h2>
+<p>In this section we continue our multivariate inference with creating models for the purpose of identifying significance between <em>explanatory</em> (predictor) variables and the <em>response</em>. The function used to create the model, <span class="math inline">\(\hat{y_i}=f(x_i)\)</span> will make predictions, known as <em>fitted values</em>. Do to the variability in the data, these fitted values will not exactly predict the response (ie. <span class="math inline">\(y_i \neq \hat{y}\)</span>) for all values in the response. These errors are the deviations from the response and the fitted values and are referred as <em>residuals</em>, with notation <span class="math inline">\(\epsilon_i = y_i - \hat{y}_i\)</span>.</p>
+<p>To assess how well a model performs, the residuals are summarized in a few different methods:</p>
+<section id="mean-absolute-deviation" class="level4">
+<h4 class="anchored" data-anchor-id="mean-absolute-deviation">Mean Absolute Deviation</h4>
+<p>The average magnitude of the residuals:</p>
+<p><span class="math display">\[
+MAD = \frac{1}{n}\sum_{i=1}^n |y_i - \hat{y}_i|
+\]</span></p>
+</section>
+<section id="mean-squared-error" class="level4">
+<h4 class="anchored" data-anchor-id="mean-squared-error">Mean Squared Error:</h4>
+<p>The average magnitude of the residual-squared.</p>
+<p><span class="math display">\[
+MSE = \frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2
+\]</span></p>
+</section>
 <section id="simple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression<br>
-</h3>
+<h3 class="anchored" data-anchor-id="simple-linear-regression">Simple Linear Regression</h3>
+<p>We begin by modeling the relationship between two continuous variables. A <strong>Simple Linear Regression</strong> fits a line of best fit:</p>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 x
+\]</span></p>
+<p>In this example, we model <code>price</code> as a function of <code>carat</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample and fit model</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span>diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>lm_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat, <span class="at">data =</span> df)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_simple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ carat, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8077.3  -813.1    10.2   607.5  8759.7 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -2376.64      93.40  -25.45   &lt;2e-16 ***
+carat        7885.65      99.37   79.35   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1499 on 998 degrees of freedom
+Multiple R-squared:  0.8632,    Adjusted R-squared:  0.8631 
+F-statistic:  6297 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simple Linear Regression: Price ~ Carat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
 </section>
 <section id="multiple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression<br>
-</h3>
+<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression</h3>
+<p>When we include multiple predictors, we use <strong>Multiple Linear Regression</strong>:</p>
+<p><span class="math display">\[
+\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+\]</span></p>
+<p>Here, we use <code>carat</code>, <code>depth</code>, and <code>table</code> to predict <code>price</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lm_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">+</span> depth <span class="sc">+</span> table, <span class="at">data =</span> df)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_multi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ carat + depth + table, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8252.9  -784.5   -22.4   624.7  8211.9 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 13392.24    2845.47   4.707 2.88e-06 ***
+carat        7965.09      99.01  80.445  &lt; 2e-16 ***
+depth        -146.58      35.32  -4.149 3.62e-05 ***
+table        -118.01      22.05  -5.351 1.09e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1475 on 996 degrees of freedom
+Multiple R-squared:  0.8679,    Adjusted R-squared:  0.8675 
+F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>You can compare <span class="math inline">\(R^2\)</span> values and p-values to determine whether the additional variables meaningfully improve the model.</p>
+<hr>
 </section>
 <section id="goodness-of-fit" class="level3">
 <h3 class="anchored" data-anchor-id="goodness-of-fit">Goodness of Fit</h3>
+<p>We use several metrics to assess the quality of a regression model:</p>
+<ul>
+<li><strong><span class="math inline">\(R^2\)</span></strong>: Proportion of variance in the response explained by the predictors.</li>
+<li><strong>Residual Standard Error (RSE)</strong>: Average size of the residuals.</li>
+<li><strong>F-statistic</strong>: Overall significance of the regression.</li>
+<li><strong>Residual Plots</strong>: Visual diagnostics to assess assumptions.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_multi, <span class="at">which =</span> <span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(lm_multi)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">main =</span> <span class="st">"Histogram of Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We want residuals to be roughly normally distributed and randomly scattered around zero to satisfy assumptions of linear regression.</p>
 </section>
 <section id="anova" class="level3">
 <h3 class="anchored" data-anchor-id="anova">ANOVA</h3>
+</section>
+<section id="anova-1" class="level3">
+<h3 class="anchored" data-anchor-id="anova-1">ANOVA</h3>
+<p><strong>Analysis of Variance (ANOVA)</strong> is a statistical method used to compare the means of <strong>three or more groups</strong> to determine if at least one of the group means is significantly different from the others.</p>
+<hr>
+<section id="theoretical-foundation" class="level4">
+<h4 class="anchored" data-anchor-id="theoretical-foundation">🧠 Theoretical Foundation</h4>
+<p>ANOVA works by partitioning the <strong>total variability</strong> in the data into two components: - <strong>Between-group variability</strong>: how much the group means differ from the overall mean. - <strong>Within-group variability</strong>: how much individual observations vary within each group.</p>
+<p>The core idea is that if the <strong>between-group variability</strong> is large relative to the <strong>within-group variability</strong>, then at least one group mean is likely different.</p>
+<p>[ F = = ]</p>
+<p>Where: - ( SSB ) = Sum of Squares Between - ( SSW ) = Sum of Squares Within - ( k ) = number of groups - ( n ) = total number of observations</p>
+<p>If the calculated <strong>F-statistic</strong> is large, and the <strong>p-value</strong> is small (typically &lt; 0.05), we reject the null hypothesis:</p>
+<ul>
+<li>( H_0: _1 = _2 = = _k ) (all group means are equal)</li>
+<li>( H_A: ) At least one group mean is different</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="example-do-different-diamond-cuts-have-different-average-prices" class="level3">
+<h3 class="anchored" data-anchor-id="example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</h3>
+<p>We’ll use the <code>diamonds</code> dataset and compare the mean price across the five levels of the <code>cut</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample for speed</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics by cut</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(price), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  cut       mean_price     n
+  &lt;ord&gt;          &lt;dbl&gt; &lt;int&gt;
+1 Fair           3677.    28
+2 Good           3429.    74
+3 Very Good      4561.   226
+4 Premium        4355.   273
+5 Ideal          3590.   399</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="run-anova-test" class="level3">
+<h3 class="anchored" data-anchor-id="run-anova-test">🧪 Run ANOVA Test</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA: price ~ cut</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df    Sum Sq  Mean Sq F value Pr(&gt;F)  
+cut           4 1.996e+08 49901236   3.065  0.016 *
+Residuals   995 1.620e+10 16283224                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>This will output the <strong>F-statistic</strong> and <strong>p-value</strong>. A small p-value (e.g.&nbsp;&lt; 0.05) suggests that at least one cut has a significantly different mean price.</p>
+<hr>
+</section>
+<section id="visualize-the-group-differences" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-the-group-differences">📊 Visualize the Group Differences</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Diamond Price by Cut"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cut"</span>, <span class="at">y =</span> <span class="st">"Price ($)"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Boxplots help visualize both the median and spread of price within each cut level.</p>
+<hr>
+</section>
+<section id="follow-up-which-cuts-are-different" class="level3">
+<h3 class="anchored" data-anchor-id="follow-up-which-cuts-are-different">Follow-Up: Which Cuts Are Different?</h3>
+<p>If the ANOVA result is significant, we can follow up with a <strong>Tukey HSD test</strong> to identify which group pairs differ.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = price ~ cut, data = df)
+
+$cut
+                        diff        lwr        upr     p adj
+Good-Fair         -247.90830 -2694.6097 2198.79307 0.9987125
+Very Good-Fair     884.55594 -1324.7679 3093.87977 0.8096253
+Premium-Fair       678.19322 -1510.0655 2866.45192 0.9157755
+Ideal-Fair         -86.59085 -2242.4691 2069.28738 0.9999672
+Very Good-Good    1132.46424  -344.4875 2609.41597 0.2227928
+Premium-Good       926.10152  -519.1496 2371.35262 0.4030816
+Ideal-Good         161.31745 -1234.4209 1557.05582 0.9978434
+Premium-Very Good -206.36272 -1198.0859  785.36051 0.9795621
+Ideal-Very Good   -971.14679 -1889.2153  -53.07827 0.0320166
+Ideal-Premium     -764.78408 -1630.9331  101.36495 0.1126355</code></pre>
+</div>
+</div>
+<p>This test controls the family-wise error rate and gives pairwise confidence intervals and p-values.</p>
+<hr>
+</section>
+<section id="interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-1">✅ Interpretation</h3>
+<ul>
+<li>If <strong>p &lt; 0.05</strong> in the ANOVA, we conclude that <strong>at least one cut</strong> differs in mean price.</li>
+<li>Use <strong>TukeyHSD</strong> to find out <strong>which cuts</strong> are significantly different.</li>
+<li>ANOVA assumes:
+<ul>
+<li>Independent observations</li>
+<li>Normally distributed residuals</li>
+<li>Equal variances across groups (can check with Levene’s test)</li>
+</ul></li>
+</ul>
 
 
 </section>
