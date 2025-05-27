@@ -8,6 +8,8 @@ geometry: margin=1in
 *To Cadets:*\
 This course, MA206, introduces you to the foundational principles of probability and statistics, emphasizing data literacy and inference. It begins with Block I, covering data types, visualization, and basic probability rules including counting and the behavior of random variables. Block II builds on this by exploring discrete and continuous distributions, the Central Limit Theorem, and tools for one-sample inference such as confidence intervals and hypothesis testing for proportions and means. Finally, Block III develops cadets’ ability to analyze relationships between variables through two-sample tests, linear regression, ANOVA, and goodness-of-fit testing. By the end of the course, cadets will be equipped to make sound, data-driven decisions grounded in statistical reasoning.
 
+Every statistical analysis begins with a clear, repeatable process that transforms curious questions into reliable insights. The Six Step Method serves as your roadmap—guiding you from formulating a meaningful research question through data collection, exploration, inference, and finally thoughtful reflection—so that every conclusion you draw is both rigorous and reproducible.
+
 **Six Step Method**
 
 1.  Describe how the six steps of a statistical investigation apply to a particular statistical study:
@@ -23,8 +25,6 @@ This course, MA206, introduces you to the foundational principles of probability
 
 *A Note on Technology:*\
 In this course the primary tool used for data analysis is R. Throughout this course you will implement techniques for summarizing, visualizing, and analyzing data. The primary focus of this course is not for you to become masters in coding, however building on skills learned in CY105 will help your analysis in understanding how to use information technology to demonstrate successful outcomes in this course.
-
-Of note, some of the functions we use in R require the package *tidyverse*, everytime you begin working in RStudio, the beginning code chunk should resemble:
 
 ```{r, echo=FALSE}
 #| echo: false
@@ -73,19 +73,81 @@ Starting with a variable-by-variable approach is a natural first step. This is d
 
 ```{r, echo=FALSE, fig.width=15, fig.height=5}
  #| echo: false
-p1 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_histogram(bins=30) + theme_minimal()
-p2 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_histogram(bins=30) + theme_minimal()
-p3 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_histogram(bins=30) + theme_minimal()
+p1 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = carat)) +
+    geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+    labs(
+      title = "Distribution of Diamond Carat",
+      x     = "Carat Weight",
+      y     = "Frequency"
+    ) +
+    theme_minimal()
+
+p2 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = depth)) +
+    geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+    labs(
+      title = "Distribution of Diamond Depth",
+      x     = "Depth (%)",
+      y     = "Frequency"
+    ) +
+    theme_minimal()
+
+p3 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = price)) +
+    geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+    labs(
+      title = "Distribution of Diamond Price",
+      x     = "Price (USD)",
+      y     = "Frequency"
+    ) +
+    theme_minimal()
+
+# Combine
 p1 | p2 | p3
 ```
 
 Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
 
-```{r, echo=FALSE, fig.height=5, fig.width=15}
+```{r, echo=FALSE, fig.height=3, fig.width=15}
  #| echo: false
-p4 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_boxplot() + theme_minimal()
-p5 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_boxplot() + theme_minimal()
-p6 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_boxplot() + theme_minimal()
+p4 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = carat)) +
+    geom_boxplot(fill = "steelblue") +
+    labs(
+      title = "Boxplot of Diamond Carat",
+      x     = "Carat Weight",
+      y     = ""
+    ) +
+    theme_minimal()
+
+p5 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = depth)) +
+    geom_boxplot(fill = "steelblue") +
+    labs(
+      title = "Boxplot of Diamond Depth",
+      x     = "Depth (%)",
+      y     = ""
+    ) +
+    theme_minimal()
+
+p6 <- diamonds %>% 
+  sample_n(1000) %>% 
+  ggplot(aes(x = price)) +
+    geom_boxplot(fill = "steelblue") +
+    labs(
+      title = "Boxplot of Diamond Price",
+      x     = "Price (USD)",
+      y     = ""
+    ) +
+    theme_minimal()
+
+# Combine side-by-side
 p4 | p5 | p6
 ```
 
@@ -122,12 +184,32 @@ $$
 
 ### Two Variables – Visualizations and Summary Statistics
 
-```{r, echo=FALSE, fig.width=20, fig.height=8}
+```{r, echo=FALSE, fig.width=15, fig.height=8}
  #| echo: false
-p7 <- df %>% ggplot(aes(x=carat, y=price, color=clarity)) + geom_point() + theme_minimal()
-p8 <- df %>% ggplot(aes(x=table, y=price, color=cut)) + geom_point() + theme_minimal()
-p9 <- df %>% ggplot(aes(x=depth, y=price, color=color)) + geom_point() + theme_minimal()
-p7 | p8 |p9
+p7 <- df %>% 
+  ggplot(aes(x = carat, y = price, color = clarity)) +
+    geom_point(alpha = 0.7) +
+    labs(
+      title = "Diamond Price vs. Carat Weight",
+      x     = "Carat Weight",
+      y     = "Price (USD)",
+      color = "Clarity"
+    ) +
+    theme_minimal()
+
+p9 <- df %>% 
+  ggplot(aes(x = depth, y = price, color = color)) +
+    geom_point(alpha = 0.7) +
+    labs(
+      title = "Diamond Price vs. Depth Percentage",
+      x     = "Depth (%)",
+      y     = "Price (USD)",
+      color = "Color Grade"
+    ) +
+    theme_minimal()
+
+# Combine side-by-side
+p7 | p9
 ```
 
 A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.
@@ -1071,14 +1153,90 @@ $$
 $$
 Observe the subscripts for the dimensions of the matrices, ending with a $p \times 1$ vector for the coefficients that minimize the SSE.
 
-Here, we use `carat`, `depth`, and `table` to predict `price`.
+Here, we use `carat(Q)`, `depth(Q)`, `table(Q)`, and `color(Q)` to predict `price`. 
+
+::: callout-note
+
+When a **categorical variable** like `color` is included in a regression model, R converts it into multiple **indicator (dummy) variables**, one for each level *except* the reference level (usually the first alphabetically, unless manually changed).
+
+Each dummy variable shifts the **intercept** of the regression line for that level, while the **slope(s)** for the numeric predictors remain the same. This means:
+
+> R is effectively fitting a **separate line of best fit** for each level of the categorical variable — all with the **same slope**, but **different intercepts**.
+
+For example, including `color` in `lm(price ~ carat + depth + table + color)` produces:
+
+- One baseline line (intercept) for the reference group (e.g., `color = "D"`).
+- Additional parallel lines for each other color group (e.g., `E`, `F`, `G`, etc.), each shifted vertically by its corresponding coefficient (e.g., `colorE`, `colorF`, etc.).
+
+So if the coefficient for `colorE` is `-500`, then diamonds with color E are estimated to be $500 **less expensive** than D-colored diamonds *at the same carat, depth, and table values*.
+
+This approach captures group differences in the **starting point** (intercepts) of the response, while assuming the effect of continuous predictors (e.g. carat) is **constant across all groups**.
+:::
+
 
 ```{r}
-lm_multi <- lm(price ~ carat + depth + table, data = df)
+lm_multi <- lm(price ~ carat + depth + table + color, data = df)
 summary(lm_multi)
 ```
 
 You can compare $R^2$ values and p-values to determine whether the additional variables meaningfully improve the model.
+
+#### Adding Interaction Terms
+
+What if the **effect of one variable depends on another**? For example, maybe the impact of `carat` on `price` differs across `color` levels. In that case, we can include an **interaction term** in the model:
+
+```{r}
+lm_interact <- lm(price ~ carat * color, data = df)
+summary(lm_interact)
+```
+::: callout-tip
+
+- Each level of the color factor has its own intercept and its own slope for carat.
+
+- The reference group (e.g., color = "D") uses the coefficient for carat directly:
+
+$$ \text{Slope}_D = \beta_{carat} $$
+ 
+- For other groups, the slope is:
+
+$$ \text{Slope}_{\text{color}} = \beta_{carat} + \beta_{\text{carat:color}} $$
+ 
+**Example**:
+If carat has a coefficient of 8000 and carat:colorE has a coefficient of -1000, then for color E diamonds:
+
+- Intercept = Intercept + $\beta_{\text{colorE}}$
+
+- Slope = $8000 - 1000 = \$7000
+
+So carat still increases price for color E diamonds, but **not as sharply** as it does for the reference group (D).
+:::
+
+**Visualizing Interactions**\
+
+You can visualize the effect of interaction terms by plotting separate regression lines for each group:
+
+```{r}
+ggplot(df, aes(x = carat, y = price, color = color)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  labs(
+    title = "Separate Regression Lines by Diamond Color",
+    x = "Carat",
+    y = "Price (USD)"
+  ) +
+  theme_minimal()
+```
+***Note: Each color group has its own slope and intercept, as determined by the interaction model.***
+
+::: callout-note
+
+Multiple linear regression allows us to model relationships between one response variable and many predictors.
+
+Categorical variables create parallel lines (same slope, different intercepts) unless interaction terms are added.
+
+Interaction terms create separate lines of best fit (different slopes and intercepts) for each group.
+
+:::
 
 ---
 
