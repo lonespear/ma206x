@@ -5,7 +5,7 @@ website:
   title: "MA206X"
   navbar:
     left:
-      - href: course_guide.qmd
+      - href: index.qmd
         text: Course Guide
       - href: code_annex.qmd
         text: Code Annex
