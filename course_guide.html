@@ -275,6 +275,7 @@ window.Quarto = {
 
 <p><em>To Cadets:</em><br>
 This course, MA206, introduces you to the foundational principles of probability and statistics, emphasizing data literacy and inference. It begins with Block I, covering data types, visualization, and basic probability rules including counting and the behavior of random variables. Block II builds on this by exploring discrete and continuous distributions, the Central Limit Theorem, and tools for one-sample inference such as confidence intervals and hypothesis testing for proportions and means. Finally, Block III develops cadets’ ability to analyze relationships between variables through two-sample tests, linear regression, ANOVA, and goodness-of-fit testing. By the end of the course, cadets will be equipped to make sound, data-driven decisions grounded in statistical reasoning.</p>
+<p>Every statistical analysis begins with a clear, repeatable process that transforms curious questions into reliable insights. The Six Step Method serves as your roadmap—guiding you from formulating a meaningful research question through data collection, exploration, inference, and finally thoughtful reflection—so that every conclusion you draw is both rigorous and reproducible.</p>
 <p><strong>Six Step Method</strong></p>
 <ol type="1">
 <li>Describe how the six steps of a statistical investigation apply to a particular statistical study:
@@ -300,7 +301,6 @@ This course, MA206, introduces you to the foundational principles of probability
 </ol>
 <p><em>A Note on Technology:</em><br>
 In this course the primary tool used for data analysis is R. Throughout this course you will implement techniques for summarizing, visualizing, and analyzing data. The primary focus of this course is not for you to become masters in coding, however building on skills learned in CY105 will help your analysis in understanding how to use information technology to demonstrate successful outcomes in this course.</p>
-<p>Of note, some of the functions we use in R require the package <em>tidyverse</em>, everytime you begin working in RStudio, the beginning code chunk should resemble:</p>
 <section id="block-i-data-and-randomness" class="level1">
 <h1>BLOCK I: Data and Randomness</h1>
 <section id="types-of-data-sampling-and-bias" class="level2">
@@ -529,7 +529,7 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="course_guide_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1920"></p>
+<p><img src="course_guide_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1440"></p>
 </figure>
 </div>
 </div>
@@ -1466,35 +1466,169 @@ F-statistic:  6297 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><span class="math display">\[
 \widehat\beta_{p\times 1} = (X_{p\times n}^TX_{n \times p})^{-1}X_{p \times n}^T \vec{y}_{n \times 1}
 \]</span> Observe the subscripts for the dimensions of the matrices, ending with a <span class="math inline">\(p \times 1\)</span> vector for the coefficients that minimize the SSE.</p>
-<p>Here, we use <code>carat</code>, <code>depth</code>, and <code>table</code> to predict <code>price</code>.</p>
+<p>Here, we use <code>carat(Q)</code>, <code>depth(Q)</code>, <code>table(Q)</code>, and <code>color(Q)</code> to predict <code>price</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When a <strong>categorical variable</strong> like <code>color</code> is included in a regression model, R converts it into multiple <strong>indicator (dummy) variables</strong>, one for each level <em>except</em> the reference level (usually the first alphabetically, unless manually changed).</p>
+<p>Each dummy variable shifts the <strong>intercept</strong> of the regression line for that level, while the <strong>slope(s)</strong> for the numeric predictors remain the same. This means:</p>
+<blockquote class="blockquote">
+<p>R is effectively fitting a <strong>separate line of best fit</strong> for each level of the categorical variable — all with the <strong>same slope</strong>, but <strong>different intercepts</strong>.</p>
+</blockquote>
+<p>For example, including <code>color</code> in <code>lm(price ~ carat + depth + table + color)</code> produces:</p>
+<ul>
+<li>One baseline line (intercept) for the reference group (e.g., <code>color = "D"</code>).</li>
+<li>Additional parallel lines for each other color group (e.g., <code>E</code>, <code>F</code>, <code>G</code>, etc.), each shifted vertically by its corresponding coefficient (e.g., <code>colorE</code>, <code>colorF</code>, etc.).</li>
+</ul>
+<p>So if the coefficient for <code>colorE</code> is <code>-500</code>, then diamonds with color E are estimated to be $500 <strong>less expensive</strong> than D-colored diamonds <em>at the same carat, depth, and table values</em>.</p>
+<p>This approach captures group differences in the <strong>starting point</strong> (intercepts) of the response, while assuming the effect of continuous predictors (e.g.&nbsp;carat) is <strong>constant across all groups</strong>.</p>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">+</span> depth <span class="sc">+</span> table, <span class="at">data =</span> df)</span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">+</span> depth <span class="sc">+</span> table <span class="sc">+</span> color, <span class="at">data =</span> df)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_multi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = price ~ carat + depth + table, data = df)
+lm(formula = price ~ carat + depth + table + color, data = df)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--8252.9  -784.5   -22.4   624.7  8211.9 
+-9095.0  -787.8   -80.5   568.3  7873.0 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 13392.24    2845.47   4.707 2.88e-06 ***
-carat        7965.09      99.01  80.445  &lt; 2e-16 ***
-depth        -146.58      35.32  -4.149 3.62e-05 ***
-table        -118.01      22.05  -5.351 1.09e-07 ***
+(Intercept) 10739.61    2692.30   3.989 7.12e-05 ***
+carat        8251.22      97.16  84.920  &lt; 2e-16 ***
+depth        -112.34      33.40  -3.364 0.000799 ***
+table        -115.68      20.77  -5.569 3.30e-08 ***
+color.L     -1555.67     146.23 -10.639  &lt; 2e-16 ***
+color.Q      -843.07     133.77  -6.303 4.40e-10 ***
+color.C       -85.92     129.08  -0.666 0.505778    
+color^4        75.10     117.70   0.638 0.523580    
+color^5      -123.89     116.66  -1.062 0.288500    
+color^6       -72.64     104.92  -0.692 0.488903    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 1475 on 996 degrees of freedom
-Multiple R-squared:  0.8679,    Adjusted R-squared:  0.8675 
-F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 1385 on 990 degrees of freedom
+Multiple R-squared:  0.8842,    Adjusted R-squared:  0.8832 
+F-statistic: 840.1 on 9 and 990 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>You can compare <span class="math inline">\(R^2\)</span> values and p-values to determine whether the additional variables meaningfully improve the model.</p>
+<section id="adding-interaction-terms" class="level4">
+<h4 class="anchored" data-anchor-id="adding-interaction-terms">Adding Interaction Terms</h4>
+<p>What if the <strong>effect of one variable depends on another</strong>? For example, maybe the impact of <code>carat</code> on <code>price</code> differs across <code>color</code> levels. In that case, we can include an <strong>interaction term</strong> in the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lm_interact <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> carat <span class="sc">*</span> color, <span class="at">data =</span> df)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_interact)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = price ~ carat * color, data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9236.8  -767.5   -13.5   648.9  8199.4 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   -2642.59      99.53 -26.551  &lt; 2e-16 ***
+carat          8119.05     103.78  78.236  &lt; 2e-16 ***
+color.L        -132.35     306.56  -0.432 0.666033    
+color.Q         315.80     290.51   1.087 0.277286    
+color.C         -16.57     275.23  -0.060 0.952018    
+color^4         377.23     245.62   1.536 0.124911    
+color^5         593.39     239.84   2.474 0.013526 *  
+color^6        -225.89     209.92  -1.076 0.282167    
+carat:color.L -1533.77     313.82  -4.887 1.19e-06 ***
+carat:color.Q -1137.53     294.94  -3.857 0.000122 ***
+carat:color.C   110.35     287.00   0.384 0.700695    
+carat:color^4  -311.72     262.03  -1.190 0.234479    
+carat:color^5  -865.55     257.40  -3.363 0.000802 ***
+carat:color^6   255.92     222.64   1.149 0.250641    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1375 on 986 degrees of freedom
+Multiple R-squared:  0.8864,    Adjusted R-squared:  0.8849 
+F-statistic: 591.9 on 13 and 986 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Each level of the color factor has its own intercept and its own slope for carat.</p></li>
+<li><p>The reference group (e.g., color = “D”) uses the coefficient for carat directly:</p></li>
+</ul>
+<p><span class="math display">\[ \text{Slope}_D = \beta_{carat} \]</span></p>
+<ul>
+<li>For other groups, the slope is:</li>
+</ul>
+<p><span class="math display">\[ \text{Slope}_{\text{color}} = \beta_{carat} + \beta_{\text{carat:color}} \]</span></p>
+<p><strong>Example</strong>: If carat has a coefficient of 8000 and carat:colorE has a coefficient of -1000, then for color E diamonds:</p>
+<ul>
+<li><p>Intercept = Intercept + <span class="math inline">\(\beta_{\text{colorE}}\)</span></p></li>
+<li><p>Slope = $8000 - 1000 = $7000</p></li>
+</ul>
+<p>So carat still increases price for color E diamonds, but <strong>not as sharply</strong> as it does for the reference group (D).</p>
+</div>
+</div>
+<p><strong>Visualizing Interactions</strong><br>
+</p>
+<p>You can visualize the effect of interaction terms by plotting separate regression lines for each group:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price, <span class="at">color =</span> color)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Separate Regression Lines by Diamond Color"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Carat"</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Price (USD)"</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="course_guide_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><em>Note: Each color group has its own slope and intercept, as determined by the interaction model.</em></strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Multiple linear regression allows us to model relationships between one response variable and many predictors.</p>
+<p>Categorical variables create parallel lines (same slope, different intercepts) unless interaction terms are added.</p>
+<p>Interaction terms create separate lines of best fit (different slopes and intercepts) for each group.</p>
+</div>
+</div>
 <hr>
+</section>
 </section>
 <section id="goodness-of-fit" class="level3">
 <h3 class="anchored" data-anchor-id="goodness-of-fit">Goodness of Fit</h3>
@@ -1506,24 +1640,24 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li><strong>Residual Plots</strong>: Visual diagnostics to assess assumptions.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_multi, <span class="at">which =</span> <span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residual plot</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_multi, <span class="at">which =</span> <span class="dv">1</span>)  <span class="co"># Residuals vs Fitted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="course_guide_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="course_guide_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(lm_multi)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">main =</span> <span class="st">"Histogram of Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of residuals</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">resid</span>(lm_multi)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">main =</span> <span class="st">"Histogram of Residuals"</span>, <span class="at">xlab =</span> <span class="st">"Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="course_guide_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="course_guide_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1551,14 +1685,14 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h4 class="anchored" data-anchor-id="example-do-different-diamond-cuts-have-different-average-prices">Example: Do Different Diamond Cuts Have Different Average Prices?</h4>
 <p>We’ll use the <code>diamonds</code> dataset and compare the mean price across the five levels of the <code>cut</code> variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample for speed</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics by cut</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(price), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample for speed</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">206</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">1000</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics by cut</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(price), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   cut       mean_price     n
@@ -1575,9 +1709,9 @@ F-statistic:  2181 on 3 and 996 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="run-anova-test" class="level4">
 <h4 class="anchored" data-anchor-id="run-anova-test">Run ANOVA Test</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA: price ~ cut</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-way ANOVA: price ~ cut</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(price <span class="sc">~</span> cut, <span class="at">data =</span> df)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df    Sum Sq  Mean Sq F value Pr(&gt;F)  
 cut           4 1.996e+08 49901236   3.065  0.016 *
@@ -1593,15 +1727,15 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="visualize-the-group-differences" class="level3">
 <h3 class="anchored" data-anchor-id="visualize-the-group-differences">Visualize the Group Differences</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Diamond Price by Cut"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cut"</span>, <span class="at">y =</span> <span class="st">"Price ($)"</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Diamond Price by Cut"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cut"</span>, <span class="at">y =</span> <span class="st">"Price ($)"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="course_guide_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="course_guide_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1613,7 +1747,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="follow-up-which-cuts-are-different">Follow-Up: Which Cuts Are Different?</h3>
 <p>If the ANOVA result is significant, we can follow up with a <strong>Tukey HSD test</strong> to identify which group pairs differ.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
