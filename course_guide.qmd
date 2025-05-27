@@ -71,6 +71,8 @@ Understanding, communicating, and interpreting your data is *paramount* to any i
 
 Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:
 
+#### Histograms
+
 ```{r, echo=FALSE, fig.width=15, fig.height=5}
  #| echo: false
 p1 <- diamonds %>% 
@@ -111,6 +113,8 @@ p1 | p2 | p3
 ```
 
 Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
+
+#### Boxplots
 
 ```{r, echo=FALSE, fig.height=3, fig.width=15}
  #| echo: false
@@ -153,6 +157,8 @@ p4 | p5 | p6
 
 Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The 'whiskers' are determined by $1.5 \times IQR$ where the inter-quartile range is the $3rd - 1st$ quartiles.
 
+#### Summary Statistics
+
 ```{r, echo=FALSE}
  #| echo: false
 df %>%
@@ -184,6 +190,8 @@ $$
 
 ### Two Variables – Visualizations and Summary Statistics
 
+#### Scatter Plots
+
 ```{r, echo=FALSE, fig.width=15, fig.height=8}
  #| echo: false
 p7 <- df %>% 
@@ -213,6 +221,8 @@ p7 | p9
 ```
 
 A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.
+
+#### Bar Plots
 
 ```{r, echo=FALSE, fig.width=15, fig.height=5}
  #| echo: false
@@ -251,6 +261,10 @@ p12 <- df %>%
   theme_minimal()
 p10 | p11 | p12
 ```
+
+Bar charts are visualizations when focusing your audience on a single categorical and a summary statistic or aspect of a quantitative variable. In practice, scatter-plots show *more* information since you can encode the categorical variable through another channel such as color, size, shape while keeping the horizontal and vertical axis for two separate quantitative variables.
+
+#### Correlation
 
 ```{r, echo=FALSE}
  #| echo: false
