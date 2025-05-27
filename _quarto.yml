@@ -1,13 +1,19 @@
 project:
   type: website
 
+  # only these two qmds get rendered
+  files:
+    - course_guide.qmd
+    - code_annex.qmd
+
 website:
   title: "MA206X"
   navbar:
     left:
       - href: course_guide.qmd
         text: Home
-      - code_annex.qmd
+      - href: code_annex.qmd
+        text: Code Annex
 
 format:
   html:
@@ -18,5 +24,5 @@ format:
     page-layout: full
     fig-align: center
     css: styles.css
-editor: visual
 
+editor: visual
