@@ -132,39 +132,6 @@ df %>%
   )
 ```
 
-# Hypothesis Testing Visuals (Normal Curve Shading)
-
-```{r normal-shading, fig.width=20, fig.height=5}
-mu <- 0; sigma <- 1
-x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
-df_norm <- data.frame(x = x, y = dnorm(x, mu, sigma))
-less_df <- subset(df_norm, x <= -1.96)
-more_df <- subset(df_norm, x >= 1.96)
-
-p_more <- ggplot(df_norm, aes(x, y)) +
-  geom_line(color = "blue", size = 1.2) +
-  geom_area(data = more_df, aes(x, y), fill = "lightblue") +
-  geom_vline(xintercept = 1.96, linetype = "dashed", color = "red") +
-  annotate("text", x = 1.96, y = 0.02, label = "z = 1.96", hjust = -0.1, color = "red") +
-  annotate("text", x = 2.5, y = 0.05, label = TeX("P(X > 1.96) = 0.025"), parse = TRUE)
-
-p_less <- ggplot(df_norm, aes(x, y)) +
-  geom_line(color = "blue", size = 1.2) +
-  geom_area(data = less_df, aes(x, y), fill = "lightblue") +
-  geom_vline(xintercept = -1.96, linetype = "dashed", color = "red") +
-  annotate("text", x = -1.96, y = 0.02, label = "z = -1.96", hjust = 1.1, color = "red") +
-  annotate("text", x = -2.5, y = 0.05, label = TeX("P(X < -1.96) = 0.025"), parse = TRUE)
-
-p_both <- ggplot(df_norm, aes(x, y)) +
-  geom_line(color = "blue", size = 1.2) +
-  geom_area(data = less_df, aes(x, y), fill = "lightblue") +
-  geom_area(data = more_df, aes(x, y), fill = "lightblue") +
-  geom_vline(xintercept = c(-1.96, 1.96), linetype = "dashed", color = "red") +
-  annotate("text", x = 0, y = 0.05, label = TeX("P(|X| > 1.96) = 0.05"), parse = TRUE)
-
-p_more | p_less | p_both
-```
-
 # Proportion Test Example
 
 ```{r proportion-test}
@@ -186,25 +153,6 @@ n <- length(diamonds$price)
 t_stat <- (x_bar - mu0) / (s / sqrt(n))
 p_value <- 2 * (1 - pt(abs(t_stat), df = n - 1))
 cat("T-statistic: ", round(t_stat, 3), "\nP-value: ", round(p_value, 4))
-```
-
-# Power Curve
-
-```{r power-curve}
-x <- seq(-4, 6, length = 1000)
-null_dist <- dnorm(x, 0, 1)
-alt_dist <- dnorm(x, 2, 1)
-df_power <- data.frame(x, null = null_dist, alt = alt_dist)
-
-ggplot(df_power, aes(x)) +
-  geom_line(aes(y = null), color = "blue", size = 1.2) +
-  geom_line(aes(y = alt), color = "red", size = 1.2, linetype = "dashed") +
-  geom_vline(xintercept = qnorm(0.95), linetype = "dotted") +
-  annotate("text", x = -2, y = 0.3, label = "Null Distribution", color = "blue") +
-  annotate("text", x = 4, y = 0.2, label = "Alternative Distribution", color = "red") +
-  annotate("text", x = 1.65, y = 0.05, label = "Critical Value", angle = 90) +
-  labs(title = "Type I & Type II Errors with Power Curve", x = "Test Statistic", y = "Density") +
-  theme_minimal()
 ```
 
 # Two-Sample Proportion Test
