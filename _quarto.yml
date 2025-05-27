@@ -1,17 +1,12 @@
 project:
   type: website
 
-  # only these two qmds get rendered
-  files:
-    - course_guide.qmd
-    - code_annex.qmd
-
 website:
   title: "MA206X"
   navbar:
     left:
       - href: course_guide.qmd
-        text: Home
+        text: Course Guide
       - href: code_annex.qmd
         text: Code Annex
 
