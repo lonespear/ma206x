@@ -750,7 +750,7 @@ p_more <- ggplot(df, aes(x = x, y = y)) +
   geom_area(data = more_df, aes(x = x, y = y), fill = "lightblue") +
   geom_vline(xintercept = 1.65, linetype = "dashed", color = "red") +
   annotate("text", x = 1.65, y = 0.02, label = "z = 1.65", hjust = -0.2, color = "red") +
-  annotate("text", x = 2.5, y = 0.05, label = TeX("P(X > 1.65) \approx 0.05"), color = "black", parse=TRUE) +
+  annotate("text", x = 2.5, y = 0.05, label = TeX("P(X > 1.65) \approx 0.05"), color = "black") +
   labs(title = "Greater than Hypothesis") +
   theme_minimal()
 
