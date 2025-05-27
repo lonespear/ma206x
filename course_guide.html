@@ -411,6 +411,8 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 <section id="one-variable-visualizations-and-summary-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="one-variable-visualizations-and-summary-statistics">One Variable – Visualizations and Summary Statistics</h3>
 <p>Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:</p>
+<section id="histograms" class="level4">
+<h4 class="anchored" data-anchor-id="histograms">Histograms</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -421,6 +423,9 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 </div>
 <p>Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine <em>skewness</em>, a measure of how lopsided the data appear or if there are any asymmetries or <em>tails</em>.</p>
+</section>
+<section id="boxplots" class="level4">
+<h4 class="anchored" data-anchor-id="boxplots">Boxplots</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -431,6 +436,9 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 </div>
 <p>Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The ‘whiskers’ are determined by <span class="math inline">\(1.5 \times IQR\)</span> where the inter-quartile range is the <span class="math inline">\(3rd - 1st\)</span> quartiles.</p>
+</section>
+<section id="summary-statistics" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h4>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed table-bordered caption-top table-sm small" data-quarto-postprocess="true">
@@ -523,8 +531,11 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 \]</span></p>
 <p><strong><em>Note: the standard deviation is the square root of the variance</em></strong></p>
 </section>
+</section>
 <section id="two-variables-visualizations-and-summary-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="two-variables-visualizations-and-summary-statistics">Two Variables – Visualizations and Summary Statistics</h3>
+<section id="scatter-plots" class="level4">
+<h4 class="anchored" data-anchor-id="scatter-plots">Scatter Plots</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -535,6 +546,9 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 </div>
 <p>A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.</p>
+</section>
+<section id="bar-plots" class="level4">
+<h4 class="anchored" data-anchor-id="bar-plots">Bar Plots</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -544,6 +558,10 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 </div>
 </div>
 </div>
+<p>Bar charts are visualizations when focusing your audience on a single categorical and a summary statistic or aspect of a quantitative variable. In practice, scatter-plots show <em>more</em> information since you can encode the categorical variable through another channel such as color, size, shape while keeping the horizontal and vertical axis for two separate quantitative variables.</p>
+</section>
+<section id="correlation" class="level4">
+<h4 class="anchored" data-anchor-id="correlation">Correlation</h4>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed table-bordered caption-top table-sm small" data-quarto-postprocess="true">
@@ -593,6 +611,7 @@ In this course the primary tool used for data analysis is R. Throughout this cou
 <p>Mathematically: &gt; Definition &gt; For any two variables X,Y, the correlation of X and Y are: <span class="math display">\[
 r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2\sum_{i=1}^n (y_i - \bar{y})^2}
 \]</span></p>
+</section>
 </section>
 </section>
 <section id="probability" class="level2">
