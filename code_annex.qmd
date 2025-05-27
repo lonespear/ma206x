@@ -1,0 +1,285 @@
+---
+title: "MA206: Code Annex"
+author: "CPT Jonathan Day"
+format: html
+---
+
+# Adding Dependencies
+
+In RStudio we use a common framework called tidyverse which holds a plethora of useful functions to work with and manipulate data. The other packages are not always necessary, only add the libraries you need at the beginning of your code document. If you do not have that library installed, in the console tab in the bottom-left pane of your RStudio use the function `install.packages('the_package_you_want_to_install')` and RStudio will install it for you.
+
+```{r setup, include=FALSE}
+
+library(tidyverse)
+library(tidyr)
+library(patchwork)
+library(kableExtra)
+library(latex2exp)
+```
+
+# Data Sampling
+
+```{r data-sampling}
+set.seed(1991)
+data(diamonds)
+df <- diamonds %>% sample_n(size = 1000)
+```
+
+# Table Preview
+
+```{r table-preview}
+df %>% head() %>%
+  kable("html", align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    position = "center",
+    bootstrap_options = c("striped", "hover", "condensed", "bordered")
+  )
+```
+
+# Histograms
+
+```{r histograms, fig.width=15, fig.height=5}
+p1 <- df %>% ggplot(aes(x = carat)) + geom_histogram(bins = 30) + theme_minimal()
+p2 <- df %>% ggplot(aes(x = depth)) + geom_histogram(bins = 30) + theme_minimal()
+p3 <- df %>% ggplot(aes(x = price)) + geom_histogram(bins = 30) + theme_minimal()
+p1 | p2 | p3
+```
+
+# Boxplots
+
+```{r boxplots, fig.width=15, fig.height=5}
+p4 <- df %>% ggplot(aes(x = carat)) + geom_boxplot() + theme_minimal()
+p5 <- df %>% ggplot(aes(x = depth)) + geom_boxplot() + theme_minimal()
+p6 <- df %>% ggplot(aes(x = price)) + geom_boxplot() + theme_minimal()
+p4 | p5 | p6
+```
+
+# Summary Statistics Table
+
+```{r summary-stats}
+df %>%
+  summarise(
+    across(
+      where(is.numeric),
+      list(
+        Mean = ~mean(.x, na.rm = TRUE),
+        Median = ~median(.x, na.rm = TRUE),
+        SD = ~sd(.x, na.rm = TRUE),
+        Var = ~var(.x, na.rm = TRUE),
+        Min = ~min(.x, na.rm = TRUE),
+        Max = ~max(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    )
+  ) %>%
+  round(2) %>%
+  pivot_longer(everything(), names_to = c("Variable", "Stat"), names_sep = "_") %>%
+  pivot_wider(names_from = Stat, values_from = value) %>%
+  kable("html", align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    position = "center",
+    bootstrap_options = c("striped", "hover", "condensed", "bordered")
+  )
+```
+
+# Scatterplots
+
+```{r scatterplots, fig.width=20, fig.height=8}
+p7 <- df %>% ggplot(aes(x = carat, y = price, color = clarity)) + geom_point() + theme_minimal()
+p8 <- df %>% ggplot(aes(x = table, y = price, color = cut)) + geom_point() + theme_minimal()
+p9 <- df %>% ggplot(aes(x = depth, y = price, color = color)) + geom_point() + theme_minimal()
+p7 | p8 | p9
+```
+
+# Bar Charts
+
+```{r bar-charts, fig.width=15, fig.height=5}
+p10 <- df %>% group_by(cut) %>% summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = cut, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "pink") +
+  labs(title = "Average Price by Diamond Cut", x = "Cut", y = "Avg Price") +
+  theme_minimal()
+
+p11 <- df %>% group_by(color) %>% summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = color, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Average Price by Diamond Color", x = "Color", y = "Avg Price") +
+  theme_minimal()
+
+p12 <- df %>% group_by(clarity) %>% summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = clarity, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "magenta") +
+  labs(title = "Average Price by Diamond Clarity", x = "Clarity", y = "Avg Price") +
+  theme_minimal()
+
+p10 | p11 | p12
+```
+
+# Correlation Table
+
+```{r correlation-table}
+df %>%
+  select(where(is.numeric)) %>%
+  cor(use = "pairwise.complete.obs") %>%
+  round(2) %>%
+  kable("html", align = "c") %>%
+  kable_styling(
+    full_width = FALSE,
+    position = "center",
+    bootstrap_options = c("striped", "hover", "condensed", "bordered")
+  )
+```
+
+# Hypothesis Testing Visuals (Normal Curve Shading)
+
+```{r normal-shading, fig.width=20, fig.height=5}
+mu <- 0; sigma <- 1
+x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+df_norm <- data.frame(x = x, y = dnorm(x, mu, sigma))
+less_df <- subset(df_norm, x <= -1.96)
+more_df <- subset(df_norm, x >= 1.96)
+
+p_more <- ggplot(df_norm, aes(x, y)) +
+  geom_line(color = "blue", size = 1.2) +
+  geom_area(data = more_df, aes(x, y), fill = "lightblue") +
+  geom_vline(xintercept = 1.96, linetype = "dashed", color = "red") +
+  annotate("text", x = 1.96, y = 0.02, label = "z = 1.96", hjust = -0.1, color = "red") +
+  annotate("text", x = 2.5, y = 0.05, label = TeX("P(X > 1.96) = 0.025"), parse = TRUE)
+
+p_less <- ggplot(df_norm, aes(x, y)) +
+  geom_line(color = "blue", size = 1.2) +
+  geom_area(data = less_df, aes(x, y), fill = "lightblue") +
+  geom_vline(xintercept = -1.96, linetype = "dashed", color = "red") +
+  annotate("text", x = -1.96, y = 0.02, label = "z = -1.96", hjust = 1.1, color = "red") +
+  annotate("text", x = -2.5, y = 0.05, label = TeX("P(X < -1.96) = 0.025"), parse = TRUE)
+
+p_both <- ggplot(df_norm, aes(x, y)) +
+  geom_line(color = "blue", size = 1.2) +
+  geom_area(data = less_df, aes(x, y), fill = "lightblue") +
+  geom_area(data = more_df, aes(x, y), fill = "lightblue") +
+  geom_vline(xintercept = c(-1.96, 1.96), linetype = "dashed", color = "red") +
+  annotate("text", x = 0, y = 0.05, label = TeX("P(|X| > 1.96) = 0.05"), parse = TRUE)
+
+p_more | p_less | p_both
+```
+
+# Proportion Test Example
+
+```{r proportion-test}
+pi <- 0.4
+n <- nrow(diamonds)
+phat <- mean(diamonds$cut == "Ideal")
+z <- (phat - pi) / sqrt(pi * (1 - pi) / n)
+p_value <- 1 - pnorm(z)
+cat("Z-statistic: ", round(z, 3), "\nP-value: ", round(p_value, 4))
+```
+
+# Mean Test Example
+
+```{r mean-test}
+mu0 <- 4000
+x_bar <- mean(diamonds$price)
+s <- sd(diamonds$price)
+n <- length(diamonds$price)
+t_stat <- (x_bar - mu0) / (s / sqrt(n))
+p_value <- 2 * (1 - pt(abs(t_stat), df = n - 1))
+cat("T-statistic: ", round(t_stat, 3), "\nP-value: ", round(p_value, 4))
+```
+
+# Power Curve
+
+```{r power-curve}
+x <- seq(-4, 6, length = 1000)
+null_dist <- dnorm(x, 0, 1)
+alt_dist <- dnorm(x, 2, 1)
+df_power <- data.frame(x, null = null_dist, alt = alt_dist)
+
+ggplot(df_power, aes(x)) +
+  geom_line(aes(y = null), color = "blue", size = 1.2) +
+  geom_line(aes(y = alt), color = "red", size = 1.2, linetype = "dashed") +
+  geom_vline(xintercept = qnorm(0.95), linetype = "dotted") +
+  annotate("text", x = -2, y = 0.3, label = "Null Distribution", color = "blue") +
+  annotate("text", x = 4, y = 0.2, label = "Alternative Distribution", color = "red") +
+  annotate("text", x = 1.65, y = 0.05, label = "Critical Value", angle = 90) +
+  labs(title = "Type I & Type II Errors with Power Curve", x = "Test Statistic", y = "Density") +
+  theme_minimal()
+```
+
+# Two-Sample Proportion Test
+
+```{r two-sample-prop}
+df_prop <- diamonds %>% filter(color %in% c("D", "E")) %>% mutate(is_ideal = cut == "Ideal")
+p1 <- mean(df_prop$is_ideal[df_prop$color == "D"])
+p2 <- mean(df_prop$is_ideal[df_prop$color == "E"])
+n1 <- sum(df_prop$color == "D")
+n2 <- sum(df_prop$color == "E")
+phat_pool <- (p1 * n1 + p2 * n2) / (n1 + n2)
+z <- (p1 - p2) / sqrt(phat_pool * (1 - phat_pool) * (1 / n1 + 1 / n2))
+p_value <- 2 * (1 - pnorm(abs(z)))
+cat("Z-statistic: ", round(z, 3), "\nP-value: ", round(p_value, 4))
+```
+
+# Chi-Square Test
+
+```{r chi-square}
+tbl <- table(diamonds$cut, diamonds$color)
+chisq.test(tbl)
+```
+
+# Independent T-Test
+
+```{r ind-t-test}
+df_t <- diamonds %>% filter(cut %in% c("Ideal", "Fair"))
+t.test(price ~ cut, data = df_t)
+```
+
+# Paired T-Test (Simulated)
+
+```{r paired-t-test}
+set.seed(123)
+n <- 100
+orig <- sample(diamonds$price, n)
+disc <- orig * runif(n, 0.85, 0.95)
+t.test(orig, disc, paired = TRUE)
+```
+
+# Simple Linear Regression
+
+```{r simple-lm}
+set.seed(206)
+df_lm <- diamonds %>% sample_n(1000)
+lm_simple <- lm(price ~ carat, data = df_lm)
+summary(lm_simple)
+```
+
+# Multiple Linear Regression
+
+```{r multi-lm}
+lm_multi <- lm(price ~ carat + depth + table, data = df_lm)
+summary(lm_multi)
+```
+
+# Regression Diagnostics
+
+```{r resid-plot}
+plot(lm_multi, which = 1)
+```
+
+```{r resid-hist}
+resid <- resid(lm_multi)
+hist(resid, breaks = 30, main = "Histogram of Residuals", xlab = "Residual")
+```
+
+# ANOVA
+
+```{r anova-test}
+anova_model <- aov(price ~ cut, data = df_lm)
+summary(anova_model)
+```
+
+# Tukey HSD
+
+```{r tukey}
+TukeyHSD(anova_model)

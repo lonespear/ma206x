@@ -1,0 +1,1199 @@
+---
+title: "MA206: Introduction to Probability and Statistics"
+author: "CPT Jonathan Day"
+fontsize: 11pt
+geometry: margin=1in
+---
+
+*To Cadets:*\
+This course, MA206, introduces you to the foundational principles of probability and statistics, emphasizing data literacy and inference. It begins with Block I, covering data types, visualization, and basic probability rules including counting and the behavior of random variables. Block II builds on this by exploring discrete and continuous distributions, the Central Limit Theorem, and tools for one-sample inference such as confidence intervals and hypothesis testing for proportions and means. Finally, Block III develops cadets’ ability to analyze relationships between variables through two-sample tests, linear regression, ANOVA, and goodness-of-fit testing. By the end of the course, cadets will be equipped to make sound, data-driven decisions grounded in statistical reasoning.
+
+**Six Step Method**
+
+1.  Describe how the six steps of a statistical investigation apply to a particular statistical study:
+    a.  Ask a research question\
+    b.  Design a study and collect data\
+    c.  Explore the data\
+    d.  Draw inferences beyond the data\
+    e.  Formulate conclusions\
+    f.  Look back and ahead\
+2.  Think of and write research questions that could be investigated with a statistical study.\
+3.  Identify the observational units and variables in a statistical study.\
+4.  Classify variables as categorical or quantitative.
+
+*A Note on Technology:*\
+In this course the primary tool used for data analysis is R. Throughout this course you will implement techniques for summarizing, visualizing, and analyzing data. The primary focus of this course is not for you to become masters in coding, however building on skills learned in CY105 will help your analysis in understanding how to use information technology to demonstrate successful outcomes in this course.
+
+Of note, some of the functions we use in R require the package *tidyverse*, everytime you begin working in RStudio, the beginning code chunk should resemble:
+
+```{r, echo=FALSE}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: 'hide'
+
+library(tidyverse)
+library(tidyr)
+library(patchwork)
+library(kableExtra)
+library(latex2exp)
+```
+
+# BLOCK I: Data and Randomness
+
+## Types of Data, Sampling, and Bias
+
+Fundamental to statistical analysis is understanding the types of data we encounter, the methods we use to collect them, and the potential sources of bias that can undermine the validity of our conclusions. We distinguish between *categorical* (qualitative) and *quantitative* (numerical) data. Categorical variables can further be broken down into nominal (color, baseball position, type of animal), ordinal (I had a very bad/somewhat bad/neutral/good/very good experience at CFT), and binary (Yes I passed Air Assault/No I did not). Quantitative data can also be broken down into either discrete or continuous. Understanding these distinctions is critical for selecting the correct tools for analysis and interpretation.
+
+The two methods of sampling in this course will be through simple *random sampling* or *convenience sampling*. The difference in application is whether we can *generalize* our results to the larger population. As an example, say I do not have an exhaustive list of cadet ID numbers to randomly select from. Instead, I only can stand in Central Area after class at 1630 and survey the first 50 cadets that willingly take my survey. There is a certain sub-population I am probably missing (1st Reg, 4th Reg, Corps Squad, etc). This is a convenience sample. Instead, if I randomly select 50 C-Numbers from a complete list of the Corps obtained from the registrar, this would be a a true random sample of the Corps, whereas the former is what is known as *selection bias*.
+
+Finally, we explore the concept of bias in data collection. We identify common sources such as selection bias, response bias, and measurement bias, and discuss how poor sampling practices or flawed survey design can distort findings. This lesson sets the stage for the rest of the course by highlighting the importance of thoughtful data collection and critical evaluation of data sources.
+
+As an example let us look at a dataset aggregated from over 50,000 diamonds:
+
+```{r, echo=FALSE}
+ #| echo: false
+set.seed(1991)
+data(diamonds)
+df <- diamonds %>% sample_n(size=1000)
+df %>% head %>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
+```
+Each of the rows is an individual diamond, generally called an observation. Each of the columns are unique aspects measured for every observation, called variables. Variables are either categorical, qualitative aspects of each measurement, or quantitative, a numbered entry.
+
+## Exploratory Data Analysis
+
+Understanding, communicating, and interpreting your data is *paramount* to any initial data analysis project. These are done through numerous visualizations and summary statistics which we will learn to regularly implement when given any new dataset.
+
+### One Variable – Visualizations and Summary Statistics
+
+Starting with a variable-by-variable approach is a natural first step. This is done rapidly in R with the following few functions:
+
+```{r, echo=FALSE, fig.width=15, fig.height=5}
+ #| echo: false
+p1 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_histogram(bins=30) + theme_minimal()
+p2 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_histogram(bins=30) + theme_minimal()
+p3 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_histogram(bins=30) + theme_minimal()
+p1 | p2 | p3
+```
+
+Histograms tell us where most of the values for a quantitative variable lie in its given distribution. We can determine *skewness*, a measure of how lopsided the data appear or if there are any asymmetries or *tails*.
+
+```{r, echo=FALSE, fig.height=5, fig.width=15}
+ #| echo: false
+p4 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=carat)) + geom_boxplot() + theme_minimal()
+p5 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=depth)) + geom_boxplot() + theme_minimal()
+p6 <- diamonds %>% sample_n(size=1000) %>% ggplot(aes(x=price)) + geom_boxplot() + theme_minimal()
+p4 | p5 | p6
+```
+
+Similar to a histogram, a boxplot will tell us exactly where the median, 1st and 3rd quartiles, and outliers exist for any quantitative variable. The 'whiskers' are determined by $1.5 \times IQR$ where the inter-quartile range is the $3rd - 1st$ quartiles.
+
+```{r, echo=FALSE}
+ #| echo: false
+df %>%
+  summarise(across(where(is.numeric), list(
+    Mean = ~mean(.x, na.rm = TRUE),
+    Median = ~median(.x, na.rm = TRUE),
+    SD = ~sd(.x, na.rm = TRUE),
+    Var = ~var(.x, na.rm = TRUE),
+    Min = ~min(.x, na.rm = TRUE),
+    Max = ~max(.x, na.rm = TRUE)
+  ), .names = "{.col}_{.fn}")) %>% round(2) %>%
+  pivot_longer(everything(), names_to = c("Variable", "stat"), names_sep = "_") %>%
+  pivot_wider(names_from = stat, values_from = value)%>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
+```
+The above are the predominant statistics you want to discern for every quantitative variable in your dataset. The benchmark *location* statistics are the mean, median, max, and min, while the standard deviation and variance are measures of how *spread* out the data are relative to one another.
+
+$$
+\begin{align}
+\text{Sample Mean: } \ \ & \bar{X} = \frac{1}{n}\sum_{i=1}^n x_i \\
+\text{Sample Variance: } \ \ &  S^2 = \frac{1}{n-1}\sum_{i=1}^n ( x_i - \bar{X}  )^2 \\
+\text{Sample Standard Deviation:} \ \ & s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n ( x_i - \bar{X} )^2}
+\end{align}
+$$
+
+***Note: the standard deviation is the square root of the variance***
+
+### Two Variables – Visualizations and Summary Statistics
+
+```{r, echo=FALSE, fig.width=20, fig.height=8}
+ #| echo: false
+p7 <- df %>% ggplot(aes(x=carat, y=price, color=clarity)) + geom_point() + theme_minimal()
+p8 <- df %>% ggplot(aes(x=table, y=price, color=cut)) + geom_point() + theme_minimal()
+p9 <- df %>% ggplot(aes(x=depth, y=price, color=color)) + geom_point() + theme_minimal()
+p7 | p8 |p9
+```
+
+A scatterplot is the main tool to visualize and identify a relationship between two quantitative variables. Oftentimes, coloring each observation by another categorical variable is a way to maximize effectiveness of a single plot, as you are encoding more information within the same space.
+
+```{r, echo=FALSE, fig.width=15, fig.height=5}
+ #| echo: false
+p10 <- df %>%
+  group_by(cut) %>%
+  summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = cut, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "pink") +
+  labs(
+    title = "Average Price by Diamond Cut Quality",
+    x = "Diamond Cut",
+    y = "Average Price ($)"
+  ) +
+  theme_minimal()
+p11 <- df %>%
+  group_by(color) %>%
+  summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = color, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(
+    title = "Average Price by Diamond Color Rating",
+    x = "Diamond Color",
+    y = "Average Price ($)"
+  ) +
+  theme_minimal()
+p12 <- df %>%
+  group_by(clarity) %>%
+  summarise(avg_price = mean(price)) %>%
+  ggplot(aes(x = clarity, y = avg_price)) +
+  geom_bar(stat = "identity", fill = "magenta") +
+  labs(
+    title = "Average Price by Diamond Clarity",
+    x = "Diamond Clarity",
+    y = "Average Price ($)"
+  ) +
+  theme_minimal()
+p10 | p11 | p12
+```
+
+```{r, echo=FALSE}
+ #| echo: false
+df %>%
+  select(-x, -y, -z) %>%
+  select(where(is.numeric)) %>%
+  cor(use = "pairwise.complete.obs") %>%
+  round(2) %>%
+  kable("html", align = "c") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped", "hover", "condensed", "bordered")) %>%
+  row_spec(0, bold = TRUE)
+```
+Correlation is the only multivariate summary statistic we will be using in this course, used to describe how two variables tend to move in tandem with one another. A perfect linear association evokes a correlation of 1, the opposite being a perfect negative association with a correlation of -1. No association is implied by a correlation near 0. 
+
+Mathematically:
+> Definition
+> For any two variables X,Y, the correlation of X and Y are:
+$$
+r = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2\sum_{i=1}^n (y_i - \bar{y})^2}
+$$
+
+## Probability
+
+### Sample Space and Random Experiment ($\Omega$)
+
+A **random experiment** is a process that produces an outcome which cannot be predicted with certainty in advance. It must be well-defined, have more than one possible outcome, and be repeatable under similar conditions. Each performance of the experiment results in a single outcome from the sample space. The **sample space** is the set of all possible outcomes of a random experiment.
+
+------------------------------------------------------------------------
+
+> **Definition:**
+>
+>   - The **sample space** is the set of all possible outcomes of a random experiment, denoted $\Omega$.
+>   - An **event** is a subset of the sample space. It can represent one or more outcomes.
+>   - If all outcomes in $\Omega$ are equally likely, then for any event  $A$:
+
+$$
+\mathbb{P}(A) = \frac{\text{Number of outcomes in } A}{\text{Total outcomes in } \Omega}
+$$
+
+------------------------------------------------------------------------
+
+**Examples:**
+
+-   Tossing a coin once: $\Omega = {\text{Heads}, \text{Tails}}$
+-   Rolling a 6-sided die: $\Omega = {1, 2, 3, 4, 5, 6}$
+-   Letter grade in MA206: $\Omega = {A, B, C, D, F}$
+-   Number of emails received in an hour: $\Omega = {0, 1, 2, \dots}$
+
+------------------------------------------------------------------------
+
+### Probability Measure ($\mathbb{P}$)
+
+A **probability measure** is a rule, denoted $\mathbb{P}$, that assigns a number between 0 and 1 to every event in a collection of events (called a **sigma-algebra**, denoted $\mathcal{F}$ ). These probabilities must follow three key rules, known as the **axioms of probability**.
+
+------------------------------------------------------------------------
+
+::: {.callout-note title="Axioms of Probability"}
+
+1. **Non-Negativity**  
+For any event $A$, the probability is never negative:  
+$$
+\mathbb{P}(A) \geq 0
+$$
+
+2. **Normalization**  
+The probability of one of the events happening over the entire sample space is 1:  
+$$
+\mathbb{P}(\Omega) = 1
+$$
+
+3. **Additivity (for disjoint events)**  
+If events $A_1, A_2, A_3, \dots$ are **mutually exclusive** (no overlap), then the probability that **any one of them** occurs is the sum of their individual probabilities:  
+$$
+\mathbb{P}\left(\bigcup_{i=1}^{\infty} A_i\right) = \mathbb{P}(A_1) + \mathbb{P}(A_2) + \mathbb{P}(A_3) + \cdots
+$$
+
+:::
+
+------------------------------------------------------------------------
+
+**Example (Simple):**\
+Let $A$, $B$, and $C$ be outcomes when rolling a die:
+
+-   $A = \{1\}$, $B = \{3\} $, $C = \{5\}$\
+-   These are disjoint events (they don't overlap).\
+-   Then: $$
+    \mathbb{P}(A \cup B \cup C) = \mathbb{P}(A) + \mathbb{P}(B) + \mathbb{P}(C) = \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}
+    $$
+
+These three rules form the mathematical foundation of all probability calculations — everything else builds on them.
+
+------------------------------------------------------------------------
+
+::: {.callout-note title="Set Theory"}
+
+-   The **complement** of an event $A$, written $A^c$, consists of all outcomes in $\Omega$ that are not in $A$:
+
+$$
+\mathbb{P}(A) + \mathbb{P}(A^c) = 1
+$$
+
+-   The **intersection** $A \cap B$ consists of outcomes where both $A$ and $B$ occur.
+
+-   The **union** $A \cup B$ consists of outcomes where either $A$, $B$, or both occur:
+
+$$
+\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)
+$$
+
+-   Two events $A$ and $B$ are **disjoint** (mutually exclusive) if they cannot both occur:
+
+$$
+A \cap B = \varnothing \quad \text{and} \quad \mathbb{P}(A \cap B) = 0
+$$
+
+:::
+
+### Conditional Probability
+
+For events $A$ and $B$ with $0 < P(B) \le 1$, the **conditional probability** of $A$ given $B$ is:
+
+$$
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}
+$$
+
+**Example:** One card is drawn from a standard deck.\
+Let $A$: card is a Queen, and $B$: card is a face card.\
+Find $P(A)$, $P(B)$, and $P(A \mid B)$.
+
+------------------------------------------------------------------------
+
+### Law of Total Probability
+
+::: {.callout-note title="LoTP"}
+If $E_1, \dots, E_n$ is a partition of the sample space (mutually exclusive and exhaustive), then for any event $A$:
+
+$$
+P(A) = \sum_{i=1}^{n} P(E_i) P(A \mid E_i)
+$$
+:::
+
+**Example:**\
+A fair die is rolled. Let event A: "an even number is rolled".\
+Let:\
+- $E_1$: roll is 1 or 2\
+- $E_2$: roll is 3 or 4\
+- $E_3$: roll is 5 or 6\
+
+Find:\
+- $P(A \mid E_1)$, $P(A \mid E_2)$, $P(A \mid E_3)$\
+- Then use the Law of Total Probability to find $P(A)$
+
+------------------------------------------------------------------------
+
+### Bayes' Theorem
+
+::: {.callout-note title="Switching the Conditioning of Events"}
+> **Definition:**\
+> If $E_1, \dots, E_n$ is a partition of the sample space and $P(A) > 0$, then:
+
+$$
+P(E_k \mid A) = \frac{P(A \mid E_k) P(E_k)}{\sum_{i=1}^n P(A \mid E_i) P(E_i)}
+$$
+:::
+
+**Example:**\
+Two urns:\
+- Urn 1: 1 red, 1 blue\
+- Urn 2: 3 red, 1 blue
+
+Pick an urn at random, then draw one ball.\
+If the ball is red, what is the probability it came from **Urn 1**?
+
+------------------------------------------------------------------------
+
+### Counting Principles
+
+Before we can begin a thorough treatment of probability, some concepts in counting are needed to identify four common situations. These arise depending on when things are "allowed" to repeat or the "order" items are chosen in matters. The ability to discern when these **four** situations arise is more than half the battle.
+
+#### Ordered with Replacement
+
+*Think of the number of ways of choosing a 4-digit passcode on your phone.*\
+The order of the numbers matters, and you are allowed to repeat the same number. So how many arrangements are there? Since repetition is allowed and order matters, there are 10 digits for each position, giving:
+
+$$
+\text{Ordered Arrangements with Replacement} = n^r = 10^4 = 10{,}000
+$$
+
+#### Ordered without Replacement
+
+*Think of the number of ways I can create a batting order from 9 position players.*\
+The order still matters, but players cannot be repeated. This is a **permutation** — an ordered arrangement without replacement.
+
+$$
+{}_nP_r = P(n, r) = \frac{n!}{(n - r)!}
+$$
+
+***Note: Factorial in math is computed as $5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$.***
+
+For example, the number of ways to assign the first 3 batting positions from 9 players:
+
+$$
+{}_9P_3 = \frac{9!}{(9-3)!} = 9 \times 8 \times 7 = 504
+$$
+
+#### Unordered without Replacement
+
+*Think of how many ways you can choose 3 scoops of ice cream from 5 unique flavors without repeats.*\
+Because order doesn't matter and repeats aren't allowed, we use **combinations**:
+
+$$
+{}_nC_k = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
+#### Unordered with Replacement
+
+*Think of how many different combinations of 3 scoop ice cream cones you can make with 5 unique flavors while allowing repeats.*\
+This is the trickiest scenario. The order doesn't matter, and repetition is allowed. The formula is:
+
+$$
+\text{Unordered Arrangements with Replacement} = \binom{r+n-1}{r} = \frac{(r+n-1)!}{r!(n-1)!}
+$$
+
+Example: choosing 3 scoops from 5 flavors (with repeats):
+
+$$
+\binom{3+5-1}{3} = \binom{7}{3} = 35
+$$
+
+This can be understood using the **stars and bars** method: selecting $r$ scoops with $n-1$ dividers. Imagine representing each scoop as a ★ (star) and using vertical bars | to separate flavor types. To choose $r$ scoops from $n$ flavors, you need $r$ stars (for the scoops) and $n - 1$ bars (to divide them into $n$ categories). For example, if $r = 3$ scoops and $n = 5$ flavors, you arrange 3 stars and 4 bars in a row. One possible arrangement is ★ | ★★ | | |, which represents 1 scoop of flavor 1, 2 scoops of flavor 2, and 0 scoops of flavors 3, 4, and 5. The number of such arrangements is given by the combination formula $\binom{r + n - 1}{r}$, since you are choosing positions for the $r$ indistinguishable stars among the $r + n - 1$ total positions (stars and bars combined).
+
+***Note: The above section may seem like it came out of nowhere, that is okay. A fundamental difficulty in probability is finding the sample space or event space due to finding the various different combinations/permutations sequences of different possibilities. To elaborate consider the next example: ***
+
+---
+
+**Example: No Matching Pairs in a Shoe Sample**
+
+A closet contains $n$ pairs of shoes (so $2n$ total shoes). If $2r$ shoes are chosen at random (where $2r < n$), what is the probability that **no matching pair** is selected?
+
+We are selecting $2r$ shoes such that no left and right shoe from the same pair are both chosen.
+
+**Strategy:** \
+1. First choose $2r$ **distinct pairs** from the $n$ available — there are $\binom{n}{2r}$ ways to do this.  
+2. From each of these $2r$ selected pairs, choose **only one shoe** (either left or right) — there are $2^{2r}$ ways to do this.  
+3. The total number of ways to choose **any** $2r$ shoes out of $2n$ is $\binom{2n}{2r}$.
+
+So, the desired probability is:
+
+$$
+\mathbb{P}(\text{No matching pair}) = \frac{\binom{n}{2r} \cdot 2^{2r}}{\binom{2n}{2r}}
+$$
+
+# BLOCK II: Univariate Inference
+
+## Random Variables, Expectation, and Variance
+
+::: {.callout-note title="Random Variable"}
+A *random variable* is a mapping that assigns a real number to every outcome in the sample space:  
+$$
+X: \Omega \rightarrow \mathbb{R}
+$$
+:::
+
+::: {.callout-note title="Cumulative Distribution Function"}
+A *cumulative distribution function (CDF)* is a function $F_X: \mathbb{R} \rightarrow [0,1]$ defined by:  
+$$
+F_X(x) = \mathbb{P}(X \le x)
+$$
+:::
+
+## Discrete Random Variables
+
+::: {.callout-note title="Discrete Random Variables"}
+  
+A *discrete random variable* is a random variable that takes countably many values in $\mathbb{R}$.  
+Its *probability mass function* is given by:  
+$$
+f_X(x) = \mathbb{P}(X = x)
+$$
+
+The *expected value* (mean) of a discrete random variable $X$ is:  
+$$
+\mathbb{E}[X] = \sum_x x \cdot \mathbb{P}(X = x)
+$$
+
+**Definition (Variance):**  
+The *variance* of a discrete random variable $X$ is:  
+$$
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \sum_x (x - \mathbb{E}[X])^2 \cdot \mathbb{P}(X = x)
+$$
+:::
+         
+### Binomial Distribution:
+
+::: {.definition}
+Let $X \sim \text{Binomial}(n, p)$ where $n \in \mathbb{N}$ and $0 < p < 1$.
+
+- **Probability Mass Function (PMF):**  
+  $$
+  \mathbb{P}(X = k) = \binom{n}{k} p^k (1 - p)^{n - k}, \quad \text{for } k = 0, 1, \dots, n
+  $$
+
+- **Cumulative Distribution Function (CDF):**  
+  $$
+  F_X(x) = \mathbb{P}(X \le x) = \sum_{k=0}^{\lfloor x \rfloor} \binom{n}{k} p^k (1 - p)^{n - k}
+  $$
+
+- **Expected Value:**  
+  $$
+  \mathbb{E}[X] = np
+  $$
+
+- **Variance:**  
+  $$
+  \mathrm{Var}(X) = np(1 - p)
+  $$
+:::
+
+
+### Geometric Distribution:
+
+::: {.definition}
+Let $X \sim \text{Geometric}(p)$ be the number of trials until the first success (including the success), where $0 < p < 1$.
+
+- **Probability Mass Function (PMF):**  
+  $$
+  \mathbb{P}(X = k) = (1 - p)^{k - 1} p, \quad \text{for } k = 1, 2, 3, \dots
+  $$
+
+- **Cumulative Distribution Function (CDF):**  
+  $$
+  F_X(x) = \mathbb{P}(X \le x) = 1 - (1 - p)^{\lfloor x \rfloor}
+  $$
+
+- **Expected Value:**  
+  $$
+  \mathbb{E}[X] = \frac{1}{p}
+  $$
+
+- **Variance:**  
+  $$
+  \mathrm{Var}(X) = \frac{1 - p}{p^2}
+  $$
+:::
+
+## Continuous Random Variables
+
+::: {.callout-note title="Continuous Random Variable"}
+
+A continuous random variable takes infinitely many values in $\mathbb{R}$.
+Its *probability density function* is given by:  
+$$
+f_X(x) = \mathbb{P}(X = x)
+$$
+
+***Note: We do not find probabilities with the pdf like the pmf of a discrete random variable. We integrate over a neighborhood of the support of X, as there is no probability mass at any single point for a continuous distribution.***
+
+The *expected value* (mean) of a continuous random variable $X$ is:  
+$$
+\mathbb{E}[X] = \int_{-\infty}^\infty x f_X(x)dx
+$$
+
+**Definition (Variance):**  
+The *variance* of a discrete random variable $X$ is:  
+$$
+\mathrm{Var}(X) = \mathbb{E}\left[(X - \mathbb{E}[X])^2\right] = \int_{-\infty}^\infty (x - \mathbb{E}[X])^2 f_X(x)dx = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+$$
+:::
+
+### Central Limit Theorem (CLT)
+
+The **Central Limit Theorem (CLT)** is one of the most important results in statistics. It states that the sampling distribution of the sample mean $\bar{X}$ becomes approximately normal as the sample size $n$ increases, regardless of the shape of the population distribution (provided it has finite mean and variance).
+
+Specifically, if $X_1, X_2, \dots, X_n$ are i.i.d. random variables with mean $\mu$ and variance $\sigma^2$, then:
+
+$$
+\frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \xrightarrow{d} \mathcal{N}(0,1) \quad \text{as } n \to \infty
+$$
+
+This justifies the widespread use of the normal distribution to approximate sample means in practice.
+
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jvoxEYmQHNM?si=QtzJ5uqAiQQ4g9Yn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+*Credit: The New York Times*
+
+---
+
+### Normal Distribution
+
+The above video showed you the importance of this distribution, also called a *Gaussian Distribution*. Many natural phenomena are normally distributed.
+
+::: {.definition}
+**Normal Distribution**  
+Let $X \sim \mathcal{N}(\mu, \sigma^2)$, where $\mu \in \mathbb{R}$ and $\sigma > 0$.
+
+- **Probability Density Function (PDF):**  
+  $$
+  f(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left( -\frac{(x - \mu)^2}{2\sigma^2} \right), \quad x \in \mathbb{R}
+  $$
+
+- **Cumulative Distribution Function (CDF):**  
+  There is no closed-form expression, but it is denoted as:  
+  $$
+  F_X(x) = \mathbb{P}(X \le x) = \Phi\left( \frac{x - \mu}{\sigma} \right)
+  $$  
+  where $\Phi$ is the standard normal CDF.
+
+- **Expected Value:**  
+  $$
+  \mathbb{E}[X] = \mu
+  $$
+
+- **Variance:**  
+  $$
+  \mathrm{Var}(X) = \sigma^2
+  $$
+:::
+
+### Exponential Distribution
+
+This distribution is helpful to model continuous time-related events: time between system failures at a factory, time between phone calls at a call center, time between insurance claims received at a insurance firm. All these can be modeled with this useful continuous random variable.
+
+::: {.definition}
+Let $X \sim \text{Exponential}(\lambda)$ with $\lambda > 0$.
+
+- **Probability Density Function (PDF):**  
+  $$
+  f(x) = \lambda e^{-\lambda x}, \quad x \ge 0
+  $$
+
+- **Cumulative Distribution Function (CDF):**  
+  $$
+  F_X(x) = \mathbb{P}(X \le x) = 1 - e^{-\lambda x}, \quad x \ge 0
+  $$
+
+- **Expected Value:**  
+  $$
+  \mathbb{E}[X] = \frac{1}{\lambda}
+  $$
+
+- **Variance:**  
+  $$
+  \mathrm{Var}(X) = \frac{1}{\lambda^2}
+  $$
+:::
+
+## Confidence Intervals
+
+A **confidence interval (CI)** gives a range of plausible values for a population parameter based on a sample statistic. The general structure of any confidence interval is:
+
+$$
+\text{point estimate} \ \pm \ \text{margin of error}
+$$
+
+More specifically, for large samples or when the sampling distribution of the estimate is approximately normal:
+
+$$
+\text{CI} = \hat{\theta} \ \pm \ z^* \cdot \text{SE}(\hat{\theta})
+$$
+
+Where:
+
+- $\hat{\theta}$ is the **point estimate** (e.g., $\bar{x}$ for the mean, $\hat{p}$ for a proportion)
+- $z^*$ is the **critical value** from the standard normal distribution (e.g., 1.96 for 95% confidence)
+- $\text{SE}(\hat{\theta})$ is the **standard error** of the estimate
+
+This structure applies to many common settings:
+
+- CI for a **population mean**:
+$$
+\bar{x} \pm z^* \cdot \frac{s}{\sqrt{n}}
+$$
+
+- CI for a **population proportion**:
+$$
+\hat{p} \pm z^* \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+$$
+
+#### Interpretation:
+
+> "We are 95% confident that the true population parameter lies within this interval."
+
+This does **not** mean there's a 95% probability the parameter is in the interval — rather, it means that **95% of all intervals** computed from repeated samples in this manner would contain the true parameter.
+
+## One Sample Hypothesis Testing
+
+Hypothesis testing is a formal method for making inferences about a population using sample data. The whole *test* aspect is questioning if the statistic your sample shows is *significantly different* than a certain value in question. You have two underlying premises, referred to as the null and alternative hypotheses. The null hypothesis assumes that there is no difference: the statistic from your value is the same as the value you are testing. The alternative **conflicts** the null and says they are different. The process involves:
+
+1. **State the null and alternative hypotheses**. There are three different variants to create your hypotheses statements depending on what the question being asked entails.
+
+a) *Greater than Alternative Hypothesis*
+
+$$
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &> Value \ in \ Question
+\end{align}
+$$
+
+The entire *inference* aspect of hypothesis testing is that you are using your *sample statistic*, a tangible aspect of your data, to make an argument about the *population parameter*, an entity that is unknown to you. This is why *the hypotheses are written in terms of the parameter*. You are testing whether an aspect or *parameter* about the population is greater than a benchmark value decided by you in advance.
+
+b) *Less than Alternative Hypothesis*
+
+$$
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &< Value \ in \ Question
+\end{align}
+$$
+
+Very similarly, the less than hypothesis is also a **one-sided hypothesis test** in that you are only testing one side of the value, abeit this time if the population parameter is less than the tested value.
+
+b) Not equal to Alternative Hypothesis
+
+$$
+\begin{align}
+H_0: Parameter &= Value \ in \ Question \\
+H_A: Parameter &\neq Value \ in \ Question
+\end{align}
+$$
+
+This is the only two-sided hypothesis test, denoted with the not equal to alternative hypothesis. Both sides must be accounted for in this test, and therefore as we will see shortly *require more evidence for significance*.
+
+2. **Choose a significance level $\alpha$**.
+
+This is the *threshold* you will also decide to inform your certainty in your conclusions. As seen previously, unless you are finding the probability that something will happen in the entire sample space (which happens probability 1); ie, there are no absolutes. Therefore there is always a chance that your conclusion will be wrong. Here is where you decide how "often" you are willing to be wrong. Is it 1\% of the time? 5\% of the time? Think of the significance level as choosing the percentage of the time you are willing to be wrong in your conclusion, (I know this sounds weird). A common $\alpha$ is 5\%.
+
+3. **Compute the test statistic**.
+
+Compute the relevant summary statistic. In this course you will either be calculating a sample proportion, denoted $\hat{p}$ if the variable of interest is categorical or the sample mean $\bar{X}$ if quantitative. 
+
+4. **Standardize the test statistic**.
+
+This step transforms your statistic so it can be treated as a random variable from a named distribution. For proportions this will be a Normal Random Variable, however if quantitative it will be a t-distributed random variable.
+
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/32CuxWdOlow?si=n77sKE80z6m3tadt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+*Credit: 365 Data Science*
+
+5. **Determine the p-value**.
+
+Once we have the standardized statistic, it can be treated as either a Standard Normal Random Variable or Student's-t Random Variable. This is where the alternative hypotheses come in to play to determine the **p-value: the probability that if the null hypothesis is indeed true you choose to make an argument supporting the alternative**. To find the probability of a certain event happening in a continuous random variable, you integrate the probability density function with the limits of integration being the range of values the random variable could take. Both the Standard Normal and Student's-t are continuous, so depending on your alternative hypothesis, your p-value is calculated by either of the following: 
+
+$$
+\begin{align}
+\text{Greater Hypothesis} &&&& \text{Less than Hypothesis} &&&& \text{Two Sided Hypothesis} \\
+\mathbb{P}(X>z) = \int_z^\infty f_X(x) dx &&&& \mathbb{P}(X<z) = \int_{-\infty}^z f_X(x)dx &&&& \mathbb{P}(X>z) = \int_{|z|}^\infty f_X(x)dx + \int_{-\infty}^{-|z|} f_X(x)dx
+\end{align}
+$$
+
+```{r, echo=FALSE, fig.width=20, fig.height=5}
+ #| echo: false
+# Parameters
+library(latex2exp)
+mu <- 0
+sigma <- 1
+
+# Full normal curve
+x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+df <- data.frame(x = x, y = dnorm(x, mean = mu, sd = sigma))
+
+# Shade regions
+less_df <- subset(df, x <= -1.65)
+more_df <- subset(df, x >= 1.65)
+both_df <- subset(df, x <= -1.96 | x >= 1.96)
+
+# Left tail
+p_less <- ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "blue", linewidth = 1.2) +
+  geom_area(data = less_df, aes(x = x, y = y), fill = "lightblue") +
+  geom_vline(xintercept = -1.65, linetype = "dashed", color = "red") +
+  theme_minimal()
+
+# Right tail
+p_more <- ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "blue", linewidth = 1.2) +
+  geom_area(data = more_df, aes(x = x, y = y), fill = "lightblue") +
+  geom_vline(xintercept = 1.65, linetype = "dashed", color = "red") +
+  annotate("text", x = 1.65, y = 0.02, label = "z = 1.65", hjust = -0.2, color = "red") +
+  annotate("text", x = 2.5, y = 0.05, label = TeX("P(X > 1.65) \approx 0.05"), color = "black", parse=TRUE) +
+  labs(title = "Greater than Hypothesis") +
+  theme_minimal()
+
+# Both tails
+p_both <- ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "blue", linewidth = 1.2) +
+  geom_area(data = less_df, aes(x = x, y = y), fill = "lightblue") +
+  geom_area(data = more_df, aes(x=x, y=y), fill = 'lightblue')+
+  geom_vline(xintercept = c(-1.96, 1.96), linetype = "dashed", color = "red") +
+  theme_minimal()
+
+# Show side by side
+p_more | p_less | p_both
+```
+
+6. **Making a conclusion based on comparison**.
+
+Once a p-value is obtained, reference it to the significance level chosen. If the p-value is greater than $\alpha$, you *fail to reject the null hypothesis*, if it is smaller, you *reject the null hypothesis*, and then state what that means in the context of the problem.
+
+---
+
+### Single Proportion
+
+We conduct inference on a population proportion $\pi$ relative to a hypothesized value $\pi_0$. The test statistic is:
+
+$$
+z = \frac{\hat{p} - \pi}{\sqrt{\frac{\pi(1 - \pi)}{n}}}
+$$
+
+#### Example: Test if more than 40% of diamonds are “Ideal” cut
+
+```{r}
+# Null hypothesis: p = 0.20
+pi <- 0.4
+n <- nrow(diamonds)
+phat <- mean(diamonds$cut == "Ideal")
+
+# Test statistic and p-value
+z <- (phat - pi) / sqrt(pi * (1 - pi) / n)
+p_value <- 1 - pnorm(z)
+
+cat("Z-statistic:", round(z, 3), "\n")
+cat("P-value:", round(p_value, 4))
+```
+
+---
+
+### Single Mean
+
+We conduct inference on a population mean $\mu$ relative to a hypothesized value  $\mu_0$. The test statistic is:
+
+$$
+t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}
+$$
+
+#### Example: Test if the average diamond price is  \$4000.
+
+```{r}
+mu0 <- 4000
+x_bar <- mean(diamonds$price)
+s <- sd(diamonds$price)
+n <- length(diamonds$price)
+
+# Test statistic and p-value
+t_stat <- (x_bar - mu0) / (s / sqrt(n))
+p_value <- 2*(1 - pt(abs(t_stat), df = n - 1))
+
+cat("T-statistic:", round(t_stat, 3), "\n")
+cat("P-value:", round(p_value, 4))
+```
+
+### Experimental Design: Power, Type I / Type II Error
+
+In any hypothesis test, we face the possibility of making incorrect conclusions. These are formalized through **Type I** and **Type II** errors:
+
+- **Type I Error** ($\alpha$): Rejecting the null hypothesis when it is actually true. This is controlled by the **significance level** of the test, often set to $\alpha = 0.05$.
+  
+- **Type II Error** ($\beta$): Failing to reject the null hypothesis when the alternative is actually true. This is harder to control and depends on the true parameter, sample size, and variance.
+
+- **Power of the Test**: The probability of correctly rejecting the null hypothesis when the alternative is true:
+  $$
+  \text{Power} = 1 - \beta
+  $$
+
+A powerful test detects meaningful effects and minimizes Type II error. Power increases when:
+- Sample size increases ($n \uparrow$)
+- Effect size increases (true parameter is farther from null)
+- Variability decreases (standard deviation $\downarrow$)
+- Significance level $\alpha$ increases (easier to reject null)
+
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+x <- seq(-4, 6, length = 1000)
+null_dist <- dnorm(x, mean = 0, sd = 1)
+alt_dist <- dnorm(x, mean = 2, sd = 1)
+
+df <- data.frame(x = x, null = null_dist, alt = alt_dist)
+
+ggplot(df, aes(x = x)) +
+  geom_line(aes(y = null), color = "blue", linewidth = 1.2) +
+  geom_line(aes(y = alt), color = "red", linewidth = 1.2, linetype = "dashed") +
+  geom_vline(xintercept = qnorm(0.95), linetype = "dotted") +
+  annotate("text", x = -2, y = 0.3, label = "Null Distribution", color = "blue") +
+  annotate("text", x = 4, y = 0.2, label = "Alternative Distribution", color = "red") +
+  annotate("text", x = 1.65, y = 0.05, label = "Critical Value", angle = 90) +
+  theme_minimal() +
+  labs(title = "Type I & Type II Errors with Power Curve",
+       y = "Density", x = "Test Statistic")
+```
+
+---
+
+This diagram shows:
+- The **blue curve** is the null distribution (centered at 0).
+- The **red dashed curve** is the alternative distribution (shifted mean).
+- The **dotted vertical line** is the critical value (e.g., $z = 1.645$ for $\alpha = 0.05$ in a one-sided test).
+- Area to the right of this cutoff under the null curve is $\alpha$.
+- Area to the left of this cutoff under the alternative curve is $\beta$.
+- The remaining area under the red curve (right tail) is **power**.
+
+# BLOCK III: Multivariate Inference
+
+## Two Sample Hypothesis Testing
+
+### Difference of Proportions
+
+We compare two population proportions to determine whether there is a significant difference between them. The test statistic is:
+
+$$
+z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1 - \hat{p}) \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+$$
+
+Where $\hat{p}$ is the pooled proportion.
+
+#### Example: Are “Ideal” cuts more common among Premium vs. Good color grades?
+
+```{r}
+# Subset to just Premium and Good clarity levels
+df <- diamonds %>% filter(color =="D" | color=="E")
+
+table(df$cut, df$color)
+
+# Create a binary outcome: Ideal or not
+df <- df %>%
+  mutate(is_ideal = cut == "Ideal")
+
+# Proportions
+p1 <- mean(df$is_ideal[df$color == "D"])
+p2 <- mean(df$is_ideal[df$color == "E"])
+n1 <- sum(df$color == "D")
+n2 <- sum(df$color == "E")
+
+# Pooled proportion
+phat <- (p1 * n1 + p2 * n2) / (n1 + n2)
+
+# Test statistic
+z <- (p1 - p2) / sqrt(phat * (1 - phat) * (1 / n1 + 1 / n2))
+p_value <- 2 * (1 - pnorm(abs(z)))
+
+cat("Z-statistic:", round(z, 3), "\n")
+cat("P-value:", round(p_value, 4))
+```
+
+---
+
+### Multiple Proportions (Chi-Square Test of Independence)
+
+Used when comparing proportions across more than two groups.
+
+#### Example: Is cut independent of color?
+
+```{r}
+tbl <- table(diamonds$cut, diamonds$color)
+chisq.test(tbl)
+```
+
+This test checks whether the distribution of cut types is independent of the diamond color. A small p-value suggests a dependency.
+
+---
+
+### Difference of Means
+
+Used to compare two independent sample means.
+
+#### Example: Is the average price different between "Ideal" and "Fair" cuts?
+
+```{r}
+df <- diamonds %>% filter(cut %in% c("Ideal", "Fair"))
+
+t.test(price ~ cut, data = df)
+```
+
+This performs a two-sample t-test, assuming unequal variances by default. The null hypothesis is that the means are equal.
+
+---
+
+### Paired Data
+
+In paired designs, each observation in one group is paired with a related observation in the other. Since `diamonds` has no natural pairing, we'll simulate a paired example.
+
+#### Example (Simulated): Price before and after resizing a set of diamonds
+
+```{r}
+set.seed(123)
+
+# Simulate paired prices: original and discounted
+n <- 100
+original_price <- sample(diamonds$price, n)
+discounted_price <- original_price * runif(n, 0.85, 0.95)
+
+t.test(original_price, discounted_price, paired = TRUE)
+```
+
+This tests whether the mean price before and after a simulated discount differs significantly.
+
+---
+
+
+## Regression
+
+\say{All models are wrong, but some are useful. -George E.P. Box}
+
+In this section we continue our multivariate inference with creating models for the purpose of identifying significance between *explanatory* (predictor) variables and the *response*. The function used to create the model, $\hat{y_i}=f(x_i)$ will make predictions, known as *fitted values*. Do to the variability in the data, these fitted values will not exactly predict the response (ie. $y_i \neq \hat{y}$) for all values in the response. These errors are the deviations from the response and the fitted values and are referred as *residuals*, with notation $\epsilon_i = y_i - \hat{y}_i$.
+
+To assess how well a model performs, the residuals are summarized in a few different methods:
+
+#### Mean Absolute Deviation
+
+The average magnitude of the residuals:
+
+$$
+MAD = \frac{1}{n}\sum_{i=1}^n |y_i - \hat{y}_i|
+$$
+
+#### Mean Squared Error:
+
+The average magnitude of the residual-squared.
+
+$$
+MSE = \frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}_i)^2
+$$
+
+### Simple Linear Regression
+
+The above metrics could be applied to any model, however the central method to assess a linear relationship between two quantitative variables is**Simple Linear Regression**, or better known as the line of best fit:
+
+$$
+\hat{y} = \beta_0 + \beta_1 x
+$$
+
+The $\beta$'s are the parameters of the model: the y-intercept and slope. The reason the method is the *best fit* is because we optimizes the choices for these two parameters by minimizing the **sum of squared error**:
+
+$$
+\begin{align}
+SSE &= \sum_{i=1}^n (\epsilon_i)^2 \\
+    &= \sum_{i=1}^n (y_i - \widehat{y}_i)^2 \\
+    &= \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2 \\
+\frac{\partial}{\partial \beta_0}SSE &= \frac{\partial}{\partial \beta_0} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+0 &= -2\sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i) \\
+\widehat{\beta}_0 &= \bar{y} - \widehat{\beta}_1 \bar{x} \\
+\frac{\partial}{\partial \beta_1}SSE &= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - \beta_0 - \beta_1x_i)^2 \\
+ &= \frac{\partial}{\partial \beta_1} \sum_{i=1}^n (y_i - (\bar{y} - \widehat{\beta}_1 \bar{x}) - \widehat{\beta}_1x_i)^2 \\
+0 &= -2\sum_{i=1}^n (\bar{x} - x_i)(y_i - \bar{y} + \widehat{\beta}_1( \bar{x} - x_i)) \\
+\widehat{\beta}_1 \sum_{i=1}^n (x_i - \bar{x})^2 &= \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) \\
+\widehat{\beta}_1 &= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} = \frac{\mathrm{Cov}(X,Y)}{\mathrm{Var}(X)}
+\end{align}
+$$
+
+The above is beyond the scope of this course, however it warrants a healthy appreciation for finding the line of best fit!
+
+In practice, from the `diamonds` dataset we could model `price` as a function of `carat`:
+
+```{r}
+# Sample and fit model
+set.seed(206)
+df <- ggplot2::diamonds %>% sample_n(1000)
+lm_simple <- lm(price ~ carat, data = df)
+summary(lm_simple)
+```
+
+There is a lot in the summary output, however the main ideas here lie in the magnitude and sign of the coefficient, looking for *practical significance*, and also looking at the size of the p-value relative to a chosen $\alpha$, checking for statistical significance.
+
+You may be wondering in a line of best fit, where did the p-value come from? Good question! In addition to finding the line of best fit, our linear model assesses the relevance of all parameters in the model. This assessment is a *one-sample t-test for every \beta*! If there is significance, then there is a significant assocation between the explanatory variable and the response.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Visualize
+set.seed(1991)
+ggplot(diamonds %>% sample_n(1000), aes(x = carat, y = price, color=cut)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  labs(title = "Simple Linear Regression: Price ~ Carat") + theme_minimal()
+```
+
+---
+
+### Multiple Linear Regression
+
+We can extend linear regression to in fact include as many predictor variables as we want (as long as we have more observations than variables!). This is implemented through **Multiple Linear Regression**:
+
+$$
+\widehat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p
+$$
+
+The derivation would be too lengthy to do them individually previously, however through *Matrix Algebra* (MA371 anyone?!), the solved vector of coefficients, $\widehat{\beta}_{p\times1}$ has the following solution:
+
+$$
+\widehat\beta_{p\times 1} = (X_{p\times n}^TX_{n \times p})^{-1}X_{p \times n}^T \vec{y}_{n \times 1}
+$$
+Observe the subscripts for the dimensions of the matrices, ending with a $p \times 1$ vector for the coefficients that minimize the SSE.
+
+Here, we use `carat`, `depth`, and `table` to predict `price`.
+
+```{r}
+lm_multi <- lm(price ~ carat + depth + table, data = df)
+summary(lm_multi)
+```
+
+You can compare $R^2$ values and p-values to determine whether the additional variables meaningfully improve the model.
+
+---
+
+### Goodness of Fit
+
+We use several metrics to assess the quality of a regression model:
+
+- **$R^2$**: Proportion of variance in the response explained by the predictors.
+- **Residual Standard Error (RSE)**: Average size of the residuals.
+- **F-statistic**: Overall significance of the regression.
+- **Residual Plots**: Visual diagnostics to assess assumptions.
+
+```{r}
+# Residual plot
+plot(lm_multi, which = 1)  # Residuals vs Fitted
+```
+
+```{r}
+# Histogram of residuals
+residuals <- resid(lm_multi)
+hist(residuals, breaks = 30, col = "lightblue", main = "Histogram of Residuals", xlab = "Residual")
+```
+
+We want residuals to be roughly normally distributed and randomly scattered around zero to satisfy assumptions of linear regression.
+
+### ANOVA
+
+**Analysis of Variance (ANOVA)** is a statistical method used to compare the means of **three or more groups** to determine if at least one of the group means is significantly different from the others.
+
+---
+
+#### Theoretical Foundation
+
+ANOVA works by partitioning the **total variability** in the data into two components:
+- **Between-group variability**: how much the group means differ from the overall mean.
+- **Within-group variability**: how much individual observations vary within each group.
+
+The core idea is that if the **between-group variability** is large relative to the **within-group variability**, then at least one group mean is likely different.
+
+\[
+F = \frac{\text{Mean Square Between (MSB)}}{\text{Mean Square Within (MSW)}} = \frac{SSB / (k - 1)}{SSW / (n - k)}
+\]
+
+Where:
+- \( SSB \) = Sum of Squares Between
+- \( SSW \) = Sum of Squares Within
+- \( k \) = number of groups
+- \( n \) = total number of observations
+
+If the calculated **F-statistic** is large, and the **p-value** is small (typically < 0.05), we reject the null hypothesis:
+
+- \( H_0: \mu_1 = \mu_2 = \cdots = \mu_k \) (all group means are equal)
+- \( H_A: \) At least one group mean is different
+
+---
+
+#### Example: Do Different Diamond Cuts Have Different Average Prices?
+
+We'll use the `diamonds` dataset and compare the mean price across the five levels of the `cut` variable.
+
+```{r}
+# Sample for speed
+set.seed(206)
+df <- diamonds %>% sample_n(1000)
+
+# Summary statistics by cut
+df %>%
+  group_by(cut) %>%
+  summarise(mean_price = mean(price), n = n())
+```
+
+---
+
+#### Run ANOVA Test
+
+```{r}
+# One-way ANOVA: price ~ cut
+anova_model <- aov(price ~ cut, data = df)
+summary(anova_model)
+```
+
+This will output the **F-statistic** and **p-value**. A small p-value (e.g. < 0.05) suggests that at least one cut has a significantly different mean price.
+
+---
+
+### Visualize the Group Differences
+
+```{r}
+ggplot(df, aes(x = cut, y = price)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Boxplot of Diamond Price by Cut",
+       x = "Cut", y = "Price ($)") +
+  theme_minimal()
+```
+
+Boxplots help visualize both the median and spread of price within each cut level.
+
+---
+
+### Follow-Up: Which Cuts Are Different?
+
+If the ANOVA result is significant, we can follow up with a **Tukey HSD test** to identify which group pairs differ.
+
+```{r}
+TukeyHSD(anova_model)
+```
+
+This test controls the family-wise error rate and gives pairwise confidence intervals and p-values.
+
+---
+
+### Interpretation
+
+- If **p < 0.05** in the ANOVA, we conclude that **at least one cut** differs in mean price.
+- Use **TukeyHSD** to find out **which cuts** are significantly different.
+- ANOVA assumes:
+  - Independent observations
+  - Normally distributed residuals
+  - Equal variances across groups (can check with Levene's test)

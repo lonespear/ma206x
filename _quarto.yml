@@ -5,17 +5,18 @@ website:
   title: "MA206X"
   navbar:
     left:
-      - href: index.qmd
+      - href: course_guide.qmd
         text: Home
-      - about.qmd
+      - code_annex.qmd
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
-    css: styles.css
+    theme: cosmo
     toc: true
-
+    toc-depth: 3
+    code-fold: false
+    page-layout: full
+    fig-align: center
+    css: styles.css
 editor: visual
 
